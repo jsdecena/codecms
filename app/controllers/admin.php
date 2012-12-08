@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Admin extends CI_Controller {
 
     public function __construct(){
 
@@ -61,6 +61,25 @@ class Main extends CI_Controller {
         $this->template->publish();
 	}
 
+    public function login_check(){
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|md5');
+
+        if ( $this->form_validation->run() ) :
+
+            redirect('admin/dashboard');
+
+        else:
+
+            $this->login_now();
+
+        endif;
+
+    }
+
 	public function dashboard(){
 
 		$this->template->set_template('admin/dash_template');
@@ -72,6 +91,6 @@ class Main extends CI_Controller {
         
         // publish the template
         $this->template->publish();
-	}	
+	}
 
 }
