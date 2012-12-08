@@ -67,7 +67,7 @@
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 
-$route['admin'] = 'admin/login';
+$route['admin'] = 'admin/main';
 
 
 
