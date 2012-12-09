@@ -79,7 +79,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'email', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('template', 'database');
+$autoload['libraries'] = array('template', 'database', 'grocery_CRUD');
 
 
 /*
@@ -95,7 +95,7 @@ $autoload['libraries'] = array('template', 'database');
 |	$autoload['drivers'] = array('session', 'cache');
 */
 
-$autoload['drivers'] = array();
+$autoload['drivers'] = array('session');
 
 
 /*

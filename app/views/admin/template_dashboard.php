@@ -37,12 +37,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Code CMS</a>
+          <a class="brand" href="<?php echo base_url('admin/dashboard'); ?>">Code CMS</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="<?php echo base_url('admin/dashboard'); ?>">Home</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage users</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="<?php echo base_url('admin/users_list'); ?>">Users</a></li>
+                <li><a href="<?php echo base_url('admin/users_create'); ?>">Create User</a></li>
+                </ul>                
+
+              </li>
+              <li><a href="<?php echo base_url('admin/logout'); ?>">Log out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -56,6 +63,12 @@
     </div> <!-- /container -->
 
 	<?php echo $this->template->javascript; ?>
+
+    <script type="text/javascript">
+    $().ready(function(){
+      $('.dropdown-toggle').dropdown()
+    });
+  </script>
 
   </body>
 </html>

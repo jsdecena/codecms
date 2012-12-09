@@ -5,7 +5,7 @@
 		$attr = array('class' => 'form-signin', 'id' => 'myform');
 	  	echo form_open('admin/login_check', $attr); 
   	?>
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading">Log In Now</h2>
     
     <div class="text-error"> <?php if ( validation_errors() ) : echo validation_errors(); endif; ?> </div>
 
@@ -14,7 +14,7 @@
     <label class="checkbox">
       <input type="checkbox" value="remember-me"> Remember me
     </label>
-    <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+    <button class="btn btn-large btn-primary" type="submit">Log in</button>
   </form>
 
 </div> <!-- /container -->
