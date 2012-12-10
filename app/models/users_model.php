@@ -33,9 +33,15 @@ class Users_model extends CI_Model {
         endif;
 	}
 
+    /*
+
+    UPDATE THE SPECIFIC USER
+
+    */
+
     public function users_query_specific(){
 
-        $query = $this->db->query('SELECT * FROM cc_users WHERE id = ' . $this->uri->segment(3,0) .''); 
+        $query = $this->db->get_where('cc_users', array('id' => $this->uri->segment(3,0)));
 
         foreach ($query->result() as $row){   
             $data[] = $row;
@@ -43,21 +49,20 @@ class Users_model extends CI_Model {
         return $data;
     }
 
-    public function get_user_details(){
+    /*
 
-        $user_email = $this->input->post('email');
+    RETRIEVES THE CURRENT USER
 
-        $query = $this->db->get_where('cc_users', array('email' => $user_email));
+    */
+    public function logged_in(){
 
-        if ($query->num_rows() > 0):
-            
-            foreach ($query->result() as $row):
+        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+
+        if($query->num_rows() > 0):
+            foreach ($query->result() as $row) :
                 $data = $row;
             endforeach;
-
-            return $data;
-        else:
-            return false;
+            return $row;
         endif;
     }
 

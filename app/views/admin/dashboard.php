@@ -1,1 +1,1 @@
-<?php //var_dump($this->session->all_userdata())?>
+<?php //var_dump($logged_info)?>

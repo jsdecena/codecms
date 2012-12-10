@@ -12,13 +12,14 @@
     <div class="text-success"> <?php if( $this->session->flashdata('create_success')) : echo $this->session->flashdata('create_success'); else: echo $this->session->flashdata('create_error'); endif; ?> </div>
     <div class="text-error"> <?php if ( validation_errors() ) : echo validation_errors(); endif; ?> </div>
 
-	<input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $this->input->post('first_name'); ?>">
+	<input type="text" class="input-block-level" name="username" placeholder="Username" value="<?php echo $this->input->post('username'); ?>">
+  <input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $this->input->post('first_name'); ?>">
 	<input type="text" class="input-block-level" name="last_name" placeholder="Last Name" value="<?php echo $this->input->post('last_name'); ?>">
     <input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $this->input->post('email'); ?>">
     <select name="role" id="role">
     	<option value="0" selected="selected">Select Role</option>
-    	<option value="admin">Admin</option>
-    	<option value="subscriber">Subscriber</option>
+    	<option value="2">Admin</option>
+    	<option value="1">Subscriber</option>
     </select>
     <input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $this->input->post('email'); ?>">
    

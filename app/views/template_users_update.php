@@ -1,11 +1,8 @@
 <div class="container">
 
   	<?php
-        //echo "<pre>";
-        //var_dump($data); die();
   		  $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
     		echo form_open('admin/users_update_specific', $attr);
-
   	?>
 
     <h2 class="form-signin-heading">Update user details</h2>
@@ -27,14 +24,26 @@
     <?php foreach ($data as $user_data): ?>
     
       <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
-      <input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $user_data->first_name; ?>">
-      <input type="text" class="input-block-level" name="last_name" placeholder="Last Name" value="<?php echo $user_data->last_name; ?>">
-      <input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $user_data->email; ?>">
+      <label for="username">Username</label>
+      <input type="text" class="input-block-level" name="username" value="<?php echo $user_data->username; ?>" disabled>
+
+      <label for="first_name">First Name</label>
+      <input type="text" class="input-block-level" name="first_name" value="<?php echo $user_data->first_name; ?>">
+      
+      <label for="last_name">Last Name</label>
+      <input type="text" class="input-block-level" name="last_name" value="<?php echo $user_data->last_name; ?>">
+      
+      <label for="email">Email</label>
+      <input type="text" class="input-block-level" name="email" value="<?php echo $user_data->email; ?>">
+      
+      <label for="role">User Role</label>
       <select name="role" id="role">
         <option value="0">Select Role</option>
-      	<option value="admin" <?php if ( $user_data->role == 'admin' ): echo "selected=\"selected\""; endif; ?>>Admin</option>
-      	<option value="subscriber" <?php if ( $user_data->role == 'subscriber' ): echo "selected=\"selected\""; endif; ?>>Subscriber</option>
+      	<option value="2" <?php if ( $user_data->role == '2' ): echo "selected=\"selected\""; endif; ?>>Admin</option>
+      	<option value="1" <?php if ( $user_data->role == '1' ): echo "selected=\"selected\""; endif; ?>>Subscriber</option>
       </select>
+
+      <label for="password">Password</label>
       <input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $user_data->password; ?>">
 
     <?php endforeach; ?>

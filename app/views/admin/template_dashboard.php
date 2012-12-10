@@ -58,6 +58,17 @@
 
     <div class="container">
 
+    <div id="user_detail" class="pull-right">      
+      <div class="btn-group">
+        <a class="btn btn-primary" href="<?php echo base_url('admin/dashboard'); ?>"><i class="icon-user icon-white"></i> <?php echo $logged_info->first_name .' '. $logged_info->last_name;  ?></a>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="<?php echo base_url("admin/users_update/$logged_info->id"); ?>"><i class="icon-pencil"></i> Edit Your Profile</a></li>
+        
+        </ul>
+      </div>      
+    </div>      
+
 		<?php echo $this->template->content; ?>
 
     </div> <!-- /container -->

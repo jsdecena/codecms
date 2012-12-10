@@ -84,19 +84,8 @@ class Admin extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
-            $users['user_details'] = $this->users_model->get_user_details();
-
-            foreach ($users as $user_detail):
-              $username = $user_detail->username;
-              $first_name = $user_detail->first_name;
-              $last_name = $user_detail->last_name;
-            endforeach;
-
             //FLASH USERDATA TO BE USED DURING LOGIN
             $data = array(
-                'username' => $username,
-                'first_name' => $first_name,
-                'last_name' => $last_name,
                 'email' => $this->input->post('email'),
                 'role' => 2, //ADMIN ROLE
                 'is_logged_in' => 1
@@ -122,19 +111,12 @@ class Admin extends CI_Controller {
     *
     */
     public function check_details(){
-
-        $this->load->model('users_model');
         
         if ( $this->users_model->login_allowed() ) :
-
             return true;
-
         else:
-
             $this->form_validation->set_message('check_details', 'Incorrect email or password. Please try again.');
-
             return false;
-        
         endif;
 
     }
@@ -147,11 +129,12 @@ class Admin extends CI_Controller {
 	public function dashboard(){
 
         //CHECK FIRST IF THE USER IS ALREADY LOGGED IN
-        if ( $this->session->userdata('is_logged_in')) :        
+        if ( $this->session->userdata('is_logged_in')) :
 
             $this->template->title = 'Dashboard';
+
+            $data['logged_info'] = $this->users_model->logged_in();
             
-            $data = array(); // load from model (but using a dummy array here)
             $this->template->content->view('admin/dashboard', $data);
             
             // publish the template
@@ -210,8 +193,10 @@ class Admin extends CI_Controller {
         if ( $this->session->userdata('is_logged_in')) :
 
             $this->template->title = 'User creation page';
+
+            $data['logged_info'] = $this->users_model->logged_in();
             
-            $this->template->content->view('template_user_create');
+            $this->template->content->view('template_user_create', $data);
             
             // publish the template
             $this->template->publish();
@@ -242,6 +227,7 @@ class Admin extends CI_Controller {
         if ( $this->form_validation->run()) :
 
             $data = array(
+                'username' => $this->input->post('username'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'email' => $this->input->post('email'),
@@ -285,11 +271,13 @@ class Admin extends CI_Controller {
 
         if ( $this->session->userdata('is_logged_in')) :
 
-            $this->template->title = 'User creation page';               
+            $this->template->title  = 'User creation page';               
 
-            $records['user_data'] = $this->users_model->users_query_list();
+            $data['user_data']   = $this->users_model->users_query_list();
 
-            $this->template->content->view('template_users_list', $records);
+            $data['logged_info'] = $this->users_model->logged_in();
+
+            $this->template->content->view('template_users_list', $data);
 
             $this->template->publish();                       
 
@@ -314,9 +302,11 @@ class Admin extends CI_Controller {
 
             $this->template->title = 'User update page';
 
-            $records_user['data'] = $this->users_model->users_query_specific();
+            $data['data'] = $this->users_model->users_query_specific();
 
-            $this->template->content->view('template_users_update.php', $records_user);
+            $data['logged_info'] = $this->users_model->logged_in();
+
+            $this->template->content->view('template_users_update.php', $data);
 
             $this->template->publish();
 
@@ -339,11 +329,12 @@ class Admin extends CI_Controller {
         if ( $this->input->post('save')):
             
             $data = array(
+                'username' => $this->input->post('username'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'email' => $this->input->post('email'),
                 'role' => $this->input->post('role'),
-                'password' => md5($this->input->post('password'))
+                'password' => $this->input->post('password')
             );  
 
                 //IF SUCCESSFULL UPDATE TO DATABASE
@@ -370,7 +361,7 @@ class Admin extends CI_Controller {
 
         $query = $this->db->get('cc_users');
 
-        if ($query->num_rows() > 1) :
+        if ( $query->num_rows() > 1 ) :
 
            if( $this->db->delete('cc_users', array('id' => $this->uri->segment(3,0))) === TRUE) :
 
