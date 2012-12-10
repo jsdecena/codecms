@@ -1,3 +1,4 @@
+<?php //var_dump($data); die(); ?>
 <div class="container">
 
     <div class="page-header"> <h4>Update your password</h4> </div>
@@ -28,6 +29,7 @@
 
     <?php endforeach; ?>
 
+    <?php echo anchor('admin/user_profile', 'Go back', 'class="btn btn-info"'); ?>
     <input type="submit" name="save" class="btn btn-primary" value="Change Password" />
 	
 	<?php echo form_close(); ?>

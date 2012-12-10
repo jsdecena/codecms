@@ -1,23 +1,35 @@
-<div class="container">
+<div class="container users_update">
 
     <div class="page-header"> <h4>Update your details</h4> </div>
   	
+    <div class="controlgroup">
+
+      <?php if ( $this->session->flashdata('update_success') ) : ?>
+      
+        <div class="controls text-success"> 
+          <?php echo $this->session->flashdata('update_success'); else: echo $this->session->flashdata('update_error'); ?> 
+        </div>
+
+      <?php endif; ?>
+
+      <?php if ( validation_errors() ) :  ?>
+      <div class="controls text-error"> 
+        <?php echo validation_errors(); ?> 
+      </div>
+      <?php endif;  ?>
+
+      <?php if ( $this->session->flashdata('needs_user_role') ) : ?>      
+      <div class="controls text-error"> 
+        <?php echo $this->session->flashdata('needs_user_role'); elseif ( $this->session->flashdata('last_user') ) : echo $this->session->flashdata('last_user'); ?>
+      </div>
+      <?php endif; ?>
+
+    </div>
+    
     <?php
   		  $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
     		echo form_open('admin/users_update_specific', $attr);
   	?>
-    
-    <div class="text-success"> 
-      <?php if ( $this->session->flashdata('update_success') ) : echo $this->session->flashdata('update_success'); else: echo $this->session->flashdata('update_error'); endif; ?> 
-    </div>
-    <div class="text-error"> 
-
-      <?php 
-          
-          if ( validation_errors() ) : echo validation_errors(); endif; 
-          if ( $this->session->flashdata('needs_user_role') ) : echo $this->session->flashdata('needs_user_role'); elseif ( $this->session->flashdata('last_user') ) : echo $this->session->flashdata('last_user'); endif;
-      ?> 
-    </div>
     
     <?php foreach ($data as $user_data): ?>
     
