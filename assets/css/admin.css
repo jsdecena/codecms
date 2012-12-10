@@ -1,0 +1,34 @@
+/*BOOTSTRAP OVERRIDE*/
+
+body.admin > .navbar .brand {
+	float: left;
+	color: #eee;
+	font-weight: normal;
+	margin:0 20px 0 0;
+}
+.admin .dropdown-menu li > a {
+	padding: 3px 10px;
+}
+.admin .dropdown-menu li > a i {
+	margin-right: 5px;
+}
+.controls {
+	background: #f9f9f9;
+	padding: 10px 20px;
+	min-height: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+body.admin .controls label {
+	min-width:100px;
+}
+body.admin .controls label, body.admin .controls p {
+	float: left;
+}
+.details {
+	padding: 0 0 0 18px;
+}
+.about {
+	min-width: 340px;
+}
