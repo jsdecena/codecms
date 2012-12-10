@@ -9,7 +9,9 @@ class Admin extends CI_Controller {
         // START DYNAMICALLY ADD STYLESHEETS
         $css = array(
         	'assets/css/bootstrap.css',
-        	'assets/css/bootstrap-responsive.css'	
+        	'assets/css/bootstrap-responsive.css',
+            'assets/css/docs.css',
+            'assets/css/admin.css'
         );
 
         $this->template->stylesheet->add($css);
@@ -40,8 +42,10 @@ class Admin extends CI_Controller {
         $this->template->set_template('admin/template_dashboard');
         $this->load->model('users_model');        
         $this->load->library('form_validation');
-        //$this->load->library('email', array('mailtype' => 'html'));
     }	
+
+
+    /* ---------- START PAGE ------------------ */
 
 	public function index(){
 
@@ -54,11 +58,8 @@ class Admin extends CI_Controller {
 	}
 
 
-    /*
-    *
-    *   LOGIN PAGE
-    *
-    */
+    /* -------- LOGIN PAGE -------------------- */
+
 	public function login_now(){
 
     		$this->template->set_template('admin/template_login');
@@ -71,11 +72,8 @@ class Admin extends CI_Controller {
             $this->template->publish();
 	}
 
-    /*
-    *
-    *   USER SIDE VALIDATION
-    *
-    */    
+    /* ---------- USER SIDE VALIDATION -----------*/
+
     public function login_check(){
 
         //CREATES VALIDATION OF THE USER INPUT ON THE LOGIN FORM
@@ -87,7 +85,7 @@ class Admin extends CI_Controller {
             //FLASH USERDATA TO BE USED DURING LOGIN
             $data = array(
                 'email' => $this->input->post('email'),
-                'role' => 2, //ADMIN ROLE
+                'role' => "admin",
                 'is_logged_in' => 1
             );
 
@@ -105,11 +103,7 @@ class Admin extends CI_Controller {
 
     }
 
-    /*
-    *
-    *   CHECKS FOR CORRECT DETAILS IN THE DATABASE BEFORE ALLOWING TO LOGIN
-    *
-    */
+    /* --------- CHECKS FOR CORRECT DETAILS IN THE DATABASE BEFORE ALLOWING TO LOGIN --------- */
     public function check_details(){
         
         if ( $this->users_model->login_allowed() ) :
@@ -121,11 +115,8 @@ class Admin extends CI_Controller {
 
     }
 
-    /*
-    *
-    *  DASHBOARD PAGE
-    *
-    */    
+    /* ---------- DASHBOARD PAGE ------------ */
+
 	public function dashboard(){
 
         //CHECK FIRST IF THE USER IS ALREADY LOGGED IN
@@ -147,11 +138,8 @@ class Admin extends CI_Controller {
         endif;        
 	}
 
-    /*
-    *
-    *   RESTRICTED PAGE
-    *
-    */
+    /* ---------- RESTRICTED PAGE ------------- */
+
     public function restricted(){
 
         $this->template->set_template('admin/template_login');        
@@ -165,16 +153,8 @@ class Admin extends CI_Controller {
 
     }
 
-    public function logged_in(){
+    /* ------- LOG OUT THE USER --------*/
 
-       return ($this->session->userdata("username")) ? true : false;
-    }
-
-    /*
-    *
-    *   LOG OUT THE USER
-    *
-    */
     public function logout(){
 
         $this->session->sess_destroy();
@@ -183,11 +163,8 @@ class Admin extends CI_Controller {
 
     }
 
-    /*  ------- CREATE -----------
-    *
-    *   CREATE A USER
-    *
-    */    
+    /*  ------- CREATE A USER ----------- */
+
     public function users_create(){
 
         if ( $this->session->userdata('is_logged_in')) :
@@ -209,11 +186,8 @@ class Admin extends CI_Controller {
 
     }
 
-    /*
-    *
-    *   CREATE A USER CHECKING
-    *
-    */
+    /* --------- CREATE A USER CHECKING --------*/
+
     public function users_create_check(){
 
         $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[cc_users.email]');
@@ -222,7 +196,7 @@ class Admin extends CI_Controller {
 
         //CUSTOM MESSAGE FOR THE EMAIL THAT ALREADY EXIST IN THE DATABASE
         $this->form_validation->set_message('is_unique', 'The email you are creating already exists. Please use a different email.');
-        $this->form_validation->set_message('check_default', 'Please select role for the user.');
+        $this->form_validation->set_message('check_default', 'You must select role for the user.');
 
         if ( $this->form_validation->run()) :
 
@@ -260,13 +234,7 @@ class Admin extends CI_Controller {
       return $post_string == '0' ? FALSE : TRUE;
     }  
 
-    /*
-    *
-    *   ------- READ -----------
-    *
-    *   LIST USERS
-    *
-    */    
+    /* ------- READ LIST USERS ----------- */    
     public function users_list(){
 
         if ( $this->session->userdata('is_logged_in')) :
@@ -289,13 +257,8 @@ class Admin extends CI_Controller {
 
     }
 
-    /*
-    *
-    *   ------- UPDATE USER LIST PAGE -----------
-    *
-    *  
-    *
-    */  
+    /* ------- UPDATE USER LIST PAGE ----------- */  
+
     public function users_update(){
 
         if ( $this->session->userdata('is_logged_in')) :
@@ -317,13 +280,8 @@ class Admin extends CI_Controller {
         endif;         
     }
 
-    /*
-    *
-    *   ------- UPDATE THE SPECIFIC USER -----------
-    *
-    *   
-    *
-    */  
+    /* ------- UPDATE THE SPECIFIC USER ----------- */
+
     public function users_update_specific(){
 
         if ( $this->input->post('save')):
@@ -334,28 +292,92 @@ class Admin extends CI_Controller {
                 'last_name' => $this->input->post('last_name'),
                 'email' => $this->input->post('email'),
                 'role' => $this->input->post('role'),
-                'password' => $this->input->post('password')
+                'about' => $this->input->post('about')
             );  
 
-                //IF SUCCESSFULL UPDATE TO DATABASE
-               if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
-                    $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully updated a user.');
-                    $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
+                $this->form_validation->set_rules('about','About','trim|xss_clean');
+                $this->form_validation->set_rules('role','Role','required|callback_check_default');
+                $this->form_validation->set_message('check_default', 'You must select role for the user.');          
 
+                if ( $this->form_validation->run()) :                
+
+                    //IF SUCCESSFULL UPDATE TO DATABASE
+                   if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+
+                        $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully updated a user.');
+                        $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
+
+                        redirect('admin/users_update/'. $this->input->post('id').'');
+
+                    endif; // SUCCESS UPDATE DATABASE
+                else:
+
+                    $data['needs_user_role']      = $this->session->set_flashdata('needs_user_role', 'Sorry, you need to set the user role.');
+                    
+                    // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
+                    // WITH THE ERRORS                    
                     redirect('admin/users_update/'. $this->input->post('id').'');
-
-                endif; // SUCCESS UPDATE DATABASE
+                endif; // PASSED THE VALIDATION
         endif; //IF POST SAVE
-    } 
+    }
 
-    /*
-    *
-    *   ------- DELETE THE SPECIFIC USER -----------
-    *
-    *   
-    *
-    */
+    /* ------- SPECIFIC USER PW PAGE ----------- */  
+
+    public function users_update_pw(){
+
+        if ( $this->session->userdata('is_logged_in')) :
+
+            $this->template->title = 'User update page';
+
+            $data['data'] = $this->users_model->users_query_specific();
+
+            $data['logged_info'] = $this->users_model->logged_in();
+
+            $this->template->content->view('template_users_update_pw.php', $data);
+
+            $this->template->publish();
+
+        else:
+
+            redirect('admin/restricted');
+
+        endif;         
+    }    
+
+    /* ------- UPDATE THE SPECIFIC USER'S PW ----------- */
+
+    public function users_update_specific_pw(){
+
+        if ( $this->input->post('save')):
+            
+            $data = array(
+                'password' => md5($this->input->post('password'))
+            );  
+
+               $this->form_validation->set_rules('password', 'passthru(command)word', 'trim|required|min_length[5]|md5');
+    
+                if ( $this->form_validation->run()) :                
+
+                    //IF SUCCESSFULL UPDATE TO DATABASE
+                   if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+
+                        $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully changed password.');                        
+
+                        redirect('admin/users_update_pw/'. $this->input->post('id').'');
+
+                    endif; // SUCCESS UPDATE DATABASE
+                else:                    
+                    
+                    // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
+                    // WITH THE ERRORS                    
+                    redirect('admin/users_update_pw/'. $this->input->post('id').'');
+                endif; // PASSED THE VALIDATION
+        endif; //IF POST SAVE
+    }    
+
+    
+    /* ------- DELETE THE SPECIFIC USER ----------- */
 
     public function users_delete(){
 
@@ -379,6 +401,27 @@ class Admin extends CI_Controller {
             return $this->users_list();
 
         endif;
-    } 
+    }
+
+    public function user_profile(){
+
+        if ( $this->session->userdata('is_logged_in')) :
+
+            $this->template->title = 'Profile page';
+
+            $data['logged_info'] = $this->users_model->logged_in();
+
+            $this->template->content->view('admin/profile_admin', $data);
+
+            $this->template->publish();
+
+        else:
+
+            redirect('admin/restricted');
+
+        endif;         
+
+
+    }
 
 }

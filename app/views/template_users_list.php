@@ -1,7 +1,7 @@
 <?php if ( isset($user_data) && is_array($user_data) && count($user_data) ) : //echo "<pre>"; var_dump($user_data); die(); ?> 
 
+<div class="page-header"> <h4>Users List</h4> </div>
 <table class="table table-condensed table-bordered">
-	<caption style="text-align: left"><h3>Users List</h3></caption>	
 	<thead>
 	<tr>
 		<th>ID</th>
@@ -22,21 +22,7 @@
 			<td><?php echo $data['first_name']; ?></td>
 			<td><?php echo $data['last_name']; ?></td>
 			<td><?php echo $data['email']; ?></td>
-			<td>
-				<?php 
-
-					//ROLE 1 : SUBS
-					//ROLE 2 : ADMIN
-					if ( $data['role'] == 1 ):
-						echo "Subscriber";
-					elseif ( $data['role'] == 2 ):
-						echo "Admin";
-					else:
-						echo "Unknown";
-					endif;
-
-				?>
-			</td>
+			<td><?php echo $data['role']; ?></td>
 			<td><?php echo anchor("admin/users_update/$id", 'Edit', 'class="btn btn-primary btn-small"'); ?> 
 				<a href="<?php echo base_url("admin/users_delete/$id"); ?>" onClick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-small"> Delete</a>
 
