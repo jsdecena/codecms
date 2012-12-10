@@ -78,14 +78,13 @@ class Admin extends CI_Controller {
 
         //CREATES VALIDATION OF THE USER INPUT ON THE LOGIN FORM
         $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_check_details');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|md5');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|sha1');
 
         if ( $this->form_validation->run() ) :
 
             //FLASH USERDATA TO BE USED DURING LOGIN
             $data = array(
                 'email' => $this->input->post('email'),
-                'role' => "admin",
                 'is_logged_in' => 1
             );
 
@@ -104,6 +103,7 @@ class Admin extends CI_Controller {
     }
 
     /* --------- CHECKS FOR CORRECT DETAILS IN THE DATABASE BEFORE ALLOWING TO LOGIN --------- */
+    
     public function check_details(){
         
         if ( $this->users_model->login_allowed() ) :
@@ -125,6 +125,7 @@ class Admin extends CI_Controller {
             $this->template->title = 'Dashboard';
 
             $data['logged_info'] = $this->users_model->logged_in();
+            $data['role'] = $this->users_model->check_role();
             
             $this->template->content->view('admin/dashboard', $data);
             
@@ -169,11 +170,12 @@ class Admin extends CI_Controller {
 
         if ( $this->session->userdata('is_logged_in')) :
 
-            $this->template->title = 'User creation page';
+            $this->template->title  = 'User creation page';
 
-            $data['logged_info'] = $this->users_model->logged_in();
-            
-            $this->template->content->view('template_user_create', $data);
+            $data['logged_info']    = $this->users_model->logged_in();
+            $data['role']           = $this->users_model->check_role();
+
+            $this->template->content->view('users_create', $data);
             
             // publish the template
             $this->template->publish();
@@ -191,7 +193,7 @@ class Admin extends CI_Controller {
     public function users_create_check(){
 
         $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[cc_users.email]');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|md5');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|sha1');
         $this->form_validation->set_rules('role','Role','required|callback_check_default');
 
         //CUSTOM MESSAGE FOR THE EMAIL THAT ALREADY EXIST IN THE DATABASE
@@ -241,11 +243,11 @@ class Admin extends CI_Controller {
 
             $this->template->title  = 'User creation page';               
 
-            $data['user_data']   = $this->users_model->users_query_list();
+            $data['user_data']      = $this->users_model->users_query_list();
+            $data['logged_info']    = $this->users_model->logged_in();
+            $data['role']           = $this->users_model->check_role();
 
-            $data['logged_info'] = $this->users_model->logged_in();
-
-            $this->template->content->view('template_users_list', $data);
+            $this->template->content->view('users_list', $data);
 
             $this->template->publish();                       
 
@@ -268,8 +270,9 @@ class Admin extends CI_Controller {
             $data['data'] = $this->users_model->users_query_specific();
 
             $data['logged_info'] = $this->users_model->logged_in();
+            $data['role'] = $this->users_model->check_role();
 
-            $this->template->content->view('template_users_update.php', $data);
+            $this->template->content->view('users_update.php', $data);
 
             $this->template->publish();
 
@@ -305,7 +308,7 @@ class Admin extends CI_Controller {
                     //IF SUCCESSFULL UPDATE TO DATABASE
                    if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
-                        $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully updated a user.');
+                        $data['update_success']    = $this->session->set_flashdata('update_success', 'Upate success.');
                         $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
 
                         redirect('admin/users_update/'. $this->input->post('id').'');
@@ -324,17 +327,25 @@ class Admin extends CI_Controller {
 
     /* ------- SPECIFIC USER PW PAGE ----------- */  
 
-    public function users_update_pw(){
+    public function users_update_pw(){        
 
-        if ( $this->session->userdata('is_logged_in')) :
+        if ( $this->session->userdata('is_logged_in')) :             
 
             $this->template->title = 'User update page';
 
-            $data['data'] = $this->users_model->users_query_specific();
+            //CHECK FOR USER ROLES
+            $role = $this->users_model->check_role();
 
-            $data['logged_info'] = $this->users_model->logged_in();
+            $data['data']           = $this->users_model->users_query_specific();
+            $data['logged_info']    = $this->users_model->logged_in();
+            $data['role']           = $this->users_model->check_role();
 
-            $this->template->content->view('template_users_update_pw.php', $data);
+            if ( $role != 'admin' ) :
+                $this->template->content->view('users_update_pw.php', $data);
+            else:
+                $this->template->set_template('admin/profile_update');
+                $this->template->content->view('admin/admin_update_pw.php', $data);                
+            endif;
 
             $this->template->publish();
 
@@ -351,12 +362,12 @@ class Admin extends CI_Controller {
 
         if ( $this->input->post('save')):
             
-            $data = array(
-                'password' => md5($this->input->post('password'))
-            );  
+                $data = array(
+                'password' => sha1($this->input->post('password'))
+                );  
 
-               $this->form_validation->set_rules('password', 'passthru(command)word', 'trim|required|min_length[5]|md5');
-    
+                $this->form_validation->set_rules('password', 'passthru(command)word', 'trim|required|min_length[5]|sha1');
+
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
@@ -367,12 +378,14 @@ class Admin extends CI_Controller {
                         redirect('admin/users_update_pw/'. $this->input->post('id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
+
                 else:                    
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
                     redirect('admin/users_update_pw/'. $this->input->post('id').'');
                 endif; // PASSED THE VALIDATION
+
         endif; //IF POST SAVE
     }    
 
@@ -407,11 +420,14 @@ class Admin extends CI_Controller {
 
         if ( $this->session->userdata('is_logged_in')) :
 
+            $this->template->set_template('admin/profile_update');        
+
             $this->template->title = 'Profile page';
 
             $data['logged_info'] = $this->users_model->logged_in();
+            $data['role'] = $this->users_model->check_role();
 
-            $this->template->content->view('admin/profile_admin', $data);
+            $this->template->content->view('admin/admin_profile', $data);
 
             $this->template->publish();
 

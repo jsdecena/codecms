@@ -5,7 +5,7 @@ class Users_model extends CI_Model {
 	public function login_allowed(){
 
 		$this->db->where('email', $this->input->post('email'));
-		$this->db->where('password', md5($this->input->post('password')));
+		$this->db->where('password', sha1($this->input->post('password')));
 		$query = $this->db->get('cc_users');
 
 		if ( $query->num_rows() == 1 ) :
@@ -62,8 +62,21 @@ class Users_model extends CI_Model {
             foreach ($query->result() as $row) :
                 $data = $row;
             endforeach;
+
             return $row;
         endif;
+    }
+
+    public function check_role(){
+
+        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+
+        foreach ($query->result() as $row) :
+            $role = $row->role;
+        endforeach;
+
+        return $role;             
+
     }
 
 } //END USERS_MODEL

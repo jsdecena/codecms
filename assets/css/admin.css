@@ -20,6 +20,10 @@ body.admin > .navbar .brand {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+.users_update .controls {
+	background: none;
+	padding: 10px 0;
+}
 body.admin .controls label {
 	min-width:100px;
 }
