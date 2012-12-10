@@ -84,8 +84,21 @@ class Admin extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
+            $users['user_details'] = $this->users_model->get_user_details();
+
+            foreach ($users as $user_detail):
+              $username = $user_detail->username;
+              $first_name = $user_detail->first_name;
+              $last_name = $user_detail->last_name;
+            endforeach;
+
+            //FLASH USERDATA TO BE USED DURING LOGIN
             $data = array(
+                'username' => $username,
+                'first_name' => $first_name,
+                'last_name' => $last_name,
                 'email' => $this->input->post('email'),
+                'role' => 2, //ADMIN ROLE
                 'is_logged_in' => 1
             );
 
@@ -167,6 +180,11 @@ class Admin extends CI_Controller {
         // publish the template
         $this->template->publish();        
 
+    }
+
+    public function logged_in(){
+
+       return ($this->session->userdata("username")) ? true : false;
     }
 
     /*

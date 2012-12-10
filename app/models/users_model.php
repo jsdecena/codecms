@@ -43,9 +43,22 @@ class Users_model extends CI_Model {
         return $data;
     }
 
-/*	public function users_query_update($data){
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update('cc_users', $data);
-	}*/
+    public function get_user_details(){
+
+        $user_email = $this->input->post('email');
+
+        $query = $this->db->get_where('cc_users', array('email' => $user_email));
+
+        if ($query->num_rows() > 0):
+            
+            foreach ($query->result() as $row):
+                $data = $row;
+            endforeach;
+
+            return $data;
+        else:
+            return false;
+        endif;
+    }
 
 } //END USERS_MODEL
