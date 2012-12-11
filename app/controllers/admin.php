@@ -134,25 +134,10 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;        
 	}
-
-    /* ---------- RESTRICTED PAGE ------------- */
-
-    public function restricted(){
-
-        $this->template->set_template('admin/template_login');        
-
-        $this->template->title = 'Restricted Page';
-        
-        $this->template->content->view('restricted');
-        
-        // publish the template
-        $this->template->publish();        
-
-    }
 
     /* ------- LOG OUT THE USER --------*/
 
@@ -182,7 +167,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;         
 
@@ -253,7 +238,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;         
 
@@ -278,7 +263,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;         
     }
@@ -351,7 +336,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;         
     }    
@@ -416,6 +401,9 @@ class Admin extends CI_Controller {
         endif;
     }
 
+
+    /* ------- USER PROFILE ----------- */
+
     public function user_profile(){
 
         if ( $this->session->userdata('is_logged_in')) :
@@ -424,8 +412,8 @@ class Admin extends CI_Controller {
 
             $this->template->title = 'Profile page';
 
-            $data['logged_info'] = $this->users_model->logged_in();
-            $data['role'] = $this->users_model->check_role();
+            $data['logged_info']    = $this->users_model->logged_in();
+            $data['role']           = $this->users_model->check_role();
 
             $this->template->content->view('admin/admin_profile', $data);
 
@@ -433,7 +421,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            redirect('admin/restricted');
+            $this->login_now();
 
         endif;         
 
