@@ -6,18 +6,13 @@ class Users_model extends CI_Model {
 
         $data = $this->session->all_userdata();
 
-        //var_dump($data); die();
-
         foreach ($data as $udata) {
             
             $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1 );
-
-            //var_dump($user_session_id); die();
         }
 
         $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
         $this->db->update('cc_users', $user_identity);
-
 
     }    
 

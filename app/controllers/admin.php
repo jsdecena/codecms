@@ -124,8 +124,8 @@ class Admin extends CI_Controller {
 
             $this->template->title = 'Dashboard';
 
-            $data['logged_info'] = $this->users_model->logged_in();
-            $data['role'] = $this->users_model->check_role();
+            $data['logged_info']    = $this->users_model->logged_in();
+            $data['role']           = $this->users_model->check_role();
             
             $this->template->content->view('admin/dashboard', $data);
             

@@ -15,18 +15,14 @@
     <div class="text-error"> 
         <?php 
               if ( $this->session->flashdata('invalid_pw') ) : echo $this->session->flashdata('invalid_pw');
-
-              elseif ( $this->session->flashdata('update_error') ) : echo $this->session->flashdata('update_error');
-
+                elseif ( $this->session->flashdata('update_error') ) : echo $this->session->flashdata('update_error');
               endif; ?> 
     </div>
     
-    <?php foreach ($data as $user_data): ?>
-    
-      <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
-      <label for="password">Password</label>
-      <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
-
+    <?php foreach ($data as $user_data) : ?>
+        <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
+        <label for="password">Password</label>
+        <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
     <?php endforeach; ?>
 
     <?php echo anchor('admin/user_profile', 'Go back', 'class="btn btn-info"'); ?>
