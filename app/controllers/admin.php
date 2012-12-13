@@ -52,7 +52,7 @@ class Admin extends CI_Controller {
         if ( $this->session->userdata('is_logged_in')) :
             $this->dashboard();
         else:
-            $this->login_now();
+            redirect('admin/login');
         endif;
 
 	}
@@ -60,7 +60,7 @@ class Admin extends CI_Controller {
 
     /* -------- LOGIN PAGE -------------------- */
 
-	public function login_now(){
+	public function login(){
 
     		$this->template->set_template('admin/template_login');
 
@@ -70,8 +70,6 @@ class Admin extends CI_Controller {
             
             // publish the template
             $this->template->publish();
-
-            //$this->users_model->insert_identity();
 	}
 
     /* ---------- USER SIDE VALIDATION -----------*/
@@ -98,7 +96,7 @@ class Admin extends CI_Controller {
         else:
 
             //THROW THEM TO THE SAME LOGIN PAGE WITH THE ERRORS
-            $this->login_now();
+            $this->login();
 
         endif;
 
@@ -134,9 +132,11 @@ class Admin extends CI_Controller {
             // publish the template
             $this->template->publish();
 
+            $this->users_model->insert_identity();            
+
         else:
 
-            $this->login_now();
+            redirect('admin/login');
 
         endif;        
 	}
@@ -145,9 +145,9 @@ class Admin extends CI_Controller {
 
     public function logout(){
 
-        $this->session->sess_destroy();
+        $this->users_model->logout_now();
 
-        $this->login_now();
+        redirect('admin/login');
 
     }
 
@@ -169,7 +169,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            $this->login_now();
+            redirect('admin/login');
 
         endif;         
 
@@ -240,7 +240,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            $this->login_now();
+            redirect('admin/login');
 
         endif;         
 
@@ -265,14 +265,14 @@ class Admin extends CI_Controller {
 
         else:
 
-            $this->login_now();
+           redirect('admin/login');
 
         endif;         
     }
 
     /* ------- UPDATE THE SPECIFIC USER ----------- */
 
-    public function users_update_specific(){
+    public function users_update_specific(){        
 
         if ( $this->input->post('save')):
             
@@ -310,6 +310,9 @@ class Admin extends CI_Controller {
                     redirect('admin/users_update/'. $this->input->post('id').'');
                 endif; // PASSED THE VALIDATION
         endif; //IF POST SAVE
+
+        //IF YOU GO DIRECTLY TO THIS PAGE, THROW THEM TO LOGIN PAGE
+        redirect('admin/login');
     }
 
     /* ------- SPECIFIC USER PW PAGE ----------- */  
@@ -338,7 +341,8 @@ class Admin extends CI_Controller {
 
         else:
 
-            $this->login_now();
+            //IF YOU GO DIRECTLY TO THIS PAGE, THROW THEM TO LOGIN PAGE
+            redirect('admin/login');
 
         endif;         
     }    
@@ -350,10 +354,10 @@ class Admin extends CI_Controller {
         if ( $this->input->post('save')):
             
                 $data = array(
-                'password' => sha1($this->input->post('password'))
+                    'password' => sha1($this->input->post('password'))
                 );  
 
-                $this->form_validation->set_rules('password', 'passthru(command)word', 'trim|required|min_length[5]|sha1');
+                $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|sha1');
 
                 if ( $this->form_validation->run()) :                
 
@@ -371,9 +375,13 @@ class Admin extends CI_Controller {
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
                     redirect('admin/users_update_pw/'. $this->input->post('id').'');
+
                 endif; // PASSED THE VALIDATION
 
         endif; //IF POST SAVE
+
+        //IF YOU GO DIRECTLY TO THIS PAGE, THROW THEM TO LOGIN PAGE
+        redirect('admin/login');        
     }    
 
     
@@ -423,7 +431,7 @@ class Admin extends CI_Controller {
 
         else:
 
-            $this->login_now();
+            redirect('admin/login');
 
         endif;         
 

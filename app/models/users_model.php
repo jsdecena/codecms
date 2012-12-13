@@ -2,21 +2,24 @@
 
 class Users_model extends CI_Model { 
 
-/*    public function insert_identity(){
+    public function insert_identity(){
 
         $data = $this->session->all_userdata();
 
+        //var_dump($data); die();
+
         foreach ($data as $udata) {
-            $user_session_id = array( 'identity' => $udata );
+            
+            $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1 );
+
+            //var_dump($user_session_id); die();
         }
-        
-        return $user_session_id;
 
-        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
-        $this->db->update('cc_users', $user_session_id);
+        $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+        $this->db->update('cc_users', $user_identity);
 
 
-    }  */  
+    }    
 
 	public function login_allowed(){
 
@@ -77,8 +80,25 @@ class Users_model extends CI_Model {
                 $data = $row;
             endforeach;
 
-            return $row;
+            return $data;
+
         endif;
+    }
+
+    public function logout_now(){
+
+        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+
+         if($query->num_rows() > 0):
+
+            $data = array('identity' => 0, 'is_logged_in' => 0 );
+
+         endif;
+
+         $this->db->update('cc_users', $data);
+
+         $this->session->sess_destroy();
+
     }
 
     public function check_role(){
