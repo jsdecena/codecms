@@ -70,6 +70,8 @@ class Admin extends CI_Controller {
             
             // publish the template
             $this->template->publish();
+
+            //$this->users_model->insert_identity();
 	}
 
     /* ---------- USER SIDE VALIDATION -----------*/
