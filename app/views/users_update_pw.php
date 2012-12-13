@@ -25,7 +25,7 @@
     
       <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
       <label for="password">Password</label>
-      <input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $user_data->password; ?>">
+      <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
 
     <?php endforeach; ?>
 
