@@ -83,7 +83,7 @@ class Admin extends CI_Controller {
 
         $key = $this->input->post('key');
 
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|sha1');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ( $this->form_validation->run() ) :
 

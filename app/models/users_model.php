@@ -33,7 +33,7 @@ class Users_model extends CI_Model {
 	} // END LOGIN ALLOWED
 
 
-	/*READING THE USERS LIST */
+	/* READING THE USERS LIST */
 	public function users_query_list(){
         
         $query = $this->db->get('cc_users');
@@ -60,7 +60,7 @@ class Users_model extends CI_Model {
         return $data;
     }
 
-    /* RETRIEVES THE CURRENT USER */
+    /* RETRIEVES THE CURRENT USER INFORMATION */
     public function logged_in(){
 
         $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
@@ -126,7 +126,7 @@ class Users_model extends CI_Model {
 
             //HOUSTON, WE HAVE A PROBLEM WITH THE GENERATED KEY!
             return false;
-        
+
         endif;
 
     }
