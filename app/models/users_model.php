@@ -139,7 +139,7 @@ class Users_model extends CI_Model {
         if($query->num_rows() == 1) :
 
             //HOUSTON, WE FOUND A MATCH! LET'S UPDATE THIS USERS NEW PASSWORD
-            $this->db->set('password', sha1($this->input->post('password')) ); 
+            $this->db->set('password', $this->input->post('password') ); 
             $this->db->update('cc_users');
             return true;
 

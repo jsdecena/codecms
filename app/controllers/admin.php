@@ -81,9 +81,7 @@ class Admin extends CI_Controller {
 
     public function insert_new_pw(){
 
-        $key = $this->input->post('key');
-
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|sha1');
 
         if ( $this->form_validation->run() ) :
 
