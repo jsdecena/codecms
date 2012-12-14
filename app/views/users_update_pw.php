@@ -1,4 +1,5 @@
-<?php //var_dump($data); die(); ?>
+<?php // var_dump($data); die(); ?>
+
 <div class="container">
 
     <div class="page-header"> <h4>Update your password</h4> </div>

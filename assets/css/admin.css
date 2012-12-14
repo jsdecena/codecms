@@ -36,3 +36,7 @@ body.admin .controls label, body.admin .controls p {
 .about {
 	min-width: 340px;
 }
+label[for="forgot_password"] {
+	text-align: right;
+	display: block;
+}

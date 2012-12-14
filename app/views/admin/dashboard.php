@@ -1,1 +1,1 @@
-<?php //var_dump($logged_info)?>
+<?php //var_dump($logged_info); die(); ?>

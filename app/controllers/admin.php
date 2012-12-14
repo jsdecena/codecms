@@ -62,15 +62,151 @@ class Admin extends CI_Controller {
 
 	public function login(){
 
-    		$this->template->set_template('admin/template_login');
+		$this->template->set_template('admin/template_login');
 
-            $this->template->title = 'Login';
-            
-            $this->template->content->view('admin/login');
-            
-            // publish the template
-            $this->template->publish();
+        $this->template->title = 'Login';
+        
+        $this->template->content->view('admin/login');
+        
+        // publish the template
+        $this->template->publish();
 	}
+
+    /* -------- FOREGET PASSWORD PAGE -------------------- */
+
+    public function forget_password(){
+
+        $this->login();
+    }
+
+    public function insert_new_pw(){
+
+        $key = $this->input->post('key');
+
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|sha1');
+
+        if ( $this->form_validation->run() ) :
+
+            if ( $this->users_model->update_new_pw_in_db() ) :
+
+                    //IF SUCCESSFULL INSERTION OF NEW PASSWORD
+                    $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully changed your password. Please login now.');
+                    redirect('admin/login');           
+
+            else :
+
+                    //IF NOT SUCCESSFULL INSERTION OF NEW PASSWORD
+                    $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, we have problem changing your password. Please try again.');
+                    redirect('admin/login');
+
+            endif;
+
+        else :
+
+            //IF THE PASSWORD DOES NOT MATCH, THROW THE USER TO THE PASSWORD CREATION PAGE WITH THE ERROR
+            $this->create_new_pw();
+
+        endif;
+
+    }
+
+    public function create_new_pw($key){
+
+        $data['key'] = $key;
+
+        $this->template->set_template('admin/template_login');
+
+        $this->template->title = 'Create New Password';
+        
+        $this->template->content->view('admin/create_new_pw', $data);
+        
+        // publish the template
+        $this->template->publish();        
+
+    }
+
+    public function get_pw($key){
+
+        if ( $this->users_model->check_valid_keys($key) ):
+
+            $this->create_new_pw($key);
+
+        else :
+
+            $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, the key generated does not match to our record.');
+            redirect('admin/forget_password');
+
+        endif;
+    }
+
+    public function pw_key_check(){
+
+            $key = sha1(uniqid());
+
+            $this->load->library('email', array('mailtype' => 'html'));
+            
+            $this->email->from('mobius19@live.com', 'Jeff Simons Decena');
+            $this->email->to($this->input->post('email'));
+            
+            $this->email->subject('Password Recovery');
+            
+            $message = "You have requested for password recovery. <a href='". base_url("admin/get_pw/$key") ."'>Click here</a> to create a new password.";
+            
+            //$message = "hello";
+            $this->email->message($message);
+        
+                if ( $this->email->send()) :
+
+                    //INSERT THE VALUES TO THE DATABASE
+                    //THIS COULD HAVE BEEN IN THE MODEL BUT ... LET IT STAY HERE FOR A WHILE
+                    $this->db->set('pw_recovery', $key);
+                    $this->db->update('cc_users');
+
+                else :
+
+                    //EMAIL IS NOT SENT
+                    //echo "Not Sent!"; die();
+                    $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, we have problem sending your request.');
+                    redirect('admin/forget_password');
+
+                    return false;
+
+                endif; //END CHECK FOR EMAIL IS SENT        
+    }
+
+    public function forget_password_check() {
+
+            //CREATES VALIDATION OF THE USER INPUT ON THE LOGIN FORM
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
+
+            if ( $this->form_validation->run() ) :
+
+                //IF SUCCESSFULL CHECKING THE EMAIL IN THE DATABASE IS EXISTING AND EMAIL IS SENT
+                if ( $this->users_model->retrieve_password_check() ) :
+
+
+                    $this->pw_key_check();
+
+                    //echo "email existng in the db"; die();
+                    $data['message_success']    = $this->session->set_flashdata('message_success', 'Password recovery link sent!. Please check your email.');
+                    redirect('admin/forget_password');
+
+                else :
+
+                    //echo "email does not exist in the db"; die();
+
+                    $data['message_error'] = $this->session->set_flashdata('message_error', 'This email is not existing in our records.');
+                    redirect('admin/forget_password');
+
+                endif;
+
+            else :
+
+                //echo "wrong email format"; die();
+                $this->login();
+
+            endif;
+    }
 
     /* ---------- USER SIDE VALIDATION -----------*/
 
@@ -125,7 +261,6 @@ class Admin extends CI_Controller {
             $this->template->title = 'Dashboard';
 
             $data['logged_info']    = $this->users_model->logged_in();
-            $data['role']           = $this->users_model->check_role();
             
             $this->template->content->view('admin/dashboard', $data);
             
@@ -160,7 +295,6 @@ class Admin extends CI_Controller {
             $this->template->title  = 'User creation page';
 
             $data['logged_info']    = $this->users_model->logged_in();
-            $data['role']           = $this->users_model->check_role();
 
             $this->template->content->view('users_create', $data);
             
@@ -232,7 +366,6 @@ class Admin extends CI_Controller {
 
             $data['user_data']      = $this->users_model->users_query_list();
             $data['logged_info']    = $this->users_model->logged_in();
-            $data['role']           = $this->users_model->check_role();
 
             $this->template->content->view('users_list', $data);
 
@@ -257,7 +390,6 @@ class Admin extends CI_Controller {
             $data['data'] = $this->users_model->users_query_specific();
 
             $data['logged_info'] = $this->users_model->logged_in();
-            $data['role'] = $this->users_model->check_role();
 
             $this->template->content->view('users_update.php', $data);
 
@@ -323,19 +455,11 @@ class Admin extends CI_Controller {
 
             $this->template->title = 'User update page';
 
-            //CHECK FOR USER ROLES
-            $role = $this->users_model->check_role();
-
             $data['data']           = $this->users_model->users_query_specific();
             $data['logged_info']    = $this->users_model->logged_in();
-            $data['role']           = $this->users_model->check_role();
 
-            if ( $role != 'admin' ) :
-                $this->template->content->view('users_update_pw.php', $data);
-            else:
-                $this->template->set_template('admin/profile_update');
-                $this->template->content->view('admin/admin_update_pw.php', $data);                
-            endif;
+            $this->template->content->view('users_update_pw.php', $data);
+
 
             $this->template->publish();
 
@@ -420,10 +544,9 @@ class Admin extends CI_Controller {
 
             $this->template->set_template('admin/profile_update');        
 
-            $this->template->title = 'Profile page';
+            $this->template->title  = 'Profile page';
 
             $data['logged_info']    = $this->users_model->logged_in();
-            $data['role']           = $this->users_model->check_role();
 
             $this->template->content->view('admin/admin_profile', $data);
 

@@ -28,7 +28,7 @@
   </head>
 
   <body class="dashboard admin">
-
+<?php // echo "<pre>"; var_dump($logged_info); die(); ?>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -42,7 +42,7 @@
             <ul class="nav">
               <li <?php if ( $this->uri->segment(2) == 'dashboard'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/dashboard'); ?>">Home</a></li>
 
-              <?php if ( $role == 'admin') : ?>
+              <?php if ( $logged_info['role'] == 'admin') : ?>
               <li class="dropdown">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage users</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -62,11 +62,11 @@
 
     <div id="user_detail" class="input-block-level">      
       <div class="btn-group pull-right">
-        <a class="btn btn-primary" href="<?php echo base_url('admin/user_profile'); ?>"><i class="icon-user icon-white"></i> <?php echo $logged_info->first_name .' '. $logged_info->last_name;  ?></a>
+        <a class="btn btn-primary" href="<?php echo base_url('admin/user_profile'); ?>"><i class="icon-user icon-white"></i> <?php echo $logged_info['first_name'] .' '. $logged_info['last_name']  ?></a>
         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo base_url('admin/user_profile'); ?>"><i class="icon-star"></i> View Profile</a></li>
-          <li><a href="<?php echo base_url("admin/users_update/$logged_info->id"); ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
+          <li><a href="<?php echo base_url('admin/users_update') . '/' . $logged_info['id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
           <li><a href="<?php echo base_url("admin/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>        
         </ul>
       </div>      

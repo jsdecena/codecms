@@ -45,14 +45,16 @@
       
       <label for="email" class="muted">Email</label>
       <input type="text" class="input-block-level" name="email" value="<?php echo $user_data->email; ?>">
-      <?php if ( $role == 'admin') : ?>
       
-      <label for="role" class="muted">User Role</label>
-      <select name="role" id="role">
-        <option value="0">Select Role</option>
-      	<option value="admin" <?php if ( $user_data->role == 'admin' ): echo "selected=\"selected\""; endif; ?>>Admin</option>
-      	<option value="subscriber" <?php if ( $user_data->role == 'subscriber' ): echo "selected=\"selected\""; endif; ?>>Subscriber</option>
-      </select>
+      <?php if ( $logged_info['role'] == 'admin') : ?>
+      
+        <label for="role" class="muted">User Role</label>
+        <select name="role" id="role">
+          <option value="0">Select Role</option>
+        	<option value="admin" <?php if ( $user_data->role == 'admin' ): echo "selected=\"selected\""; endif; ?>>Admin</option>
+        	<option value="subscriber" <?php if ( $user_data->role == 'subscriber' ): echo "selected=\"selected\""; endif; ?>>Subscriber</option>
+        </select>
+      
       <?php endif; ?>
 
       <label for="about" class="muted">About You</label>
