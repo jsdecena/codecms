@@ -414,6 +414,29 @@ class Main extends CI_Controller {
         endif;         
     }
 
+    /* ------- UPDATE USER LIST PAGE ----------- */  
+
+    public function admin_users_update(){
+
+        if ( $this->session->userdata('is_logged_in')) :
+
+            $this->template->title = 'Admin User update page';
+
+            $data['data'] = $this->users_model->users_query_specific();
+
+            $data['logged_info'] = $this->users_model->logged_in();
+
+            $this->template->content->view('admin/admin_users_update.php', $data);
+
+            $this->template->publish();
+
+        else:
+
+           redirect('admin/main/login');
+
+        endif;         
+    }    
+
     /* ------- UPDATE THE SPECIFIC USER ----------- */
 
     public function users_update_specific(){        

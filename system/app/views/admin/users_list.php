@@ -33,7 +33,7 @@
 					<td><?php echo $data['last_name']; ?></td>
 					<td><?php echo $data['email']; ?></td>
 					<td><?php echo $data['role']; ?></td>
-					<td><?php echo anchor("admin/main/users_update/$id", 'Edit', 'class="btn btn-primary btn-small"'); ?> 
+					<td><?php echo anchor("admin/main/admin_users_update/$id", 'Edit', 'class="btn btn-primary btn-small"'); ?> 
 						<a href="<?php echo base_url("admin/main/users_delete/$id"); ?>" onClick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-small"> Delete</a>
 
 					</td>
