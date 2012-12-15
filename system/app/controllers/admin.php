@@ -142,7 +142,7 @@ class Admin extends CI_Controller {
 
     /* ------- LOG OUT THE USER --------*/
 
-    public function logout(){
+    public function logout( $data = ''){
 
         $this->users_model->logout_now();
 
@@ -214,7 +214,7 @@ class Admin extends CI_Controller {
                     //INSERT THE VALUES TO THE DATABASE
                     //THIS COULD HAVE BEEN IN THE MODEL BUT ... LET IT STAY HERE FOR A WHILE
                     $this->db->set('pw_recovery', $key);
-                    $this->db->update('cc_users');
+                    $this->db->update('users');
 
                 else :
 
@@ -324,7 +324,7 @@ class Admin extends CI_Controller {
 
     public function users_create_check(){
 
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[cc_users.email]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|sha1');
         $this->form_validation->set_rules('role','Role','required|callback_check_default');
 
@@ -344,7 +344,7 @@ class Admin extends CI_Controller {
             );
 
             //IF SUCCESSFULL INSERT TO DATABASE
-            if( $this->db->insert('cc_users', $data) === TRUE && $this->input->post('create')) :
+            if( $this->db->insert('users', $data) === TRUE && $this->input->post('create')) :
 
                 $data['create_success']    = $this->session->set_flashdata('create_success', 'You have successfully created a user.');
                 $data['create_error']      = $this->session->set_flashdata('create_error', 'Sorry, we have a problem creating a user.');
@@ -436,7 +436,7 @@ class Admin extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
                         $data['update_success']    = $this->session->set_flashdata('update_success', 'Upate success.');
                         $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
@@ -497,7 +497,7 @@ class Admin extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('cc_users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
                         $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully changed password.');                        
 
@@ -524,11 +524,11 @@ class Admin extends CI_Controller {
 
     public function users_delete(){
 
-        $query = $this->db->get('cc_users');
+        $query = $this->db->get('users');
 
         if ( $query->num_rows() > 1 ) :
 
-           if( $this->db->delete('cc_users', array('id' => $this->uri->segment(3,0))) === TRUE) :
+           if( $this->db->delete('users', array('id' => $this->uri->segment(3,0))) === TRUE) :
 
                 $data['delete_success']    = $this->session->set_flashdata('delete_success', 'You have successfully deleted a user.');
                 $data['delete_error']      = $this->session->set_flashdata('delete_error', 'Sorry, we have a problem deleting a user.');

@@ -10,11 +10,11 @@ class Users_model extends CI_Model {
 
         foreach ($data as $udata) {
             
-            $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1 );
+            $user_identity = array( 'identity' => sha1($udata) );
         }
 
-        $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
-        $this->db->update('cc_users', $user_identity);
+        $this->db->get_where('users', array('email' => $this->session->userdata('email')));
+        $this->db->update('users', $user_identity);
 
     }    
 
@@ -22,7 +22,7 @@ class Users_model extends CI_Model {
 	public function login_allowed(){
 
         //CHECK IN THE DATABASE THE USERNAME AND PASSWORD COMBINATION
-        $query = $this->db->get_where('cc_users', array( 'email' => $this->input->post('email'), 'password' => sha1($this->input->post('password')) ));
+        $query = $this->db->get_where('users', array( 'email' => $this->input->post('email'), 'password' => sha1($this->input->post('password')) ));
 
 		if ( $query->num_rows() == 1 ) :
 			return true;
@@ -36,7 +36,7 @@ class Users_model extends CI_Model {
 	/* READING THE USERS LIST */
 	public function users_query_list(){
         
-        $query = $this->db->get('cc_users');
+        $query = $this->db->get('users');
 
         if($query->num_rows() > 0):
             foreach ($query->result_array() as $row):
@@ -50,9 +50,9 @@ class Users_model extends CI_Model {
 	}
 
     /* UPDATE THE SPECIFIC USER */
-    public function users_query_specific(){
+    public function users_query_specific() {
 
-        $query = $this->db->get_where('cc_users', array('id' => $this->uri->segment(3,0)));
+        $query = $this->db->get_where('users', array('id' => $this->uri->segment(3,0)));
 
         foreach ($query->result() as $row){   
             $data[] = $row;
@@ -61,9 +61,9 @@ class Users_model extends CI_Model {
     }
 
     /* RETRIEVES THE CURRENT USER INFORMATION */
-    public function logged_in(){
+    public function logged_in() {
 
-        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+        $query = $this->db->get_where('users', array('email' => $this->session->userdata('email')));
 
         if($query->num_rows() > 0):
             foreach ($query->result_array() as $row) :
@@ -76,25 +76,18 @@ class Users_model extends CI_Model {
     }
 
     /* LOGS OUT A USER */
-    public function logout_now(){
+    public function logout_now() {
 
-        $query = $this->db->get_where('cc_users', array('email' => $this->session->userdata('email')));
+        $this->db->set('identity', 0 );
+        $this->db->update('users');
 
-         if($query->num_rows() > 0) :
-
-            $data = array('identity' => 0, 'is_logged_in' => 0 );
-
-         endif;
-
-         $this->db->update('cc_users', $data);
-
-         $this->session->sess_destroy();
+        $this->session->sess_destroy();
     }
 
     /* FORGOT PASSWORD CHECKING FOR THE EXISTING EMAIL OF THE USER. */
     public function retrieve_password_check(){
 
-        $query = $this->db->get_where('cc_users', array('email' => $this->input->post('email')));
+        $query = $this->db->get_where('users', array('email' => $this->input->post('email')));
 
         if($query->num_rows() > 0) :
 
@@ -115,7 +108,7 @@ class Users_model extends CI_Model {
     /* CHECK FOR THE VALID KEY THAT WAS RETURNED FROM THE EMAIL */
     public function check_valid_keys($key){
 
-       $query = $this->db->get_where('cc_users', array('pw_recovery' => $key));
+       $query = $this->db->get_where('users', array('pw_recovery' => $key));
 
         if($query->num_rows() > 0) :
 
@@ -134,13 +127,13 @@ class Users_model extends CI_Model {
     /* UPDATE THE USERS PASSWORD CONSIDERING THAT THE KEY FROM THE EMAIL IS VALID. */
     public function update_new_pw_in_db(){
 
-        $query = $this->db->get_where('cc_users', array('pw_recovery' => $this->input->post('key')));
+        $query = $this->db->get_where('users', array('pw_recovery' => $this->input->post('key')));
 
         if($query->num_rows() == 1) :
 
             //HOUSTON, WE FOUND A MATCH! LET'S UPDATE THIS USERS NEW PASSWORD
             $this->db->set('password', $this->input->post('password') ); 
-            $this->db->update('cc_users');
+            $this->db->update('users');
             return true;
 
         else :
