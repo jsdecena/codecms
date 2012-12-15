@@ -51,7 +51,15 @@ label[for="forgot_password"] {
 	margin: 0 0 10px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	border-radius: 5px;	
+	border-radius: 5px;
+	float: left;
+	width: 98%;
+}
+.alert-block p {
+	padding: 0 10px
+}
+.alert-block a {
+	margin-right: 10px;
 }
 .alert-success {
 	background: #08C !important;
@@ -67,4 +75,8 @@ label[for="forgot_password"] {
 }
 sup {
 	font-size: 13px;
+}
+#user_detail {
+	margin: 0 0 20px;
+	min-height: 20px;
 }

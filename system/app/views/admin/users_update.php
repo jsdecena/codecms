@@ -31,7 +31,8 @@
             <?php endif; ?>
 
             <?php if ( validation_errors() ) :  ?>
-              <div class="controls text-error alert-block alert-error fade in"> 
+              <div class="controls text-error alert-block alert-error fade in">
+                <a class="close" data-dismiss="alert">&times;</a>
                 <?php echo validation_errors(); ?> 
               </div>
             <?php endif;  ?>

@@ -57,8 +57,8 @@
               <li class="dropdown">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Pages</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/pages'); ?>">Page List</a></li>
-                <li><a href="">Create a Page</a></li>
+                <li><a href="<?php echo base_url('admin/pages/pages_list'); ?>">Page List</a></li>
+                <li><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a Page</a></li>
                 </ul>
               </li>              
               <?php endif; ?>
