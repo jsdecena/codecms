@@ -4,7 +4,7 @@
   	<?php
 
 		$attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-  		echo form_open('admin/users_create_check', $attr); 
+  		echo form_open('admin/main/users_create_check', $attr); 
 
   	?>
     

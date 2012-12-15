@@ -52,7 +52,7 @@ class Users_model extends CI_Model {
     /* UPDATE THE SPECIFIC USER */
     public function users_query_specific() {
 
-        $query = $this->db->get_where('users', array('id' => $this->uri->segment(3,0)));
+        $query = $this->db->get_where('users', array('id' => $this->uri->segment(4,0)));
 
         foreach ($query->result() as $row){   
             $data[] = $row;

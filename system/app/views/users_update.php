@@ -28,7 +28,7 @@
     
     <?php
   		  $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-    		echo form_open('admin/users_update_specific', $attr);
+    		echo form_open('admin/main/users_update_specific', $attr);
   	?>
     
     <?php foreach ($data as $user_data): ?>

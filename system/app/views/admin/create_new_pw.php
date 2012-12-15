@@ -1,7 +1,7 @@
 	<?php 
 
 	$attr = array('class' => 'form-signin', 'id' => 'myform');
-	  echo form_open('admin/insert_new_pw', $attr);
+	  echo form_open('admin/main/insert_new_pw', $attr);
 	?>
 	<h2 class="form-signin-heading">New Password</h2>
 	

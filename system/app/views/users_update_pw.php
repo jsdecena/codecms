@@ -6,7 +6,7 @@
   	
     <?php
   		  $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-    		echo form_open('admin/users_update_specific_pw', $attr);
+    		echo form_open('admin/main/users_update_specific_pw', $attr);
   	?>
 
     <div class="text-success"> 
@@ -26,7 +26,7 @@
         <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
     <?php endforeach; ?>
 
-    <?php echo anchor('admin/user_profile', 'Go back', 'class="btn btn-info"'); ?>
+    <?php echo anchor('admin/main/user_profile', 'Go back', 'class="btn btn-info"'); ?>
     <input type="submit" name="save" class="btn btn-primary" value="Change Password" />
 	
 	<?php echo form_close(); ?>
