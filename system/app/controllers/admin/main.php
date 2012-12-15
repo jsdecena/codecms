@@ -440,7 +440,7 @@ class Main extends CI_Controller {
                         $data['update_success']    = $this->session->set_flashdata('update_success', 'Upate success.');
                         $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
 
-                        redirect('admin/users_update/'. $this->input->post('id').'');
+                        redirect('admin/main/users_update/'. $this->input->post('id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
                 else:
@@ -449,7 +449,7 @@ class Main extends CI_Controller {
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
-                    redirect('admin/users_update/'. $this->input->post('id').'');
+                    redirect('admin/main/users_update/'. $this->input->post('id').'');
                 endif; // PASSED THE VALIDATION
         endif; //IF POST SAVE
 
