@@ -41,6 +41,7 @@ class Pages extends CI_Controller {
         // END DYNAMICALLY ADD STYLESHEETS    	 
 
         $this->load->model('users_model');
+        $this->load->model('pages_model');
         $this->template->set_template('admin/template_dashboard');
     }	
 
@@ -63,7 +64,8 @@ class Pages extends CI_Controller {
             
             $this->template->title = 'Pages';
 
-            $data['logged_info']    = $this->users_model->logged_in();
+            $data['logged_info']    	= $this->users_model->logged_in();
+            $data['page_items']    		= $this->pages_model->get_all_pages();
             
             $this->template->content->view('admin/pages', $data);
             
