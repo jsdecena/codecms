@@ -42,7 +42,7 @@ class Pages extends CI_Controller {
 
         $this->load->model('users_model');
         $this->load->model('pages_model');
-        $this->template->set_template('admin/template_dashboard');
+        $this->template->set_template('admin/dashboard_tpl');
     }	
 
 	public function index(){

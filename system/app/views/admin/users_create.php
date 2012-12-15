@@ -8,7 +8,7 @@
 
   <div class="span9">
 
-    <div class="page-header"> <h4>Create a User</h4> </div>    
+    <div class="page-header"> Create a User </div>    
     
     <?php
 

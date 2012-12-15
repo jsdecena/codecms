@@ -416,7 +416,7 @@ class Main extends CI_Controller {
 
     /* ------- UPDATE USER LIST PAGE ----------- */  
 
-    public function admin_users_update(){
+    public function users_update_by_admin(){
 
         if ( $this->session->userdata('is_logged_in')) :
 
@@ -426,7 +426,7 @@ class Main extends CI_Controller {
 
             $data['logged_info'] = $this->users_model->logged_in();
 
-            $this->template->content->view('admin/admin_users_update.php', $data);
+            $this->template->content->view('admin/users_update_by_admin.php', $data);
 
             $this->template->publish();
 

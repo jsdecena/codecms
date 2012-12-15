@@ -10,7 +10,7 @@
   
     <section class="update_details">
 
-    <div class="page-header"> Update your details </div>
+    <div class="page-header"> Update your profile </div>
       
       <div class="controlgroup">
 
