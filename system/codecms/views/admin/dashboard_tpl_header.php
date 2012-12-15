@@ -51,8 +51,8 @@
                 <li><a href="<?php echo base_url('admin/main/users_list'); ?>">Users List</a></li>
                 <li><a href="<?php echo base_url('admin/main/users_create'); ?>">Create User</a></li>
                 </ul>
-              </li>
-
+              </li>            
+              <?php endif; ?>
             <!-- PAGE MANAGEMENT-->
               <li class="dropdown">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Pages</a>
@@ -60,8 +60,7 @@
                 <li><a href="<?php echo base_url('admin/pages/pages_list'); ?>">Page List</a></li>
                 <li><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a Page</a></li>
                 </ul>
-              </li>              
-              <?php endif; ?>
+              </li>                
 
             </ul>
           </div><!--/.nav-collapse -->
