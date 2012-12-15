@@ -22,7 +22,9 @@ class Controller_front extends CI_Controller {
                 );
 
                 $this->template->javascript->add($js);
-                // END DYNAMICALLY ADD STYLESHEETS                
+                // END DYNAMICALLY ADD STYLESHEETS    
+
+                $this->template->set_template('pages_tpl');            
 
         }        
 
@@ -33,7 +35,7 @@ class Controller_front extends CI_Controller {
 
         public function home(){
 
-                 $this->template->set_template('template_home');
+                $this->template->set_template('pages_tpl_home');
 
                 $this->template->title = 'Home';
 

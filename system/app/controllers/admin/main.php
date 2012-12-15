@@ -39,7 +39,7 @@ class Main extends CI_Controller {
         $this->template->javascript->add($js);
         // END DYNAMICALLY ADD STYLESHEETS
 
-        $this->template->set_template('admin/template_dashboard');
+        $this->template->set_template('admin/dashboard_tpl');
         $this->load->model('users_model'); 
         $this->load->library('form_validation');
     }
@@ -61,7 +61,7 @@ class Main extends CI_Controller {
 
 	public function login(){
 
-		$this->template->set_template('admin/template_login');
+		$this->template->set_template('admin/login_tpl');
 
         $this->template->title = 'Login';
         
@@ -121,9 +121,9 @@ class Main extends CI_Controller {
         //CHECK FIRST IF THE USER IS ALREADY LOGGED IN
         if ( $this->session->userdata('is_logged_in')) :
 
-            $this->template->title = 'Dashboard';
+            $this->template->title      = 'Dashboard';
 
-            $data['logged_info']    = $this->users_model->logged_in();
+            $data['logged_info']        = $this->users_model->logged_in();
             
             $this->template->content->view('admin/dashboard', $data);
             
@@ -255,7 +255,7 @@ class Main extends CI_Controller {
 
             $data['key'] = $key;
 
-            $this->template->set_template('admin/template_login');
+            $this->template->set_template('admin/login_tpl');
 
             $this->template->title = 'Create New Password';
             
@@ -306,7 +306,7 @@ class Main extends CI_Controller {
 
             $data['logged_info']    = $this->users_model->logged_in();
 
-            $this->template->content->view('users_create', $data);
+            $this->template->content->view('admin/users_create', $data);
             
             // publish the template
             $this->template->publish();
@@ -334,12 +334,14 @@ class Main extends CI_Controller {
         if ( $this->form_validation->run()) :
 
             $data = array(
-                'username' => $this->input->post('username'),
-                'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
-                'email' => $this->input->post('email'),
-                'role' => $this->input->post('role'),
-                'password' => $this->input->post('password')
+                'username'      => $this->input->post('username'),
+                'first_name'    => $this->input->post('first_name'),
+                'last_name'     => $this->input->post('last_name'),
+                'email'         => $this->input->post('email'),
+                'role'          => $this->input->post('role'),
+                'is_logged_in'  => 0,
+                'identity'      => 0,
+                'password'      => $this->input->post('password')
             );
 
             //IF SUCCESSFULL INSERT TO DATABASE
@@ -377,7 +379,7 @@ class Main extends CI_Controller {
             $data['user_data']      = $this->users_model->users_query_list();
             $data['logged_info']    = $this->users_model->logged_in();
 
-            $this->template->content->view('users_list', $data);
+            $this->template->content->view('admin/users_list', $data);
 
             $this->template->publish();                       
 
@@ -401,7 +403,7 @@ class Main extends CI_Controller {
 
             $data['logged_info'] = $this->users_model->logged_in();
 
-            $this->template->content->view('users_update.php', $data);
+            $this->template->content->view('admin/users_update.php', $data);
 
             $this->template->publish();
 
@@ -468,7 +470,7 @@ class Main extends CI_Controller {
             $data['data']           = $this->users_model->users_query_specific();
             $data['logged_info']    = $this->users_model->logged_in();
 
-            $this->template->content->view('users_update_pw.php', $data);
+            $this->template->content->view('admin/users_update_pw.php', $data);
 
 
             $this->template->publish();
@@ -552,13 +554,13 @@ class Main extends CI_Controller {
 
         if ( $this->session->userdata('is_logged_in')) :
 
-            $this->template->set_template('admin/profile_update');        
+            $this->template->set_template('admin/profile_tpl');      
 
             $this->template->title  = 'Profile page';
 
             $data['logged_info']    = $this->users_model->logged_in();
 
-            $this->template->content->view('admin/admin_profile', $data);
+            $this->template->content->view('admin/profile', $data);
 
             $this->template->publish();
 

@@ -1,8 +1,8 @@
-<?php $this->load->view('admin/template_dashboard_header'); ?>
+<?php $this->load->view('admin/dashboard_tpl_header'); ?>
 
 <div class="row clearfix:after">
 	
-	<div class="span3 sidebar">
+	<div class="span3 bs-docs-sidebar">
 	
 	<?php  $this->load->view('admin/profile_update_sidebar');?>
 		
@@ -16,4 +16,4 @@
 
 </div>
 
-<?php $this->load->view('admin/template_dashboard_footer'); ?>
+<?php $this->load->view('admin/dashboard_tpl_footer'); ?>

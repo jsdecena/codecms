@@ -62,7 +62,7 @@ class Pages extends CI_Controller {
 
 	public function page_home() {
             
-            $this->template->title = 'Pages';
+            $this->template->title      = 'Pages';
 
             $data['logged_info']    	= $this->users_model->logged_in();
             $data['page_items']    		= $this->pages_model->get_all_pages();
@@ -71,8 +71,6 @@ class Pages extends CI_Controller {
             
             // publish the template
             $this->template->publish();
-
-            $this->users_model->insert_identity();
 
 	}
 

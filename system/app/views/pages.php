@@ -4,9 +4,9 @@
 
 	<?php if ( isset($page_data) ) : ?>
 		
-		<h1><?php echo $page_data->title; ?></h1>
+		<h1><?php echo $page_data['title']; ?></h1>
 
-		<p><?php echo $page_data->content; ?></p>
+		<p><?php echo $page_data['content']; ?></p>
 
 		<?php else: ?>
 

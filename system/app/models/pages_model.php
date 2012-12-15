@@ -2,15 +2,14 @@
 
 class Pages_model extends CI_Model {
 
-
 	public function get_all_pages(){
 
 		$query = $this->db->get('pages');
 
 		if($query->num_rows() > 0):
 
-			foreach ($query->result() as $row) :
-			   $page_list = $row;
+			foreach ($query->result_array() as $row) :
+			   $page_list[] = $row;
 			endforeach;
 
 			return $page_list;
@@ -28,11 +27,10 @@ class Pages_model extends CI_Model {
 
 		$query = $this->db->get_where('pages', array( 'slug' => $this->uri->segment(1) ));
 		
-		if($query->num_rows() > 0):
+		if($query->num_rows() == 1):
 
-			$pages = array();
 			//IF A PAGE IS FOUND DISPLAY THE DATA WITH IT
-			foreach ($query->result() as $row) :
+			foreach ($query->result_array() as $row) :
 			    $pages = $row;			
 			endforeach;
 			
