@@ -67,11 +67,15 @@ class Pages extends CI_Controller {
             $data['logged_info']    	= $this->users_model->logged_in();
             $data['page_items']    		= $this->pages_model->get_all_pages();
             
-            $this->template->content->view('admin/pages', $data);
+            $this->template->content->view('admin/pages_tpl', $data);
             
             // publish the template
             $this->template->publish();
-
 	}
+
+    public function page_create(){
+
+        
+    }
 
 }
