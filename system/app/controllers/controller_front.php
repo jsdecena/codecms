@@ -8,23 +8,38 @@ class Controller_front extends CI_Controller {
 
                 // START DYNAMICALLY ADD STYLESHEETS
                 $css = array(
-                        'assets/css/bootstrap-responsive.css',
-                        'assets/css/bootstrap.css'
+                    'assets/css/bootstrap.css',
+                    'assets/templates/default/css/default.css',
+                    'assets/css/bootstrap-responsive.css'
                 );
 
                 $this->template->stylesheet->add($css);
-                // END DYNAMICALLY ADD STYLESHEETS
+                // END DYNAMICALLY ADD STYLESHEETS               
 
                 // START DYNAMICALLY ADD JAVASCRIPTS
                 $js = array(
-                        'assets/js/jquery.js',
-                        'assets/js/bootstrap.min.js'
+                    'http://code.jquery.com/jquery-latest.min.js',
+                    'assets/js/application.js',
+                    'assets/js/bootstrap-affix.js',
+                    'assets/js/bootstrap-alert.js',
+                    'assets/js/bootstrap-button.js',
+                    'assets/js/bootstrap-carousel.js',
+                    'assets/js/bootstrap-collapse.js',
+                    'assets/js/bootstrap-dropdown.js',
+                    'assets/js/bootstrap-modal.js',
+                    'assets/js/bootstrap-scrollspy.js',
+                    'assets/js/bootstrap-tab.js',
+                    'assets/js/bootstrap-tooltip.js',
+                    'assets/js/bootstrap-transition.js',
+                    'assets/js/bootstrap-typeahead.js',
+                    'assets/js/bootstrap.min.js'
                 );
 
                 $this->template->javascript->add($js);
-                // END DYNAMICALLY ADD STYLESHEETS    
+                // END DYNAMICALLY ADD STYLESHEETS
 
-                $this->template->set_template('pages_tpl');            
+                $this->load->model('public_model');
+                $this->load->model('users_model');           
 
         }        
 
@@ -33,28 +48,29 @@ class Controller_front extends CI_Controller {
                 $this->home();                        
         }
 
-        public function home(){
+        public function home(){          
 
-                $this->template->set_template('pages_tpl_home');
+                $this->template->set_template('templates/default/home_tpl'); 
 
                 $this->template->title = 'Home';
 
-                $data = array(); // load from model (but using a dummy array here)
-                $this->template->content->view('home', $data);  
+                $data['page_data'] = $this->public_model->get_all_pages();
+                $this->template->content->view('templates/default/home', $data);
 
                 // publish the template
                 $this->template->publish();		
         }
 
-        public function pages() {
+        public function pages() {          
 
-                $this->load->model('pages_model');
+                $this->template->set_template('templates/default/pages_tpl');
                 
                 $this->template->title = 'Pages';
 
-                $data['page_data'] = $this->pages_model->get_static_page();
+                $data['page_data']  = $this->public_model->get_all_pages();
+                $data['page']       = $this->public_model->get_page();
 
-                $this->template->content->view('pages', $data);
+                $this->template->content->view('templates/default/pages', $data);
 
                 // publish the template
                 $this->template->publish();     

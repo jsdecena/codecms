@@ -37,10 +37,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="<?php echo base_url('admin/main/dashboard'); ?>">Code CMS</a>
+          <a class="brand" href="<?php echo base_url(); ?>">Code CMS</a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li <?php if ( $this->uri->segment(3) == 'dashboard'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/main/dashboard'); ?>">Home</a></li>
+            <ul class="nav">            
+              <li <?php if ( $this->uri->segment(3) == 'dashboard'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/main/dashboard'); ?>">Dashboard</a></li>
 
               <?php if ( $logged_info['role'] == 'admin') : ?>
               

@@ -29,13 +29,13 @@ echo form_open('admin/pages/page_create_check', $attr); ?>
 
 <div class="controls clearfix">
 	<label for="page_title">Page Title <sup class="text-error">*</sup></label>
-	<input type="text" class="input-block-level" name="title" value="">
+	<input type="text" class="input-block-level" name="title" value="<?php echo $this->input->post('title'); ?>">
 	<input type="hidden" class="input-block-level" name="slug" value="slug">
 </div>
 
 <div class="controls clearfix">
 	<label for="page_title">Page Content</label>
-	<textarea name="content" id="content" class="input-block-level" cols="30" rows="10"></textarea>
+	<textarea name="content" id="content" class="input-block-level" cols="30" rows="10"><?php echo $this->input->post('content'); ?></textarea>
 </div>
 
 <div class="controls">
