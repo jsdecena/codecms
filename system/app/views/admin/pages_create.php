@@ -14,7 +14,7 @@
 			<div class="controlgroup">
 
 				<!-- LOAD THE PAGE CONTENT -->
-				<?php $this->load->view('admin/pages_tpl_content'); ?>
+				<?php $this->load->view('admin/pages_tpl_create'); ?>
 				
 
 			</div>
