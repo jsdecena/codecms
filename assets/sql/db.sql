@@ -52,6 +52,12 @@ CREATE TABLE `cc_user_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+
+# Dump of table cc_pages
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `cc_pages`;
+
 CREATE TABLE `cc_pages` (
   `page_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) DEFAULT NULL,
@@ -60,4 +66,17 @@ CREATE TABLE `cc_pages` (
   `date_add` datetime DEFAULT NULL,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`page_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+LOCK TABLES `cc_pages` WRITE;
+/*!40000 ALTER TABLE `cc_pages` DISABLE KEYS */;
+
+INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `date_add`, `modified`)
+VALUES
+  (1,'about','About','About us page',NULL,'2012-12-16 07:38:20'),
+  (2,'portfolio','Portfolio','Portfolio page',NULL,'2012-12-16 07:38:40'),
+  (3,'downloads','Downloads','Downloads page',NULL,'2012-12-16 07:38:59'),
+  (4,'contact-us','Contact Us','Contact Us page',NULL,'2012-12-16 07:39:13');
+
+/*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
+UNLOCK TABLES;
