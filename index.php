@@ -79,7 +79,7 @@ switch (ENVIRONMENT)
  * Include the path if the folder is not in the same  directory
  * as this file.
  */
-	$system_path = 'sys';
+	$system_path = 'system/ci';
 
 /*
  *---------------------------------------------------------------
@@ -94,7 +94,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'app';
+	$application_folder = 'system/app';
 
 /*
  *---------------------------------------------------------------
