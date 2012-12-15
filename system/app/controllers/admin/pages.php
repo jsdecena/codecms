@@ -2,9 +2,10 @@
 
 class Pages extends CI_Controller {
 
-    public function __construct(){
 
-        parent::__construct();
+    public function __construct(){ 
+
+    	 parent::__construct();
 
         // START DYNAMICALLY ADD STYLESHEETS
         $css = array(
@@ -37,24 +38,29 @@ class Pages extends CI_Controller {
         );
 
         $this->template->javascript->add($js);
-        // END DYNAMICALLY ADD STYLESHEETS
+        // END DYNAMICALLY ADD STYLESHEETS    	 
 
+        $this->load->model('users_model');
         $this->template->set_template('admin/template_dashboard');
-        $this->load->model('users_model'); 
-        $this->load->model('pages_model');
-        $this->load->library('form_validation');
     }	
 
 	public function index(){
 
-		$this->pages();
+		if ( $this->users_model->check_if_logged_in() ) :
+
+			$this->page_home();
+
+		else:
+
+			//UNAUTHORIZE ACCESS THROW THEM OUTSIDE
+			redirect('admin/main/login');
+
+		endif;			
+
 	}
 
-	public function pages(){
-
-        //CHECK FIRST IF THE USER IS ALREADY LOGGED IN
-        if ( $this->session->userdata('is_logged_in')) :
-
+	public function page_home() {
+            
             $this->template->title = 'Pages';
 
             $data['logged_info']    = $this->users_model->logged_in();
@@ -64,13 +70,7 @@ class Pages extends CI_Controller {
             // publish the template
             $this->template->publish();
 
-            $this->users_model->insert_identity();            
-
-        else:
-
-            redirect('admin/main/login');
-
-        endif;	
+            $this->users_model->insert_identity();
 
 	}
 

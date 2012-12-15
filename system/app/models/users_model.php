@@ -10,7 +10,7 @@ class Users_model extends CI_Model {
 
         foreach ($data as $udata) {
             
-            $user_identity = array( 'identity' => sha1($udata) );
+            $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1 );
         }
 
         $this->db->get_where('users', array('email' => $this->session->userdata('email')));
@@ -75,10 +75,31 @@ class Users_model extends CI_Model {
         endif;
     }
 
+    /*CHECKING FOR THE CURRENT USER IF LOGGED IN OR NOT*/
+    public function check_if_logged_in(){
+        
+        //CHECK IF THE USER IS LOGGED IN
+        $query = $this->db->get_where('users', array('is_logged_in' => 1));
+
+        if($query->num_rows() == 1):
+
+            return true;
+
+        else:
+
+            return false;
+
+        endif;
+
+
+
+    }
+
     /* LOGS OUT A USER */
     public function logout_now() {
 
         $this->db->set('identity', 0 );
+        $this->db->set('is_logged_in', 0 );
         $this->db->update('users');
 
         $this->session->sess_destroy();
