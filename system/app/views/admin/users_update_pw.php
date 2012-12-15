@@ -21,20 +21,25 @@
           echo form_open('admin/main/users_update_specific_pw', $attr);
       ?>
 
-      <div class="text-success"> 
-        <?php if ( $this->session->flashdata('update_success') ) : echo $this->session->flashdata('update_success'); endif; ?> 
+      <?php if ( $this->session->flashdata('message_success') ) : ?>
+
+      <div class="text-success alert-block alert-success fade in">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <?php echo $this->session->flashdata('message_success'); ?> 
       </div>
 
-      <div class="text-error"> 
-          <?php 
-                if ( $this->session->flashdata('invalid_pw') ) : echo $this->session->flashdata('invalid_pw');
-                  elseif ( $this->session->flashdata('update_error') ) : echo $this->session->flashdata('update_error');
-                endif; ?> 
-      </div>
+      <?php elseif ( $this->session->flashdata('message_error') ): ?>
+
+      <div class="text-error alert-block alert-error fade in"> 
+        <a class="close" data-dismiss="alert">&times;</a>
+        <?php echo $this->session->flashdata('message_error'); ?> 
+      </div>      
+
+      <?php endif; ?>
       
       <?php foreach ($data as $user_data) : ?>
           <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
-          <label for="password">Password</label>
+          <label for="password">Password <sup class="text-error">*</sup></label>
           <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
       <?php endforeach; ?>
 

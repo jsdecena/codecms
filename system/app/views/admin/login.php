@@ -7,13 +7,21 @@
 	<h2 class="form-signin-heading">Log In Now</h2>
 	
 	<?php if ( validation_errors() ) : ?>
-		<div class="text-error"> <?php echo validation_errors(); ?> </div>
+		<div class="text-error alert-block alert-error fade in">
+			<a class="close" data-dismiss="alert">&times;</a>
+			<?php echo validation_errors(); ?> 
+		</div>
 	<?php endif; ?>
 	
 	<?php if( $this->session->flashdata('message_error')) :  ?>
-		<div class="text-error"> <?php echo $this->session->flashdata('message_error') ?> </div>
+		<div class="text-error alert-block alert-error fade in">
+			<a class="close" data-dismiss="alert">&times;</a>
+			<?php echo $this->session->flashdata('message_error') ?> 
+		</div>
 	<?php else: ?>
-		<div class="text-success"> <?php echo $this->session->flashdata('message_success') ?> </div>			
+		<div class="text-success">			
+			<?php echo $this->session->flashdata('message_success') ?>
+		</div>
 	<?php endif; ?>		
 
 	<input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $this->input->post('email'); ?>">
@@ -34,11 +42,17 @@
 	<h2 class="form-signin-heading">Enter your email</h2>
 	
 	<?php if ( validation_errors() ) :  ?>
-		<div class="text-error"> <?php echo validation_errors(); ?> </div>
+		<div class="text-error alert-block alert-error fade in">
+			<a class="close" data-dismiss="alert">&times;</a>
+			<?php echo validation_errors(); ?> 
+		</div>
 	<?php endif; ?>
 
 	<?php if( $this->session->flashdata('message_error')) :  ?>
-		<div class="text-error"> <?php echo $this->session->flashdata('message_error') ?> </div>
+		<div class="text-error alert-block alert-error fade in">
+			<a class="close" data-dismiss="alert">&times;</a>
+			<?php echo $this->session->flashdata('message_error') ?>
+		</div>
 	<?php else: ?>
 		<div class="text-success"> <?php echo $this->session->flashdata('message_success') ?> </div>	
 	<?php endif; ?>	

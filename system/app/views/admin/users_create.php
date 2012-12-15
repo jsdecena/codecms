@@ -18,7 +18,12 @@
     ?>
     
     <div class="text-success"> <?php if( $this->session->flashdata('create_success')) : echo $this->session->flashdata('create_success'); else: echo $this->session->flashdata('create_error'); endif; ?> </div>
-    <div class="text-error"> <?php if ( validation_errors() ) : echo validation_errors(); endif; ?> </div>
+    <?php if ( validation_errors() ) : ?>
+      <div class="text-error alert-block alert-error fade in"> 
+        <a class="close" data-dismiss="alert">&times;</a>
+        <?php echo validation_errors(); ?>
+      </div>
+    <?php endif;  ?>
 
   <input type="text" class="input-block-level" name="username" placeholder="Username" value="<?php echo $this->input->post('username'); ?>">
   <input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $this->input->post('first_name'); ?>">

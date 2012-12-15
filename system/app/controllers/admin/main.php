@@ -405,7 +405,7 @@ class Main extends CI_Controller {
 
             $this->template->content->view('admin/users_update.php', $data);
 
-            $this->template->publish();
+            $this->template->publish();                       
 
         else:
 
@@ -418,18 +418,17 @@ class Main extends CI_Controller {
 
     public function users_update_by_admin(){
 
-        if ( $this->session->userdata('is_logged_in')) :
+        if ( $this->session->userdata('is_logged_in')) :     
 
-            $this->template->title = 'Admin User update page';
+                    $this->template->title = 'Admin User update page';
 
-            $data['data'] = $this->users_model->users_query_specific();
+                    $data['data'] = $this->users_model->users_query_specific();
 
-            $data['logged_info'] = $this->users_model->logged_in();
+                    $data['logged_info'] = $this->users_model->logged_in();
 
-            $this->template->content->view('admin/users_update_by_admin.php', $data);
+                    $this->template->content->view('admin/users_update_by_admin.php', $data);
 
-            $this->template->publish();
-
+                    $this->template->publish();
         else:
 
            redirect('admin/main/login');
@@ -454,6 +453,7 @@ class Main extends CI_Controller {
 
 
                 $this->form_validation->set_rules('about','About','trim|xss_clean');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
                 $this->form_validation->set_rules('role','Role','required|callback_check_default');
                 $this->form_validation->set_message('check_default', 'You must select role for the user.');          
 
@@ -462,15 +462,15 @@ class Main extends CI_Controller {
                     //IF SUCCESSFULL UPDATE TO DATABASE
                    if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
-                        $data['update_success']    = $this->session->set_flashdata('update_success', 'Upate success.');
-                        $data['update_error']      = $this->session->set_flashdata('update_error', 'Sorry, we have a problem updating a user.');
+                        $data['message_success']    = $this->session->set_flashdata('message_success', 'Update successful.');
+                        $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem updating a user.');
 
                         redirect('admin/main/users_update/'. $this->input->post('id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
                 else:
 
-                    $data['needs_user_role']      = $this->session->set_flashdata('needs_user_role', 'Sorry, you need to set the user role.');
+                    $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, you need to set the email and the user role.');
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
@@ -481,6 +481,52 @@ class Main extends CI_Controller {
         //IF YOU GO DIRECTLY TO THIS PAGE, THROW THEM TO LOGIN PAGE
         redirect('admin/main/login');
     }
+
+    /* ------- UPDATE THE SPECIFIC USER BY THE ADMIN ----------- */
+
+    public function users_update_specific_by_admin(){        
+
+        if ( $this->input->post('save')):
+            
+            $data = array(
+                'username' => $this->input->post('username'),
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'email' => $this->input->post('email'),
+                'role' => $this->input->post('role'),
+                'about' => $this->input->post('about')
+            );  
+
+
+                $this->form_validation->set_rules('about','About','trim|xss_clean');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
+                $this->form_validation->set_rules('role','Role','required|callback_check_default');
+                $this->form_validation->set_message('check_default', 'You must select role for the user.');          
+
+                if ( $this->form_validation->run()) :                
+
+                    //IF SUCCESSFULL UPDATE TO DATABASE
+                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+
+                        $data['message_success']    = $this->session->set_flashdata('message_success', 'Update successful.');
+                        $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem updating a user.');
+
+                        redirect('admin/main/users_update_by_admin/'. $this->input->post('id').'');
+
+                    endif; // SUCCESS UPDATE DATABASE
+                else:
+
+                    $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, you need to set the email and the user role.');
+                    
+                    // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
+                    // WITH THE ERRORS                    
+                    redirect('admin/main/users_update_by_admin/'. $this->input->post('id').'');
+                endif; // PASSED THE VALIDATION
+        endif; //IF POST SAVE
+
+        //IF YOU GO DIRECTLY TO THIS PAGE, THROW THEM TO LOGIN PAGE
+        redirect('admin/main/login');
+    }    
 
     /* ------- SPECIFIC USER PW PAGE ----------- */  
 
@@ -523,16 +569,19 @@ class Main extends CI_Controller {
                     //IF SUCCESSFULL UPDATE TO DATABASE
                    if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
 
-                        $data['update_success']    = $this->session->set_flashdata('update_success', 'You have successfully changed password.');                        
+                        $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully changed password.');
 
                         redirect('admin/main/users_update_pw/'. $this->input->post('id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
 
-                else:                    
+                else:
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
-                    // WITH THE ERRORS                    
+                    // WITH THE ERRORS
+
+                    $data['message_error']    = $this->session->set_flashdata('message_error', 'You need to put a password.');
+
                     redirect('admin/main/users_update_pw/'. $this->input->post('id').'');
 
                 endif; // PASSED THE VALIDATION

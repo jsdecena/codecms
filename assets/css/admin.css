@@ -30,6 +30,12 @@ body.admin .controls label {
 body.admin .controls label, body.admin .controls p {
 	float: left;
 }
+body.admin .update_details label {
+	float: none;
+}
+body.admin .update_details .controls {
+	padding: 0;
+}
 .details {
 	padding: 0 0 0 18px;
 }
@@ -39,4 +45,26 @@ body.admin .controls label, body.admin .controls p {
 label[for="forgot_password"] {
 	text-align: right;
 	display: block;
+}
+.alert-block {
+	padding: 10px;
+	margin: 0 0 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+.alert-success {
+	background: #08C !important;
+	color: #fff;
+	padding: 10px;
+	margin: 0 0 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.clearfix {
+	clear: both;;
+}
+sup {
+	font-size: 13px;
 }

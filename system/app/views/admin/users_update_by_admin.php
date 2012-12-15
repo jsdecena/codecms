@@ -8,35 +8,31 @@
 
   <div class="span9">
   
-    <section class="update_details">
-
-    <div class="page-header"> Edit this user details </div>
+    <section class="update_details">    
       
       <div class="controlgroup">
 
-          <?php if ( $this->session->flashdata('update_success') ) : ?>
-        
-          <div class="controls text-success"> 
-            <?php echo $this->session->flashdata('update_success'); else: echo $this->session->flashdata('update_error'); ?> 
-          </div>
+        <div class="page-header"> Edit this user details </div>
 
-        <?php endif; ?>
+        <?php if ( $this->session->flashdata('message_success') ) : ?>
 
-        <?php if ( validation_errors() ) :  ?>
-        <div class="controls text-error"> 
-          <?php echo validation_errors(); ?> 
+        <div class="text-success alert-block alert-success fade in">
+          <a class="close" data-dismiss="alert">&times;</a>
+          <?php echo $this->session->flashdata('message_success'); ?> 
         </div>
-        <?php endif;  ?>
 
-        <?php if ( $this->session->flashdata('needs_user_role') ) : ?>      
-        <div class="controls text-error"> 
-          <?php echo $this->session->flashdata('needs_user_role'); elseif ( $this->session->flashdata('last_user') ) : echo $this->session->flashdata('last_user'); ?>
-        </div>
-        <?php endif; ?>
+        <?php elseif ( $this->session->flashdata('message_error') ): ?>
+
+        <div class="text-error alert-block alert-error fade in"> 
+          <a class="close" data-dismiss="alert">&times;</a>
+          <?php echo $this->session->flashdata('message_error'); ?> 
+        </div>      
+
+        <?php endif; ?>            
 
       <?php
           $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-          echo form_open('admin/main/users_update_specific', $attr);
+          echo form_open('admin/main/users_update_specific_by_admin', $attr);
       ?>
       
       <?php foreach ($data as $user_data): ?>
@@ -51,12 +47,12 @@
         <label for="last_name" class="muted">Last Name</label>
         <input type="text" class="input-block-level" name="last_name" value="<?php echo $user_data->last_name; ?>">
         
-        <label for="email" class="muted">Email</label>
+        <label for="email" class="muted">Email <sup class="text-error">*</sup></label>
         <input type="text" class="input-block-level" name="email" value="<?php echo $user_data->email; ?>">
         
         <?php if ( $logged_info['role'] == 'admin') : ?>
         
-          <label for="role" class="muted">User Role</label>
+          <label for="role" class="muted">User Role <sup class="text-error">*</sup></label>
           <select name="role" id="role">
             <option value="0">Select Role</option>
             <option value="admin" <?php if ( $user_data->role == 'admin' ): echo "selected=\"selected\""; endif; ?>>Admin</option>
