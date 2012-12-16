@@ -260,7 +260,7 @@ class Main extends CI_Controller {
 
             $this->template->title = 'Create New Password';
             
-            $this->template->content->view('admin/create_new_pw', $data);
+            $this->template->content->view('admin/users_create_new_pw', $data);
             
             // publish the template
             $this->template->publish();

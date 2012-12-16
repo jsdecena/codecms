@@ -1,3 +1,6 @@
+
+<!-- LOG IN FIELDS ARE ALSO HERE . IT JUST DEPENDS ON HOW THEY GOT TO THIS PAGE AND SHOW THE CORRECT FORM. -->
+
 <?php if ( $this->uri->segment(3) == 'login' || $this->uri->segment(3) == 'login_check' ) : ?>
 
 	<?php 
@@ -31,6 +34,8 @@
 	</label>
 	<button class="btn btn-sml btn-primary" type="submit">Log in</button>
 	</form>
+
+<!-- FORGET PASSWORD FIELDS ARE ALSO HERE . IT JUST DEPENDS ON HOW THEY GOT TO THIS PAGE AND SHOW THE CORRECT FORM. -->
 
 <?php elseif ( $this->uri->segment(3) == 'forget_password' || $this->uri->segment(3) == 'forget_password_check' ) : //SHOW THE FORGET PASSWORD FIELDS ?>
 

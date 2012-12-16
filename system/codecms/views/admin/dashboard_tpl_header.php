@@ -1,3 +1,5 @@
+<!-- THIS IS NEEDED FOR THE OTHER PAGES AS THEY ARE REFERENCING TO THIS HEADER -->
+
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <!DOCTYPE html>

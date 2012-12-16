@@ -4,7 +4,7 @@
 	
 	<div class="span3 bs-docs-sidebar">
 	
-	<?php  $this->load->view('admin/profile_update_sidebar');?>
+	<?php $this->load->view('admin/profile_update_sidebar');?>
 		
 	</div>
 
