@@ -30,14 +30,15 @@ body.admin .controls label {
 body.admin .controls label, body.admin .controls p {
 	float: left;
 }
+body.admin .controls p {
+	color: #3A87AD;
+	padding: 0 0 0 18px;	
+}
 body.admin .update_details label {
 	float: none;
 }
 body.admin .update_details .controls {
 	padding: 0;
-}
-.details {
-	padding: 0 0 0 18px;
 }
 .about {
 	min-width: 340px;

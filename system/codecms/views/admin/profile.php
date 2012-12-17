@@ -33,7 +33,7 @@
 
 		<div class="controls">
 			<label for="role" class="muted"><i class="icon-lock">&nbsp;</i> About You:</label>
-			<p class="details text-info"><?php echo $logged_info['about']; ?></p>						
+			<?php echo $logged_info['about']; ?>					
 		</div>				
 	</div>
 </section>

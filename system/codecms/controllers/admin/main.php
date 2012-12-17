@@ -242,7 +242,7 @@ class Main extends CI_Controller {
             else :
 
                 $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, the key generated does not match to our record.');
-                redirect('admin/forget_password');
+                redirect('admin/main/forget_password');
 
             endif;
 
