@@ -69,13 +69,14 @@ class Controller_front extends CI_Controller {
 
                 $data['page_data']  = $this->public_model->get_all_pages();
                 $data['page']       = $this->public_model->get_page();
+                $data['post_data']  = $this->public_model->get_all_posts();
+                $data['post']       = $this->public_model->get_post();
 
                 $this->template->content->view('templates/default/pages', $data);
 
                 // publish the template
                 $this->template->publish();     
         }
-
 
 }
 

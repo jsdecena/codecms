@@ -1,5 +1,3 @@
-<!-- THIS IS NEEDED FOR THE OTHER PAGES AS THEY ARE REFERENCING TO THIS HEADER -->
-
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <!DOCTYPE html>
@@ -47,22 +45,40 @@
               <?php if ( $logged_info['role'] == 'admin') : ?>
               
               <!-- USER MANAGEMENT-->
-              <li class="dropdown">
+              <li class="dropdown <?php if ( $this->uri->segment(3) == 'users_list' || $this->uri->segment(3) == 'users_create'): echo "active"; endif; ?>">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Users</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><a href="<?php echo base_url('admin/main/users_list'); ?>">Users List</a></li>
                 <li><a href="<?php echo base_url('admin/main/users_create'); ?>">Create User</a></li>
                 </ul>
               </li>            
+
               <?php endif; ?>
-            <!-- PAGE MANAGEMENT-->
-              <li class="dropdown">
+
+              <!-- PAGE MANAGEMENT-->
+              <li class="dropdown <?php if ( $this->uri->segment(3) == 'pages_list' || $this->uri->segment(3) == 'page_create'): echo "active"; endif; ?>">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Pages</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/pages/pages_list'); ?>">Page List</a></li>
+                <li><a href="<?php echo base_url('admin/pages/pages_list'); ?>">Pages List</a></li>
                 <li><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a Page</a></li>
                 </ul>
-              </li>                
+              </li>
+
+              <!-- POST MANAGEMENT-->
+              <li class="dropdown <?php if ( $this->uri->segment(3) == 'posts_list' || $this->uri->segment(3) == 'post_create'): echo "active"; endif; ?>">
+                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Post</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href="<?php echo base_url('admin/posts/posts_list'); ?>">Posts List</a></li>
+                <li><a href="<?php echo base_url('admin/posts/post_create'); ?>">Create a Post</a></li>                
+                </ul>
+              </li>
+            
+            <?php if ( $logged_info['role'] == 'admin') : ?>
+            
+              <!-- SETTINGS -->
+              <li <?php if ( $this->uri->segment(3) == 'settings'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/main/settings'); ?>">Settings</a> </li>
+
+            <?php endif; ?>              
 
             </ul>
           </div><!--/.nav-collapse -->
@@ -83,3 +99,5 @@
         </ul>
       </div>      
     </div>
+
+  <!-- THIS IS NEEDED FOR THE OTHER PAGES AS THEY ARE REFERENCING TO THIS HEADER -->    

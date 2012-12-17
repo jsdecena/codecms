@@ -5,7 +5,7 @@
 	<div class="span3 bs-docs-sidebar">
 
 		<!-- LOAD THE PAGE SIDEBAR -->
-		<?php $this->load->view('admin/pages_tpl_sidebar'); ?>
+		<?php $this->load->view('admin/pages_post_tpl_sidebar'); ?>
 		
 	</div>
 
@@ -19,8 +19,7 @@
 				<?php 
 
 				//PAGE LIST FORM
-
-				echo form_open('admin/pages/page_delete'); ?>
+				if ( is_array($page_items)) : echo form_open('admin/pages/page_delete'); ?>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -31,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : ?>			
+						<?php foreach ($page_items as $pages) : ?>			
 							<tr>
 								<td><?php echo $pages['page_id']; ?></td>
 								<td><?php echo $pages['title']; ?></td>
@@ -44,13 +43,20 @@
 								<?php endif; ?>
 								</td>
 							</tr>			
-						<?php endforeach; endif; ?>	
+						<?php endforeach; ?>	
 					</tbody>
 				</table>
 
 				<?php // echo $this->pagination->create_links(); ?>
 					
-				<?php echo form_close(); ?>				
+				<?php echo form_close(); else: ?>
+
+				  <div class="text-error alert-block alert-error fade in">
+				  	<a class="close" data-dismiss="alert">&times;</a>
+				    <p>Ooops, No more posts!</p>
+				  </div>
+
+				<?php endif; ?>				
 				
 
 			</div>

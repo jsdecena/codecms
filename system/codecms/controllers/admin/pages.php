@@ -20,22 +20,24 @@ class Pages extends CI_Controller {
 
         // START DYNAMICALLY ADD JAVASCRIPTS
         $js = array(
-        	'http://code.jquery.com/jquery-latest.min.js',
-        	'assets/js/application.js',
-        	'assets/js/bootstrap-affix.js',
-        	'assets/js/bootstrap-alert.js',
-        	'assets/js/bootstrap-button.js',
-        	'assets/js/bootstrap-carousel.js',
-        	'assets/js/bootstrap-collapse.js',
-        	'assets/js/bootstrap-dropdown.js',
-        	'assets/js/bootstrap-modal.js',
-        	'assets/js/bootstrap-scrollspy.js',
-        	'assets/js/bootstrap-tab.js',
-        	'assets/js/bootstrap-tooltip.js',
-        	'assets/js/bootstrap-transition.js',
-        	'assets/js/bootstrap-typeahead.js',
-        	'assets/js/bootstrap.min.js',
+            'http://code.jquery.com/jquery-latest.min.js',
+            'assets/js/bootstrap-dropdown.js',
+            'assets/js/bootstrap-tab.js',
+            'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
+
+//USER THE OTHER JS IF YOU NEED IT
+/*          'assets/js/application.js',
+            'assets/js/bootstrap-affix.js',
+            'assets/js/bootstrap-alert.js',
+            'assets/js/bootstrap-button.js',
+            'assets/js/bootstrap-carousel.js',
+            'assets/js/bootstrap-collapse.js',
+            'assets/js/bootstrap-modal.js',
+            'assets/js/bootstrap-scrollspy.js',
+            'assets/js/bootstrap-tooltip.js',
+            'assets/js/bootstrap-transition.js',
+            'assets/js/bootstrap-typeahead.js',*/
             'assets/templates/default/js/default.js' //CC JS
         );
 
@@ -127,8 +129,7 @@ class Pages extends CI_Controller {
 
             $this->template->title      = 'Pages';
 
-            $data['logged_info']        = $this->users_model->logged_in();
-            $data['page_items']         = $this->pages_model->get_all_pages();
+            $data['logged_info']        = $this->users_model->logged_in();            
 
             if ( $this->input->post('page_create') ) :
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.');
@@ -250,7 +251,7 @@ class Pages extends CI_Controller {
 
         $query = $this->db->get('pages');
 
-        if ( $query->num_rows() > 1 ) :
+        if ( $query->num_rows() > 0 ) :
 
            if( $this->db->delete('pages', array('page_id' => $this->input->post('id'))) === TRUE) :
 
@@ -260,12 +261,6 @@ class Pages extends CI_Controller {
                redirect('admin/pages/pages_list' .'/'. $this->input->post('id'), $data);
 
             endif;
-
-        else:
-            
-            $data['message_error'] = $this->session->set_flashdata('message_error', 'Ooops, No more pages!');
-            
-            redirect('admin/pages/pages_list' .'/'. $this->input->post('id'), $data);
 
         endif;
     }    

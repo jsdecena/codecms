@@ -5,7 +5,7 @@
 	<div class="span3 bs-docs-sidebar">
 
 		<!-- LOAD THE PAGE SIDEBAR -->
-		<?php $this->load->view('admin/pages_tpl_sidebar'); ?>
+		<?php $this->load->view('admin/pages_post_tpl_sidebar'); ?>
 		
 	</div>
 

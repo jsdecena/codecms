@@ -1,4 +1,4 @@
-<!-- THIS IS THE CONTENT-->
+<!-- THIS IS THE ACTUAL PAGE CONTENT-->
 
 <section id="main_content hidden">
 

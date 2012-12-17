@@ -2,6 +2,7 @@
 
 class Public_model extends CI_Model {
 
+	//START PAGES ------------------------------------------------------------------------------------------------------------------------------------------------------
 	public function get_all_pages(){
 
 		$query = $this->db->get('pages');
@@ -48,4 +49,55 @@ class Public_model extends CI_Model {
 		return $query;
 
 	}
+
+
+
+	//START POSTS ------------------------------------------------------------------------------------------------------------------------------------------------------
+	public function get_all_posts(){
+
+		$query = $this->db->get('posts');
+
+		if($query->num_rows() > 0):
+
+			foreach ($query->result_array() as $row) :
+			   $post_list[] = $row;
+			endforeach;
+
+			return $post_list;
+
+		else:
+
+			return false;
+		
+		endif;
+
+
+	}	
+
+	public function get_post(){
+
+		$query = $this->db->get_where('posts', array( 'slug' => $this->uri->segment(1) ));
+		
+		if($query->num_rows() > 0):
+
+			//IF A post IS FOUND DISPLAY THE DATA WITH IT
+			foreach ($query->result() as $row) :
+			    
+			    $post = $row;
+
+			endforeach;
+			
+			return $post;
+
+		endif;		
+	}
+
+	public function count_all_posts(){
+
+		$query = $this->db->count_all_results('posts');
+
+		return $query;
+
+	}	
+
 }

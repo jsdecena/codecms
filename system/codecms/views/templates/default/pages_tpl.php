@@ -4,7 +4,14 @@
 
 	<div class="span9">
 
-		<?php echo $this->template->content; ?>
+		<?php //CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY POSTS ?>
+
+
+
+		<?php 
+				//IF NOT DISPLAY AS PER NORMAL
+				echo $this->template->content; 
+		?>
 
 	</div><!--/span-->
 
