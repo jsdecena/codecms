@@ -52,8 +52,7 @@
 				<?php echo form_close(); else: ?>
 
 				  <div class="text-error alert-block alert-error fade in">
-				  	<a class="close" data-dismiss="alert">&times;</a>
-				    <p>Ooops, No more posts!</p>
+				    <p>Ooops, No more pages!</p>
 				  </div>
 
 				<?php endif; ?>				
