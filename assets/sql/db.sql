@@ -80,3 +80,17 @@ VALUES
 
 /*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
 UNLOCK TABLES;
+
+# Dump of table cc_pages
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `cc_posts`;
+
+CREATE TABLE `cc_posts` (
+  `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `date_add` datetime DEFAULT NULL,
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`post_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
