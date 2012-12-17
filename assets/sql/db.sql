@@ -94,3 +94,10 @@ CREATE TABLE `cc_posts` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE cc_config (
+	`config_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`config_name` VARCHAR(128) NOT NULL UNIQUE,
+	`config_value` VARCHAR(255),
+	PRIMARY KEY (config_id)
+)
