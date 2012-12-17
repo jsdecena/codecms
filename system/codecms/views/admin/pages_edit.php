@@ -54,8 +54,7 @@
 				</div>
 
 				<div class="controls clearfix">
-					<label for="page_title">Page Content</label>
-					<textarea name="content" id="content" class="input-block-level" cols="30" rows="10"><?php echo $page_items->content; ?></textarea>
+					<textarea name="content" id="content" class="input-block-level ckeditor" cols="30" rows="10"><?php echo $page_items->content; ?></textarea>
 				</div>
 
 				<div class="controls">
