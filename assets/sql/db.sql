@@ -90,6 +90,7 @@ CREATE TABLE `cc_posts` (
   `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `date_add` datetime DEFAULT NULL,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`)
