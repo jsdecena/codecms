@@ -47,10 +47,10 @@
 				<?php endif; ?>
 
 				<div class="controls clearfix">
-					<input type="hidden" class="input-block-level" name="slug" value="<?php echo $page_items->slug; ?>">
+					<input type="hidden" id="page_slug" class="input-block-level" name="slug" value="<?php echo $page_items->slug; ?>">
 					<input type="hidden" class="input-block-level" name="id" value="<?php echo $page_items->page_id; ?>">
 					<label for="page_title">Page Title <sup class="text-error">*</sup></label>
-					<input type="text" class="input-block-level" name="title" value="<?php echo $page_items->title; ?>">
+					<input type="text" id="page_title" class="input-block-level" name="title" value="<?php echo $page_items->title; ?>">
 				</div>
 
 				<div class="controls clearfix">

@@ -74,9 +74,9 @@ class Public_model extends CI_Model {
 
 	}	
 
-	public function get_post(){
+	public function show_post( $post_id ){
 
-		$query = $this->db->get_where('posts', array( 'slug' => $this->uri->segment(1) ));
+		$query = $this->db->get_where('posts', array( 'post_id' => $post_id ));
 		
 		if($query->num_rows() > 0):
 

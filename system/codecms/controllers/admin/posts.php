@@ -25,7 +25,7 @@ class Posts extends CI_Controller {
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
 
-//USER THE OTHER JS IF YOU NEED IT
+            //USER THE OTHER JS IF YOU NEED IT
 /*          'assets/js/application.js',
             'assets/js/bootstrap-affix.js',
             'assets/js/bootstrap-alert.js',
@@ -154,7 +154,7 @@ class Posts extends CI_Controller {
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');
             endif;            
 
-            $this->post_create_insert();            
+            $this->post_insert_db();            
             redirect('admin/posts/post_create', $data);
 
         else:
@@ -164,7 +164,7 @@ class Posts extends CI_Controller {
         endif;
     }
 
-    public function post_create_insert(){
+    public function post_insert_db(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
@@ -187,7 +187,7 @@ class Posts extends CI_Controller {
             $this->template->title      = 'posts';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_specific_post();
+            $data['post_items']         = $this->posts_model->get_post();
             
             $this->template->content->view('admin/posts_edit', $data);
             
@@ -227,7 +227,7 @@ class Posts extends CI_Controller {
 
         if ( $this->users_model->check_if_logged_in() ) :        
 
-            if ( $this->posts_model->insert_edited_post() ) :
+            if ( $this->posts_model->update_edited_post() ) :
 
                     //SUCCESFULL INSERTION OF THE EDITED post IN THE DB
                     return true;

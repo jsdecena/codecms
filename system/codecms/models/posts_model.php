@@ -2,39 +2,34 @@
 
 class Posts_model extends CI_Model {
 
+	public $post_id;
+	public $title;
+	public $content;
+	public $created;
+
 	public function get_all_posts(){
 
 		$query = $this->db->get('posts');
 
-		if($query->num_rows() > 0):
+		if ( $query->num_rows() > 0 ) :
 
-			foreach ($query->result_array() as $row) :
-			   $post_list[] = $row;
-			endforeach;
+			return $query->result_array();
 
-			return $post_list;
-
-		else:
+		else :
 
 			return false;
-		
-		endif;
 
+		endif;
 
 	}
 
-	public function get_specific_post(){
+	public function get_post(){
 
 		$query = $this->db->get_where('posts', array( 'post_id' => $this->uri->segment(4) ));
 		
 		if($query->num_rows() == 1):
 
-			//IF A post IS FOUND DISPLAY THE DATA WITH IT
-			foreach ($query->result() as $row) :
-			    $post = $row;		
-			endforeach;
-			
-			return $post;
+ 			return $query->row();
 
 		endif;		
 	}
@@ -50,7 +45,7 @@ class Posts_model extends CI_Model {
 			$this->db->insert('posts', $data);	
 	}
 
-	public function insert_edited_post(){
+	public function update_edited_post(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),

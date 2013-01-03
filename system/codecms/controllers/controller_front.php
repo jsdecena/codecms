@@ -19,7 +19,9 @@ class Controller_front extends CI_Controller {
                 // START DYNAMICALLY ADD JAVASCRIPTS
                 $js = array(
                     'http://code.jquery.com/jquery-latest.min.js',
-                    'assets/js/application.js',
+                    
+                    //USER THE OTHER JS IF YOU NEED IT              
+                    /*'assets/js/application.js',
                     'assets/js/bootstrap-affix.js',
                     'assets/js/bootstrap-alert.js',
                     'assets/js/bootstrap-button.js',
@@ -31,7 +33,7 @@ class Controller_front extends CI_Controller {
                     'assets/js/bootstrap-tab.js',
                     'assets/js/bootstrap-tooltip.js',
                     'assets/js/bootstrap-transition.js',
-                    'assets/js/bootstrap-typeahead.js',
+                    'assets/js/bootstrap-typeahead.js',*/
                     'assets/js/bootstrap.min.js'
                 );
 
@@ -50,29 +52,29 @@ class Controller_front extends CI_Controller {
 
         public function home(){          
 
-                $this->template->set_template('templates/default/home_tpl'); 
+                $this->template->set_template('public/templates/default/home_tpl'); 
 
                 $this->template->title = 'Home';
 
                 $data['page_data'] = $this->public_model->get_all_pages();
-                $this->template->content->view('templates/default/home', $data);
+                $this->template->content->view('public/templates/default/home', $data);
 
                 // publish the template
                 $this->template->publish();		
         }
 
-        public function pages() {   
+        public function pages() {
 
-                $this->template->set_template('templates/default/pages_tpl');
-                
-                $this->template->title = 'Pages';
+                $this->template->set_template('public/templates/default/pages_tpl');                
 
                 $data['page_data']  = $this->public_model->get_all_pages();
                 $data['page']       = $this->public_model->get_page();
-                $data['post_data']  = $this->public_model->get_all_posts();
-                $data['post']       = $this->public_model->get_post();
 
-                $this->template->content->view('templates/default/pages', $data);
+                $page_title         = $this->public_model->get_page();
+
+                $this->template->title = $page_title->title;                                              
+
+                $this->template->content->view('public/templates/default/pages', $data);
 
                 // publish the template
                 $this->template->publish();     
