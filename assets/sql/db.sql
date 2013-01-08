@@ -16,7 +16,7 @@
 DROP TABLE IF EXISTS `cc_users`;
 
 CREATE TABLE `cc_users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `identity` varchar(128) NOT NULL DEFAULT '0',
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL DEFAULT '',
@@ -28,13 +28,13 @@ CREATE TABLE `cc_users` (
   `last_login` timestamp NULL DEFAULT NULL,
   `is_logged_in` int(11) unsigned DEFAULT '0',
   `pw_recovery` varchar(255) DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`users_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 LOCK TABLES `cc_users` WRITE;
 /*!40000 ALTER TABLE `cc_users` DISABLE KEYS */;
 
-INSERT INTO `cc_users` (`id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
+INSERT INTO `cc_users` (`users_id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
 VALUES
   (52,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
 
