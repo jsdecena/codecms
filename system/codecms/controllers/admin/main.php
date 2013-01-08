@@ -44,6 +44,8 @@ class Main extends CI_Controller {
 
         $this->template->set_template('admin/dashboard_tpl');
         $this->load->model('users_model');
+        $this->load->model('pages_model');
+        $this->load->model('posts_model');
         $this->load->library('form_validation');
     }
 
@@ -654,14 +656,13 @@ class Main extends CI_Controller {
 
     public function settings(){
 
-        if ( $this->session->userdata('is_logged_in')) :
+        if ( $this->session->userdata('is_logged_in')) :                                
 
-            $this->load->model('pages_model');
+            $this->template->title      = 'Settings page';
 
-            $this->template->title  = 'Settings page';
-
-            $data['logged_info']    = $this->users_model->logged_in();
-            $data['page_items']     = $this->pages_model->get_all_pages();
+            $data['logged_info']        = $this->users_model->logged_in();
+            $data['page_items']         = $this->pages_model->get_all_pages();
+            $data['post_settings']      = $this->posts_model->view_post_settings();
 
             $this->template->content->view('admin/settings', $data);
 
@@ -683,9 +684,8 @@ class Main extends CI_Controller {
 
             if ( $this->form_validation->run()) :
 
-                //ENABLE WHEN THE DB QUERY IF KNOWN                 
-                //$data['settings']           = $this->main_model->update_settings($settings);          
-                
+                $this->posts_model->update_post_settings();              
+
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully cofigured your post settings.');
 
                 redirect('admin/main/settings', $data);

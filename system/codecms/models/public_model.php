@@ -49,16 +49,19 @@ class Public_model extends CI_Model {
 	}
 
 	//CHECK FOR THE PAGE THAT WILL SHOW ALL THE POSTS. THIS IS SET IN THE DATABASE BY THE SETTINGS.
-	public function check_post_page($post_page){
+	public function check_post_page(){
 
-		//CURRENTLY HARD CODED
-        $query = $this->db->get_where('settings', array('settings_value' => $post_page));
-		
-		if($query->num_rows() == 1):
+		$query = $this->db->get('cc_settings');
 
- 			return $query->row();
+		if ( $query->num_rows() > 0 ) :
 
-		endif;
+			foreach ($query->result_array() as $value) :
+				
+				return $value;
+
+			endforeach;
+
+		endif;	
 
 	}
 

@@ -4,8 +4,8 @@
 
 		<?php
 
-			//CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY THE POSTS
-			if ( isset($post_page->settings_value) && $post_page->settings_value == 'blog' && $this->uri->segment(1) == 'blog' ) :
+			//CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY THE POSTS			
+			if ( isset($post_page->settings_value) && $post_page['settings_value'] == $this->uri->segment(1) ) :
 
 		?>
 		

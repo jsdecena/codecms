@@ -29,6 +29,7 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
+                <li> <a href="<?php echo base_url(); ?>">Home</a></li>
                 <?php 
                   if ( is_array($page_data) && isset($page_data) ):
                   foreach ($page_data as $row) : //var_dump($row); die(); ?>

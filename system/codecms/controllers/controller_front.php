@@ -75,9 +75,8 @@ class Controller_front extends CI_Controller {
                 $page_title             = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
                 
-                // CHECK FOR THE POST PAGE
-                $post_page              = 'blog';
-                $data['post_page']      = $this->public_model->check_post_page($post_page);
+                // CHECK FOR THE POST PAGE                
+                $data['post_page']      = $this->public_model->check_post_page();                
 
                 // GET ALL THE POSTS
                 $data['all_posts']      = $this->public_model->get_all_posts();
