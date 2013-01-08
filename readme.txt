@@ -19,4 +19,5 @@ Upcoming functionality (Todo List):
 	4.5 Theme to be used.
 
 Knows bugs:
-1.
+1. Settings page - after saving the settings, I cannot retrieve the db values inserted for the post page chosen.
+2. User Management - an admin can delete his own. Also even when logged in.
