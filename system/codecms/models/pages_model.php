@@ -38,9 +38,10 @@ class Pages_model extends CI_Model {
 	public function insert_created_page(){
 
 			$data = array(
-			   'title' 		=> $this->input->post('title'),
-			   'content' 	=> $this->input->post('content'),
-			   'slug' 		=> $this->input->post('slug')
+			   'title' 			=> $this->input->post('title'),
+			   'content' 		=> $this->input->post('content'),
+			   'slug' 			=> $this->input->post('slug'),
+			   'date_add'		=> date("Y-m-d H:i:s")
 			);
 
 			$this->db->insert('pages', $data);	

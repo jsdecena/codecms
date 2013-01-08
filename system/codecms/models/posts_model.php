@@ -48,7 +48,7 @@ class Posts_model extends CI_Model {
 			   'content' 	=> $this->input->post('content'),
 			   'slug' 		=> url_title($this->input->post('title')),
 			   'author' 	=> $current_user->first_name . $current_user->last_name,
-			   'date_add'	=> date()
+			   'date_add'	=> date("Y-m-d H:i:s")
 			);
 
 			$this->db->insert('posts', $data);
