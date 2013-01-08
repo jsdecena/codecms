@@ -37,7 +37,7 @@
       
       <?php foreach ($data as $user_data): ?>
       
-        <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
+        <input type="hidden" value="<?php echo $user_data->users_id; ?>" name="users_id">
         <label for="username" class="muted">Username</label>
         <input type="text" class="input-block-level" name="username" value="<?php echo $user_data->username; ?>">
 

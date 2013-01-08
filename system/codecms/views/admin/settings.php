@@ -1,10 +1,3 @@
-
-<?php 	//TESTING AREA
-		//if ( isset($_POST)) : echo "<pre>"; var_dump($_POST); endif; 
-		// foreach ($page_items as $pages) : echo "<pre>"; var_dump($pages); die(); endforeach; 
-		// /var_dump($settings); die();
-?>
-
 	<ul id="cc_tabs" class="nav nav-tabs">
 	  <li><a href="#users" data-toggle="tab">Users</a></li>
 	  <li><a href="#pages" data-toggle="tab">Pages</a></li>
@@ -43,6 +36,7 @@
 			<?php endif; ?>			
 											
 			<div class="controlgroup">
+				<?php  ?>
 				<div class="controls">
 					<label for="choose_page" class="input-block-level">Choose a page to display your post.</label>	
 					<select name="post_page_chosen" id="post_page_chosen" class="clear">
@@ -55,14 +49,14 @@
 				
 				<div class="controls">
 					<label for="post_per_page" class="input-block-level">Number of post to show in the page.</label>
-					<input type="text" name="post_per_page" placeholder="Posts per page" value="<?php echo $this->input->post('post_per_page') ?>">
+					<input type="text" name="post_per_page" placeholder="Posts per page" value="<?php  ?>">
 				</div>
 
 				<div class="controls">
 					<label for="arrange_post_by" class="input-block-level">Default arrange post by.</label>
 					<select name="arrange_post_by" id="arrange_post_by">
-						<option value="1" <?php if ( $this->input->post('arrange_post_by') == '1' ) : ?>selected="selected"<?php endif; ?>>By ID</option>
-						<option value="2" <?php if ( $this->input->post('arrange_post_by') == '2' ) : ?>selected="selected"<?php endif; ?>>By Date</option>
+						<option value="id" <?php if ( $this->input->post('arrange_post_by') == 'id' ) : ?>selected="selected"<?php endif; ?>>By ID</option>
+						<option value="date" <?php if ( $this->input->post('arrange_post_by') == 'date' ) : ?>selected="selected"<?php endif; ?>>By Date</option>
 					</select>
 				</div>
 

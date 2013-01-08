@@ -38,14 +38,14 @@ class Users_model extends CI_Model {
         
         $query = $this->db->get('users');
 
-        if($query->num_rows() > 0):
-            foreach ($query->result_array() as $row):
-                $data[] = $row;
-            endforeach;
+        if ( $query->num_rows() > 0 ) :
 
-            return $data;
-        else:
+            return $query->result_array();
+
+        else :
+
             return false;
+
         endif;
 	}
 
@@ -66,6 +66,7 @@ class Users_model extends CI_Model {
         $query = $this->db->get_where('users', array('email' => $this->session->userdata('email')));
 
         if($query->num_rows() > 0):
+            
             foreach ($query->result_array() as $row) :
                 $data = $row;
             endforeach;
