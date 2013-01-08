@@ -1,7 +1,7 @@
 	<ul id="cc_tabs" class="nav nav-tabs">
 	  <li><a href="#users" data-toggle="tab">Users</a></li>
 	  <li><a href="#pages" data-toggle="tab">Pages</a></li>
-	  <li><a href="#posts" data-toggle="tab">Posts</a></li>
+	  <li class="active"><a href="#posts" data-toggle="tab">Posts</a></li>
 	  <li><a href="#others" data-toggle="tab">Others</a></li>
 	</ul>
 	 
@@ -42,7 +42,7 @@
 					<?php if ($value['settings_name'] == 'post_per_page') : ?>
 
 					<div class="controls">
-						<label for="choose_page" class="input-block-level">Choose a page to display your post.</label>	
+						<label for="choose_page" class="input-block-level">Page to display your posts.</label>	
 						<select name="post_page_chosen" id="post_page_chosen" class="clear">
 							<option value="0">Choose Page</option>
 							<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : ?>
