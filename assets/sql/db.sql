@@ -88,17 +88,21 @@ DROP TABLE IF EXISTS `cc_posts`;
 
 CREATE TABLE `cc_posts` (
   `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
-  `date_add` datetime DEFAULT NULL,
+  `author` varchar(128) NOT NULL DEFAULT 'user',
+  `content` varchar(255) DEFAULT NULL,
+  `date_add` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`post_id`),
+  KEY `users_id` (`users_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-CREATE TABLE cc_config (
-	`config_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`config_name` VARCHAR(128) NOT NULL UNIQUE,
-	`config_value` VARCHAR(255),
-	PRIMARY KEY (config_id)
-)
+CREATE TABLE `cc_settings` (
+  `settings_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `settings_name` varchar(128) NOT NULL DEFAULT '',
+  `settings_value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`settings_id`),
+  UNIQUE KEY `settings_id` (`settings_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
