@@ -102,9 +102,9 @@ CREATE TABLE `cc_posts` (
 LOCK TABLES `cc_posts` WRITE;
 /*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
 
-INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `content`, `date_add`, `modified`)
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `date_add`, `modified`)
 VALUES
-  (1,0,'post','post','<p>post</p>\n','2013-01-08 04:09:32','2013-01-08 12:09:32');
+  (1,1,'post','post', 'John Doe', '<p>post</p>\n','2013-01-08 04:09:32','2013-01-08 12:09:32');
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;
