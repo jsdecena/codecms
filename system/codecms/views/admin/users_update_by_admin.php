@@ -68,7 +68,7 @@
 
       <br class="clear" />
       <a href="<?php echo base_url('admin/main/users_list'); ?>" class="btn btn-info">Go Back</a>
-      <input type="submit" name="save" class="btn btn-primary" value="Update your details" />
+      <input type="submit" name="save" class="btn btn-primary" value="Update details" />
     
       <?php echo form_close(); ?>      
 

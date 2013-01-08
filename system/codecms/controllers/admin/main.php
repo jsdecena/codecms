@@ -572,7 +572,7 @@ class Main extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('users', $data, 'id = '. $this->input->post('users_id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'users_id = '. $this->input->post('users_id').'') === TRUE) :
 
                         $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully changed password.');
 
