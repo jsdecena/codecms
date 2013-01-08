@@ -102,7 +102,7 @@ class Posts_model extends CI_Model {
 
 	public function view_post_settings() {
 
-		$query = $this->db->get('cc_settings');
+		$query = $this->db->get('settings');
 
 		if ( $query->num_rows() > 0 ) :
 

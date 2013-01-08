@@ -16,7 +16,7 @@
 DROP TABLE IF EXISTS `cc_users`;
 
 CREATE TABLE `cc_users` (
-  `users_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `identity` varchar(128) NOT NULL DEFAULT '0',
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL DEFAULT '',
@@ -28,15 +28,15 @@ CREATE TABLE `cc_users` (
   `last_login` timestamp NULL DEFAULT NULL,
   `is_logged_in` int(11) unsigned DEFAULT '0',
   `pw_recovery` varchar(255) DEFAULT '0',
-  PRIMARY KEY (`users_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 LOCK TABLES `cc_users` WRITE;
 /*!40000 ALTER TABLE `cc_users` DISABLE KEYS */;
 
-INSERT INTO `cc_users` (`users_id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
+INSERT INTO `cc_users` (`id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
 VALUES
-  (1,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
+  (52,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
 
 /*!40000 ALTER TABLE `cc_users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -99,10 +99,28 @@ CREATE TABLE `cc_posts` (
   KEY `users_id` (`users_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+# Dump of table cc_settings
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `cc_settings`;
+
 CREATE TABLE `cc_settings` (
   `settings_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `settings_name` varchar(128) NOT NULL DEFAULT '',
   `settings_value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`settings_id`),
   UNIQUE KEY `settings_id` (`settings_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+LOCK TABLES `cc_settings` WRITE;
+/*!40000 ALTER TABLE `cc_settings` DISABLE KEYS */;
+
+INSERT INTO `cc_settings` (`settings_id`, `settings_name`, `settings_value`)
+VALUES
+  (1,'post_page_chosen','blog'),
+  (2,'post_per_page','10'),
+  (3,'arrange_post_by','id'),
+  (4,'order_post_by','asc');
+
+/*!40000 ALTER TABLE `cc_settings` ENABLE KEYS */;
+UNLOCK TABLES;
