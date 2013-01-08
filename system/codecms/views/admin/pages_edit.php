@@ -58,8 +58,8 @@
 				</div>
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Go Back</a>
-					<input type="submit" name="page_edit" class="btn btn-primary" value="Save Your Edit" />
+					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
+					<input type="submit" name="page_edit" class="btn btn-primary" value="Save" />
 
 				</div>
 

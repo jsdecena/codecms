@@ -38,9 +38,9 @@ class Posts_model extends CI_Model {
 			$data = array(
 			   'title' 		=> $this->input->post('title'),
 			   'content' 	=> $this->input->post('content'),
-			   'slug' 		=> url_title($this->input->post('title'))
-			);
-			//var_dump($data); die();
+			   'slug' 		=> url_title($this->input->post('title')),
+			   'date_add'	=> date()
+			);			
 
 			$this->db->insert('posts', $data);
 	}

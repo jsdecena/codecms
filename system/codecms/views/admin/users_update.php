@@ -45,7 +45,7 @@
             <?php foreach ($data as $user_data): ?>
             
               <div class="controls">
-                <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
+                <input type="hidden" value="<?php echo $user_data->users_id; ?>" name="id">
                 <label for="username" class="muted">Username</label>
                 <input type="text" class="input-block-level" name="username" value="<?php echo $user_data->username; ?>">          
               </div>

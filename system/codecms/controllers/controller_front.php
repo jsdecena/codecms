@@ -41,7 +41,8 @@ class Controller_front extends CI_Controller {
                 // END DYNAMICALLY ADD STYLESHEETS
 
                 $this->load->model('public_model');
-                $this->load->model('users_model');           
+                $this->load->model('users_model');
+                $this->load->helper('text');       
 
         }        
 
@@ -54,9 +55,9 @@ class Controller_front extends CI_Controller {
 
                 $this->template->set_template('public/templates/default/home_tpl'); 
 
-                $this->template->title = 'Home';
+                $this->template->title  = 'Home';
 
-                $data['page_data'] = $this->public_model->get_all_pages();
+                $data['page_data']      = $this->public_model->get_all_pages();
                 $this->template->content->view('public/templates/default/home', $data);
 
                 // publish the template
@@ -67,12 +68,21 @@ class Controller_front extends CI_Controller {
 
                 $this->template->set_template('public/templates/default/pages_tpl');                
 
-                $data['page_data']  = $this->public_model->get_all_pages(); //ALL THE PAGES FOR THE MENU PAGE LISTING
-                $data['page']       = $this->public_model->get_page(); // THE SPECIFIC PAGE
+                //ALL THE PAGES FOR THE MENU PAGE LISTING
+                $data['page_data']      = $this->public_model->get_all_pages();
+                
+                $data['page']           = $this->public_model->get_page(); // THE SPECIFIC PAGE
+                $page_title             = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
-                $page_title         = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
+                
+                // CHECK FOR THE POST PAGE
+                $post_page              = 'blog';
+                $data['post_page']      = $this->public_model->check_post_page($post_page);
 
-                $this->template->title = $page_title->title;                                              
+                // GET ALL THE POSTS
+                $data['all_posts']      = $this->public_model->get_all_posts();
+
+                $this->template->title  = $page_title->title;                                              
 
                 $this->template->content->view('public/templates/default/pages', $data);
 
@@ -83,8 +93,8 @@ class Controller_front extends CI_Controller {
 
                 $this->template->set_template('public/templates/default/posts_tpl');
 
-                $data['page_data']  = $this->public_model->get_all_pages();
-                $data['post']       = $this->public_model->view_post($slug);                               
+                $data['page_data']      = $this->public_model->get_all_pages();
+                $data['post']           = $this->public_model->view_post($slug);                               
 
                 $this->template->content->view('public/templates/default/posts', $data);
 

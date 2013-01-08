@@ -57,7 +57,7 @@
 				</div>
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Go Back</a>
+					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
 					<input type="submit" name="page_create" class="btn btn-primary" value="Create a page" />
 
 				</div>

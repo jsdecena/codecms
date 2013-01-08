@@ -38,7 +38,7 @@
       <?php endif; ?>
       
       <?php foreach ($data as $user_data) : ?>
-          <input type="hidden" value="<?php echo $user_data->id; ?>" name="id">
+          <input type="hidden" value="<?php echo $user_data->users_id; ?>" name="id">
           <label for="password">Password <sup class="text-error">*</sup></label>
           <input type="password" class="input-block-level" name="password" placeholder="Password" value="">
       <?php endforeach; ?>

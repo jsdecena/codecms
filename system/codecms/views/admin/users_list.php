@@ -25,9 +25,9 @@
 			</thead>
 			<tbody>
 
-			<?php foreach($user_data as $data): $id = $data['id']; ?>
+			<?php foreach($user_data as $data): $id = $data['users_id']; ?>
 				<tr>
-					<td><?php echo $data['id']; ?></td>
+					<td><?php echo $data['users_id']; ?></td>
 					<td><?php echo $data['username']; ?></td>
 					<td><?php echo $data['first_name']; ?></td>
 					<td><?php echo $data['last_name']; ?></td>

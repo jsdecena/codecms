@@ -22,6 +22,7 @@ class Public_model extends CI_Model {
 
 	public function get_page(){
 
+		//GET THE SPECIFIC PAGE
 		$query = $this->db->get_where('pages', array( 'slug' => $this->uri->segment(1) ));
 		
 		if($query->num_rows() > 0):
@@ -35,7 +36,8 @@ class Public_model extends CI_Model {
 			
 			return $page;
 
-		endif;		
+		endif;
+
 	}
 
 	public function count_all_pages(){
@@ -43,6 +45,20 @@ class Public_model extends CI_Model {
 		$query = $this->db->count_all_results('pages');
 
 		return $query;
+
+	}
+
+	//CHECK FOR THE PAGE THAT WILL SHOW ALL THE POSTS. THIS IS SET IN THE DATABASE BY THE SETTINGS.
+	public function check_post_page($post_page){
+
+		//CURRENTLY HARD CODED
+        $query = $this->db->get_where('settings', array('settings_value' => $post_page));
+		
+		if($query->num_rows() == 1):
+
+ 			return $query->row();
+
+		endif;
 
 	}
 
@@ -62,7 +78,6 @@ class Public_model extends CI_Model {
 			return false;
 
 		endif;
-
 
 	}	
 
@@ -85,6 +100,6 @@ class Public_model extends CI_Model {
 
 		return $query;
 
-	}	
+	}
 
 }
