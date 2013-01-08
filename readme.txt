@@ -9,7 +9,7 @@ How To install
 
 Upcoming functionality (Todo List):
 1. Batch delete of post/pages.
-2. Post/Pages pagination.
+2. Post/Pages pagination (Backend/Frontend).
 3. After page or post created, redirect to edit mode.
 4. Settings page.
 	4.1 Page to display blogs. ok
