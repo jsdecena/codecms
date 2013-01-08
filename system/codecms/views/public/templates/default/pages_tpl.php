@@ -20,6 +20,8 @@
 						
 						<?php							
 
+							echo '<span class="author">' . $row['author'] . "</span> on ";
+
 							$newDate = date("M jS Y", strtotime($row['date_add']));
 							echo $newDate;
 
