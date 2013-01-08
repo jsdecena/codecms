@@ -75,7 +75,7 @@ INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `date_add`, `modi
 VALUES
   (1,'about','About','About us page',NULL,'2012-12-16 07:38:20'),
   (2,'portfolio','Portfolio','Portfolio page',NULL,'2012-12-16 07:38:40'),
-  (3,'downloads','Downloads','Downloads page',NULL,'2012-12-16 07:38:59'),
+  (3,'blog','Blog','Blog page',NULL,'2012-12-16 07:38:59'),
   (4,'contact-us','Contact Us','Contact Us page',NULL,'2012-12-16 07:39:13');
 
 /*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
