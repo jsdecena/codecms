@@ -99,6 +99,16 @@ CREATE TABLE `cc_posts` (
   KEY `users_id` (`users_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+LOCK TABLES `cc_posts` WRITE;
+/*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
+
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `content`, `date_add`, `modified`)
+VALUES
+  (1,0,'post','post','<p>post</p>\n','2013-01-08 04:09:32','2013-01-08 12:09:32');
+
+/*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
 # Dump of table cc_settings
 # ------------------------------------------------------------
 
