@@ -67,10 +67,10 @@ class Controller_front extends CI_Controller {
 
                 $this->template->set_template('public/templates/default/pages_tpl');                
 
-                $data['page_data']  = $this->public_model->get_all_pages();
-                $data['page']       = $this->public_model->get_page();
+                $data['page_data']  = $this->public_model->get_all_pages(); //ALL THE PAGES FOR THE MENU PAGE LISTING
+                $data['page']       = $this->public_model->get_page(); // THE SPECIFIC PAGE
 
-                $page_title         = $this->public_model->get_page();
+                $page_title         = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
                 $this->template->title = $page_title->title;                                              
 
@@ -79,6 +79,18 @@ class Controller_front extends CI_Controller {
                 // publish the template
                 $this->template->publish();     
         }
+        public function post($slug) {
+
+                $this->template->set_template('public/templates/default/posts_tpl');
+
+                $data['page_data']  = $this->public_model->get_all_pages();
+                $data['post']       = $this->public_model->view_post($slug);                               
+
+                $this->template->content->view('public/templates/default/posts', $data);
+
+                // publish the template
+                $this->template->publish();
+        }       
 
 }
 

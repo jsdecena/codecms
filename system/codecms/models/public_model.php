@@ -7,18 +7,14 @@ class Public_model extends CI_Model {
 
 		$query = $this->db->get('pages');
 
-		if($query->num_rows() > 0):
+		if ( $query->num_rows() > 0 ) :
 
-			foreach ($query->result_array() as $row) :
-			   $page_list[] = $row;
-			endforeach;
+			return $query->result_array();
 
-			return $page_list;
-
-		else:
+		else :
 
 			return false;
-		
+
 		endif;
 
 
@@ -57,40 +53,31 @@ class Public_model extends CI_Model {
 
 		$query = $this->db->get('posts');
 
-		if($query->num_rows() > 0):
+		if ( $query->num_rows() > 0 ) :
 
-			foreach ($query->result_array() as $row) :
-			   $post_list[] = $row;
-			endforeach;
+			return $query->result_array();
 
-			return $post_list;
-
-		else:
+		else :
 
 			return false;
-		
+
 		endif;
 
 
 	}	
 
-	public function show_post( $post_id ){
+    public function view_post($slug){
 
-		$query = $this->db->get_where('posts', array( 'post_id' => $post_id ));
+        $query = $this->db->get_where('posts', array('slug' => $this->uri->segment(2)), 1);
 		
-		if($query->num_rows() > 0):
+		if($query->num_rows() == 1):
 
-			//IF A post IS FOUND DISPLAY THE DATA WITH IT
-			foreach ($query->result() as $row) :
-			    
-			    $post = $row;
+			var_dump($query->row()); die();
 
-			endforeach;
-			
-			return $post;
+ 			return $query->row();
 
-		endif;		
-	}
+		endif;
+    } 	
 
 	public function count_all_posts(){
 

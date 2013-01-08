@@ -181,6 +181,23 @@ class Pages extends CI_Controller {
 
     }
 
+    public function view_page() {
+
+            $this->template->set_template('public/templates/default/pages_tpl');                
+
+            $data['page_data']  = $this->public_model->get_all_pages();
+            $data['page']       = $this->public_model->get_page();
+
+            $page_title         = $this->public_model->get_page();
+
+            $this->template->title = $page_title->title;                                              
+
+            $this->template->content->view('public/templates/default/pages', $data);
+
+            // publish the template
+            $this->template->publish();     
+    }   
+
     public function page_edit(){
 
         if ( $this->users_model->check_if_logged_in() ) :        

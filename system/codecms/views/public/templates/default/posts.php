@@ -2,15 +2,15 @@
 
 <section id="main_content hidden">
 
-	<?php if ( isset($page) || is_array($page) ) : ?>
+	<?php if ( isset($post) || is_array($post) ) : ?>
 		
-		<h1><?php echo $page->title; ?></h1>
+		<h1><?php echo $post->title; ?></h1>
 
-		<p><?php echo $page->content; ?></p>
+		<p><?php echo $post->content; ?></p>
 
 		<?php else: ?>
 
-			<p>No page found</p>
+			<p>No post found</p>
 
 	<?php endif; ?>
 	

@@ -2,11 +2,6 @@
 
 class Posts_model extends CI_Model {
 
-	public $post_id;
-	public $title;
-	public $content;
-	public $created;
-
 	public function get_all_posts(){
 
 		$query = $this->db->get('posts');
@@ -23,34 +18,39 @@ class Posts_model extends CI_Model {
 
 	}
 
-	public function get_post(){
+	public function get_post($post_id){
 
-		$query = $this->db->get_where('posts', array( 'post_id' => $this->uri->segment(4) ));
+		//$query = $this->db->get_where('posts', array( 'post_id' => $this->uri->segment(4) ));
+
+		$post_id = $this->uri->segment(4);
+
+		$query = $this->db->get_where('posts', array( 'post_id' => $post_id ));
 		
 		if($query->num_rows() == 1):
 
  			return $query->row();
 
 		endif;		
-	}
+	}	
 
-	public function insert_created_post(){
+	public function insert_post(){
 
 			$data = array(
 			   'title' 		=> $this->input->post('title'),
 			   'content' 	=> $this->input->post('content'),
-			   'slug' 		=> $this->input->post('slug')
+			   'slug' 		=> url_title($this->input->post('title'))
 			);
+			//var_dump($data); die();
 
-			$this->db->insert('posts', $data);	
+			$this->db->insert('posts', $data);
 	}
 
-	public function update_edited_post(){
+	public function update_post(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),
 			'content' 	=> $this->input->post('content'),
-			'slug' 		=> $this->input->post('slug')
+			'slug' 		=> url_title($this->input->post('title'))
 		);
 
 		$this->db->where('post_id', $this->input->post('id'));

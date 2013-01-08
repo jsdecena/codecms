@@ -36,7 +36,7 @@
 								<td><?php echo $posts['post_id']; ?></td>
 								<td><?php echo $posts['title']; ?></td>
 								<td><?php echo $posts['content']; ?></td>
-								<td>
+								<td>								
 								<?php echo anchor("admin/posts/post_edit" . '/' . $posts["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>
 								<button name="id" class="btn btn-danger btn-small" value="<?php echo $posts["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">

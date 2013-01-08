@@ -685,7 +685,7 @@ class Main extends CI_Controller {
                 $this->load->model('main_model');
 
                 //ENABLE WHEN THE DB QUERY IF KNOWN                 
-                //$this->main_model->insert_settings();
+                $this->main_model->update_settings();
                 
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully cofigured your post settings.');
                 redirect('admin/main/settings', $data);

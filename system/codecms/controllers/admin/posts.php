@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posts extends CI_Controller {
+class Posts extends CI_Controller {    
 
     public function __construct(){ 
 
@@ -36,8 +36,8 @@ class Posts extends CI_Controller {
             'assets/js/bootstrap-scrollspy.js',
             'assets/js/bootstrap-tooltip.js',
             'assets/js/bootstrap-transition.js',
-            'assets/js/bootstrap-typeahead.js',*/
-            'assets/templates/default/js/default.js' //CC JS
+            'assets/js/bootstrap-typeahead.js',
+            'assets/templates/default/js/default.js' //CC JS */
         );
 
         $this->template->javascript->add($js);
@@ -150,11 +150,13 @@ class Posts extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
+            //SET THE MESAGE ONLY WHEN THE BUTTON "POST CREATE" IS CLICKED
             if ( $this->input->post('post_create') ) :
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');
-            endif;            
+            
+            endif;
 
-            $this->post_insert_db();            
+            $this->_post_insert_db();            
             redirect('admin/posts/post_create', $data);
 
         else:
@@ -164,12 +166,12 @@ class Posts extends CI_Controller {
         endif;
     }
 
-    public function post_insert_db(){
+    private function _post_insert_db(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->posts_model->insert_created_post();
+            $this->posts_model->insert_post();
 
         else:
 
@@ -180,14 +182,14 @@ class Posts extends CI_Controller {
 
     }
 
-    public function post_edit(){
+    public function post_edit($post_id){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->check_if_logged_in() ) : 
 
             $this->template->title      = 'posts';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_post();
+            $data['post_items']         = $this->posts_model->get_post($post_id);
             
             $this->template->content->view('admin/posts_edit', $data);
             
@@ -209,7 +211,7 @@ class Posts extends CI_Controller {
         if ( $this->form_validation->run() ) :
 
             //VALIDATION SUCCCESS
-            $this->post_edit_insert();
+            $this->_post_edit_insert();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this post.');
             redirect('admin/posts/post_edit' .'/'. $this->input->post('id'), $data);
@@ -223,11 +225,11 @@ class Posts extends CI_Controller {
         endif;            
     }
 
-    public function post_edit_insert(){
+    private function _post_edit_insert(){
 
         if ( $this->users_model->check_if_logged_in() ) :        
 
-            if ( $this->posts_model->update_edited_post() ) :
+            if ( $this->posts_model->update_post() ) :
 
                     //SUCCESFULL INSERTION OF THE EDITED post IN THE DB
                     return true;

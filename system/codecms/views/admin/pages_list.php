@@ -36,6 +36,7 @@
 								<td><?php echo $pages['title']; ?></td>
 								<td><?php echo $pages['content']; ?></td>
 								<td>
+								<?php echo anchor( $pages["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
 								<?php echo anchor("admin/pages/page_edit" . '/' . $pages["page_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>
 								<button name="id" class="btn btn-danger btn-small" value="<?php echo $pages["page_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
