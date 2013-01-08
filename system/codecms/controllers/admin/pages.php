@@ -130,10 +130,6 @@ class Pages extends CI_Controller {
             $this->template->title      = 'Pages';
 
             $data['logged_info']        = $this->users_model->logged_in();            
-
-            if ( $this->input->post('page_create') ) :
-                $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.');
-            endif;            
             
             $this->template->content->view('admin/pages_create', $data);
             
@@ -155,8 +151,10 @@ class Pages extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
-            $this->page_create_insert();            
-            $this->page_create();
+            $this->page_create_insert();
+
+            $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.'); 
+            redirect('admin/pages/page_create', $data, 'refresh');
 
         else:
 

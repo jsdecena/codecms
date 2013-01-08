@@ -33,23 +33,20 @@ class Posts_model extends CI_Model {
 
 	public function insert_post(){
 
-			$author = $this->db->get_where('users', array( 'email' => $this->session->userdata('email') ));
+			$query = $this->db->get_where('users', array( 'email' => $this->session->userdata('email') ));
 
-			if($author->num_rows() == 1):
-	 			
-	 			$current_user = $author->row();
-
-			endif;
-
-				return $current_user;
+			$author = $query->row();		
 
 			$data = array(
-			   'title' 		=> $this->input->post('title'),
-			   'content' 	=> $this->input->post('content'),
-			   'slug' 		=> url_title($this->input->post('title')),
-			   'author' 	=> $current_user->first_name . $current_user->last_name,
-			   'date_add'	=> date("Y-m-d H:i:s")
+				'users_id' 		=> $author->users_id,
+			   	'title' 		=> $this->input->post('title'),
+			   	'content' 		=> $this->input->post('content'),
+			   	'slug' 			=> url_title($this->input->post('title')),
+			   	'author' 		=> $author->first_name ." ". $author->last_name,
+			   	'date_add'		=> date("Y-m-d H:i:s")
 			);
+
+			//var_dump($data); die();
 
 			$this->db->insert('posts', $data);
 	}

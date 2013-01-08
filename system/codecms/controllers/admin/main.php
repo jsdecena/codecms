@@ -606,12 +606,12 @@ class Main extends CI_Controller {
 
         if ( $query->num_rows() > 1 ) :
 
-           if( $this->db->delete('users', array('id' => $this->uri->segment(4,0))) === TRUE) :
+           if( $this->db->delete('users', array('users_id' => $this->uri->segment(4,0))) === TRUE) :
 
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a user.');
                 $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a user.');
 
-                return $this->users_list();
+                redirect('admin/main/users_list', $data, 'refresh');
 
             endif;
 

@@ -36,7 +36,7 @@ LOCK TABLES `cc_users` WRITE;
 
 INSERT INTO `cc_users` (`users_id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
 VALUES
-  (52,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
+  (1,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
 
 /*!40000 ALTER TABLE `cc_users` ENABLE KEYS */;
 UNLOCK TABLES;

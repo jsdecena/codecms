@@ -48,8 +48,7 @@
 
 				<div class="controls clearfix">
 					<label for="post_title">Post Title <sup class="text-error">*</sup></label>
-					<input type="text" class="input-block-level" id="post_title" name="title" value="<?php echo $this->input->post('title'); ?>">
-					<input type="hidden" class="input-block-level" id="post_slug" name="slug" value="">
+					<input type="text" class="input-block-level" id="post_title" name="title" value="<?php echo $this->input->post('title'); ?>">					
 				</div>
 
 				<div class="controls clearfix">
