@@ -1,4 +1,4 @@
-/*BOOTSTRAP OVERRIDE*/
+/* ============== BOOTSTRAP OVERRIDE =============================================== */
 
 body.admin > .navbar .brand {
 	float: left;
@@ -40,6 +40,13 @@ body.admin .update_details label {
 body.admin .update_details .controls {
 	padding: 0;
 }
+
+/* ============== END BOOTSTRAP OVERRIDE =============================================== */
+
+
+
+/* ============== GENERAL STYLES =============================================== */
+
 .about {
 	min-width: 340px;
 }
@@ -84,3 +91,32 @@ sup {
 .hidden {
 	display: none;
 }
+.btn {
+	margin: 0 0 5px;
+}
+.action_left, .action_right {
+	width: 50%;
+}
+.action_right .pagination {
+	margin: 0;
+}
+.action_right .pagination ul {
+	float: right;
+}
+.post_page_chosen_label {
+	text-transform: capitalize;
+}
+/* ============== END GENERAL STYLES =============================================== */
+
+
+/* ============== TABLE STYLES =============================================== */
+.tbl_id {
+	max-width: 20px;
+}
+.tbl_title {
+	max-width: 100px;
+}
+.tbl_content {
+	max-width: 200px;
+}
+/* ============== END TABLE STYLES =============================================== */

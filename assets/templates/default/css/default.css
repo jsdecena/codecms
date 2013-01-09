@@ -89,6 +89,9 @@ body {
     padding: 10px;
     border: 1px solid #eee;
   }
+  #post_page_wrap a:hover {
+    text-decoration: none;
+  }
   .post_page {
     padding: 0 0 20px;
     margin: 0 0 20px;
