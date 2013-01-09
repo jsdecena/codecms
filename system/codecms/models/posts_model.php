@@ -44,11 +44,19 @@ class Posts_model extends CI_Model {
 			   	'date_add'		=> date("Y-m-d H:i:s")
 			);
 
-			//var_dump($data); die();
-
 			$this->db->insert('posts', $data);
 	}
 
+
+	public function get_post_id() {
+
+		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
+
+		$create_post_id = $query->row('post_id');
+
+		return $create_post_id;
+
+	}
 	public function update_post(){
 
 		$data = array(
@@ -59,6 +67,13 @@ class Posts_model extends CI_Model {
 
 		$this->db->where('post_id', $this->input->post('id'));
 		$this->db->update('posts', $data); 
+	}
+
+	public function delete_post() {
+
+		$this->db->delete('posts', array('post_id' => $this->input->post('post_id')));
+
+		return true;
 	}
 
 	public function count_all_posts(){

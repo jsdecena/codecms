@@ -13,11 +13,28 @@
 		<section id="pages">
 			<div class="controlgroup">
 
+				<?php if ( $this->session->flashdata('message_success') ) : ?>
+
+				<div class="text-success alert-block alert-success fade in">
+				  <a class="close" data-dismiss="alert">&times;</a>
+				  <?php echo $this->session->flashdata('message_success'); ?> 
+				</div>
+
+				<?php elseif ( $this->session->flashdata('message_error') ): ?>
+
+				<div class="text-error alert-block alert-error fade in"> 
+				  <a class="close" data-dismiss="alert">&times;</a>
+				  <?php echo $this->session->flashdata('message_error'); ?> 
+				</div>      
+
+				<?php endif; ?>
+
 				<?php 
 
 				//POST LIST FORM
 
-				if ( is_array($post_items)) : ?>
+				if ( is_array($post_items)) : echo form_open('admin/posts/post_delete'); ?>
+				
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -30,7 +47,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php echo form_open('admin/posts/post_delete'); foreach ($post_items as $posts) :  ?>			
+						<?php foreach ($post_items as $posts) :  ?>			
 							<tr>
 								<td><input type="checkbox" name="<?php echo $posts['post_id']; ?>" /> </td>
 								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
@@ -39,29 +56,25 @@
 								<td class="tbl_author"><?php echo $posts['author']; ?></td>
 								<td class="tbl_actions">								
 								<?php echo anchor("admin/posts/post_edit" . '/' . $posts["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
-								<?php if ( $logged_info['role'] == 'admin') : ?>
-								<button name="id" class="btn btn-danger btn-small" value="<?php echo $posts["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
+								<?php if ( $logged_info['role'] == 'admin' ) : ?>
+								<button name="post_id" class="btn btn-danger btn-small" value="<?php echo $posts["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
 									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
 								<?php endif; ?>
 								</td>
 							</tr>			
-						<?php endforeach;  echo form_close(); ?>
+						<?php endforeach; ?>
 					</tbody>
 				</table>				
 				
 				<div class="pull-left action_left">
-
-					<?php echo form_open('admin/posts/post_delete_selected'); ?>
-						<button name="id" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected posts?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
-					<?php  echo form_close(); ?>
-
+					<button name="delete_selected" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected posts?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
 				</div>
 
 				<div class="pull-right action_right">
 					<?php echo $links; //PAGINATION ?>
 				</div>
 				
-				<?php else: ?>
+				<?php echo form_close(); else: ?>
 
 				  <div class="text-error alert-block alert-error fade in">
 				    <p>Ooops, No more posts!</p>

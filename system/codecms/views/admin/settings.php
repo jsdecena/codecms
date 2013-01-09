@@ -39,17 +39,22 @@
 
 				<?php foreach ($post_settings as $value) : ?>
 
-					<?php if ($value['settings_name'] == 'post_per_page') : ?>
+					<?php if ($value['settings_name'] == 'post_page_chosen') : ?>
 
-					<div class="controls">
+					<div id="choose_page" class="controls hidden">
 						<label for="choose_page" class="input-block-level">Page to display your posts.</label>	
-						<select name="post_page_chosen" id="post_page_chosen" class="clear">
+						<select name="post_page" id="post_page_chosen" class="clear">
 							<option value="0">Choose Page</option>
 							<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : ?>
 			  					<option value="<?php echo $pages['slug']; ?>"><?php echo $pages['title']; ?></option>
 							<?php endforeach; endif; ?>	
 						</select>
-					</div>	
+					</div>
+
+					<div class="controls">
+						<label for="choose_page" class="input-block-level">Page to display your posts. <a href="#" id="change_post_page">Change post page.</a></label>
+						<input name="post_page_chosen" id="post_page_chosen_label" class="post_page_chosen_label" type="text" value="<?php echo set_value('Blog', $value['settings_value']); ?>">
+					</div>
 
 					<?php endif; ?>			
 
@@ -57,7 +62,7 @@
 
 						<div class="controls">
 							<label for="post_per_page" class="input-block-level">Number of post to show in the page.</label>
-							<input type="text" name="post_per_page" placeholder="Posts per page" value="<?php echo set_value('10', $value['settings_value']);  ?>">
+							<input type="text" name="post_per_page" placeholder="Posts per page" value="<?php echo set_value('10', $value['settings_value']); ?>">
 						</div>
 
 					<?php endif; ?>

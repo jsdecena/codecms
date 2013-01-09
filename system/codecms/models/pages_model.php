@@ -30,7 +30,7 @@ class Pages_model extends CI_Model {
 		endif;		
 	}
 
-	public function insert_created_page(){
+	public function insert_page(){
 
 			$data = array(
 			   'title' 			=> $this->input->post('title'),
@@ -41,6 +41,16 @@ class Pages_model extends CI_Model {
 
 			$this->db->insert('pages', $data);	
 	}
+
+	public function get_page_id() {
+
+		$query = $this->db->get_where('pages', array( 'title' => $this->input->post('title') ));
+
+		$create_page_id = $query->row('page_id');
+
+		return $create_page_id;
+
+	}	
 
 	public function insert_edited_page(){
 

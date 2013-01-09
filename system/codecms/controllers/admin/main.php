@@ -23,7 +23,9 @@ class Main extends CI_Controller {
             'assets/js/bootstrap-dropdown.js',
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
-            'assets/js/ckeditor/ckeditor.js'
+            'assets/js/ckeditor/ckeditor.js',
+            'assets/js/default.js'
+
 
 //USER THE OTHER JS IF YOU NEED IT
 /*        	'assets/js/application.js',

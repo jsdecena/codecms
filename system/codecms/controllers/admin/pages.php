@@ -154,7 +154,7 @@ class Pages extends CI_Controller {
             $this->page_create_insert();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.'); 
-            redirect('admin/pages/page_create', $data, 'refresh');
+            redirect('admin/pages/page_edit' .'/'. $this->pages_model->get_page_id(), $data, 'refresh');
 
         else:
 
@@ -168,7 +168,7 @@ class Pages extends CI_Controller {
         if ( $this->users_model->check_if_logged_in() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->pages_model->insert_created_page();
+            $this->pages_model->insert_page();
 
         else:
 

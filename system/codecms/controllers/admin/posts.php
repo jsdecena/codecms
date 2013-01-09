@@ -152,12 +152,13 @@ class Posts extends CI_Controller {
 
             //SET THE MESAGE ONLY WHEN THE BUTTON "POST CREATE" IS CLICKED
             if ( $this->input->post('post_create') ) :
+                
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');
             
             endif;
 
             $this->_post_insert_db();            
-            redirect('admin/posts/post_create', $data);
+            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
 
         else:
 
@@ -250,18 +251,12 @@ class Posts extends CI_Controller {
 
     public function post_delete(){
 
-        $query = $this->db->get('posts');
+        if( $this->posts_model->delete_post() === TRUE) :                
 
-        if ( $query->num_rows() > 0 ) :
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
+            $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-           if( $this->db->delete('posts', array('post_id' => $this->input->post('id'))) === TRUE) :
-
-                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a user.');
-                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a user.');
-
-               redirect('admin/posts/posts_list' .'/'. $this->input->post('id'), $data);
-
-            endif;
+           redirect('admin/posts/posts_list' .'/'. $this->input->post('post_id'), $data);
 
         endif;
     }
