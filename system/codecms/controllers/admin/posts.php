@@ -77,17 +77,15 @@ class Posts extends CI_Controller {
         $this->template->publish();
 	}
 
-    public function posts_list($limit=0){
+    public function posts_list(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
             $this->load->library('pagination');
 
-            $config['base_url']         = base_url('admin/post/posts_list');
-            $config['total_rows']       = $this->posts_model->count_all_posts();;
-            $config['per_page']         = 5;
-            $config['num_links']        = 20;
-            $config['uri_segment']      = 5;
+            $config['base_url']         = base_url('admin/posts/posts_list');
+            $config['total_rows']       = $this->posts_model->count_all_posts();
+            $config['per_page']         = 2;            
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
@@ -102,11 +100,13 @@ class Posts extends CI_Controller {
             $config['prev_link']        = 'Prev';
 
             $this->pagination->initialize($config);
+
+            $data['links']              = $this->pagination->create_links();
         
             $this->template->title      = 'Post Listing';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts();
+            $data['post_items']         = $this->posts_model->get_all_posts('post_id', 'desc', '0,3');
             
             $this->template->content->view('admin/posts_list', $data);
             

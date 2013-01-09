@@ -5,17 +5,17 @@
 		<?php
 
 			//CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY THE POSTS			
-			if ( isset($post_page->settings_value) && $post_page['settings_value'] == $this->uri->segment(1) ) :
+			if ( isset($post_page['settings_value']) && $post_page['settings_value'] == $this->uri->segment(1) ) :
 
 		?>
 		
 			<div id="post_page_wrap" class="span9">
 			
-				<?php foreach ($all_posts as $row) : ?>
+				<?php if ( is_array($all_posts) ) : foreach ($all_posts as $row) : $slug = $row['slug']; ?>
 
 				<div class="post_page">
 					<h2>
-						<?php echo $row['title']; ?> 
+					<a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo $row['title']; ?></a>
 						<span> 
 						
 						<?php							
@@ -25,14 +25,18 @@
 							$newDate = date("M jS Y", strtotime($row['date_add']));
 							echo $newDate;
 
-							//echo $row['date_add'] ?>
+						?>
 						
 						</span>
 					</h2>
 					<?php echo word_limiter($row['content'], 50); ?>
 				</div>				
 
-				<?php endforeach; //END ALL POSTS ROW ?>
+				<?php endforeach; else: //SHOW NO POST ?>
+
+				<h4>Sorry, there are no posts to show. </h4>
+
+				<?php endif; ?>				
 
 			</div><!--	END POST PAGE-->
 		

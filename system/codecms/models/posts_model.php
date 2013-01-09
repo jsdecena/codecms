@@ -2,17 +2,15 @@
 
 class Posts_model extends CI_Model {
 
-	public function get_all_posts(){
+	public function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
 
-		$query = $this->db->get('posts');
+		$db = $this->db->dbprefix('posts');
+
+		$query = $this->db->query(' SELECT * FROM '. $db .' ORDER BY '. $order .' '. $asc_desc .' LIMIT '. $limit .'');
 
 		if ( $query->num_rows() > 0 ) :
 
 			return $query->result_array();
-
-		else :
-
-			return false;
 
 		endif;
 
@@ -41,7 +39,7 @@ class Posts_model extends CI_Model {
 				'users_id' 		=> $author->users_id,
 			   	'title' 		=> $this->input->post('title'),
 			   	'content' 		=> $this->input->post('content'),
-			   	'slug' 			=> url_title($this->input->post('title')),
+			   	'slug' 			=> strtolower(url_title($this->input->post('title'))),
 			   	'author' 		=> $author->first_name ." ". $author->last_name,
 			   	'date_add'		=> date("Y-m-d H:i:s")
 			);
@@ -66,7 +64,7 @@ class Posts_model extends CI_Model {
 	public function count_all_posts(){
 
 		$query = $this->db->count_all_results('posts');
-
+		
 		return $query;
 
 	}

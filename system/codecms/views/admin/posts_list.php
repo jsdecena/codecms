@@ -13,32 +13,29 @@
 		<section id="pages">
 			<div class="controlgroup">
 
-				<!-- LOAD THE PAGE CONTENT -->
-				<?php // $this->load->view('admin/pages_tpl_list'); ?>
-
 				<?php 
 
-				//PAGE LIST FORM
+				//POST LIST FORM
 
 				if ( is_array($post_items)) : echo form_open('admin/posts/post_delete'); ?>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Title</th>
-							<th>Content</th>
-							<th>Author</th>
-							<th>Actions</th>
+							<th class="tbl_id">ID</th>
+							<th class="tbl_title">Title</th>
+							<th class="tbl_content">Content</th>
+							<th class="tbl_author">Author</th>
+							<th class="tbl_actions">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($post_items as $posts) : ?>			
 							<tr>
-								<td><?php echo $posts['post_id']; ?></td>
-								<td><?php echo $posts['title']; ?></td>
-								<td><?php echo $posts['content']; ?></td>
-								<td><?php echo $posts['author']; ?></td>
-								<td>								
+								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
+								<td class="tbl_title"><?php echo $posts['title']; ?></td>
+								<td class="tbl_content"><?php echo $posts['content']; ?></td>
+								<td class="tbl_author"><?php echo $posts['author']; ?></td>
+								<td class="tbl_actions">								
 								<?php echo anchor("admin/posts/post_edit" . '/' . $posts["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>
 								<button name="id" class="btn btn-danger btn-small" value="<?php echo $posts["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
@@ -46,12 +43,12 @@
 								<?php endif; ?>
 								</td>
 							</tr>			
-						<?php endforeach; ?>	
+						<?php endforeach; ?>
 					</tbody>
-				</table>
-
-				<?php // echo $this->pagination->create_links(); ?>
+				</table>				
 					
+				<p> <?php echo $links; //PAGINATION ?> </p>					
+				
 				<?php echo form_close(); else: ?>
 
 				  <div class="text-error alert-block alert-error fade in">

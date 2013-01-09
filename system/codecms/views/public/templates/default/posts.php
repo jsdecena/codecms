@@ -2,7 +2,7 @@
 
 <section id="main_content hidden">
 
-	<?php if ( isset($post) || is_array($post) ) : ?>
+	<?php if ( isset($post) ) : //var_dump($post); die(); ?>
 		
 		<h1><?php echo $post->title; ?></h1>
 

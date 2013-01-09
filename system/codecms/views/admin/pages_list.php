@@ -23,19 +23,19 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>Title</th>
-							<th>Content</th>
-							<th>Actions</th>
+							<th class="tbl_id">ID</th>
+							<th class="tbl_title">Title</th>
+							<th class="tbl_content">Content</th>
+							<th class="tbl_actions">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($page_items as $pages) : ?>			
 							<tr>
-								<td><?php echo $pages['page_id']; ?></td>
-								<td><?php echo $pages['title']; ?></td>
-								<td><?php echo $pages['content']; ?></td>
-								<td>
+								<td class="tbl_id"><?php echo $pages['page_id']; ?></td>
+								<td class="tbl_title"><?php echo $pages['title']; ?></td>
+								<td class="tbl_content"><?php echo $pages['content']; ?></td>
+								<td class="tbl_actions">
 								<?php echo anchor( $pages["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
 								<?php echo anchor("admin/pages/page_edit" . '/' . $pages["page_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>

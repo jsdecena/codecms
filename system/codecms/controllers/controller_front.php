@@ -57,7 +57,12 @@ class Controller_front extends CI_Controller {
 
                 $this->template->title  = 'Home';
 
+                //ALL THE PAGES FOR THE MENU PAGE LISTING
                 $data['page_data']      = $this->public_model->get_all_pages();
+                
+                //GET ALL THE POSTS
+                $data['all_posts']      = $this->public_model->get_all_posts('post_id', 'desc', '0,3');
+
                 $this->template->content->view('public/templates/default/home', $data);
 
                 // publish the template
@@ -66,7 +71,7 @@ class Controller_front extends CI_Controller {
 
         public function pages() {
 
-                $this->template->set_template('public/templates/default/pages_tpl');                
+                $this->template->set_template('public/templates/default/pages_tpl');                            
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
                 $data['page_data']      = $this->public_model->get_all_pages();
@@ -75,11 +80,11 @@ class Controller_front extends CI_Controller {
                 $page_title             = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
                 
-                // CHECK FOR THE POST PAGE                
+                // CHECK FOR THE PAGE TO DISPLAY ALL THE POSTS              
                 $data['post_page']      = $this->public_model->check_post_page();                
 
                 // GET ALL THE POSTS
-                $data['all_posts']      = $this->public_model->get_all_posts();
+                $data['all_posts']      = $this->public_model->get_all_posts();                
 
                 $this->template->title  = $page_title->title;                                              
 
@@ -88,18 +93,6 @@ class Controller_front extends CI_Controller {
                 // publish the template
                 $this->template->publish();     
         }
-        public function post($slug) {
-
-                $this->template->set_template('public/templates/default/posts_tpl');
-
-                $data['page_data']      = $this->public_model->get_all_pages();
-                $data['post']           = $this->public_model->view_post($slug);                               
-
-                $this->template->content->view('public/templates/default/posts', $data);
-
-                // publish the template
-                $this->template->publish();
-        }       
 
 }
 

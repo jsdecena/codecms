@@ -4,14 +4,11 @@
 
 	<div class="span9">
 
-		<?php //CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY POSTS ?>
+			<div id="post_page_wrap" class="span9">
+			
+				<?php echo $this->template->content; ?>
 
-
-
-		<?php 
-				//IF NOT DISPLAY AS PER NORMAL
-				echo $this->template->content; 
-		?>
+			</div><!--	END POST PAGE-->
 
 	</div><!--/span-->
 
