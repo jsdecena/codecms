@@ -13,14 +13,14 @@
 <!-- Example row of columns -->
 <div class="row-fluid">
 
-  <?php foreach ($all_posts as $row) : $slug = $row['slug']; ?>
+  <?php if ( is_array($all_posts) ) : foreach ($all_posts as $row) : $slug = $row['slug']; ?>
 
   <div class="span4">
-    <h2><a href="<?php echo base_url("controller_front/post/$slug"); ?>"><?php echo character_limiter($row['title'], 15); ?></a></h2>
+    <h2><a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo character_limiter($row['title'], 15); ?></a></h2>
     <?php echo word_limiter($row['content'], 50); ?>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
+    <p><a class="btn" href="<?php echo base_url("blog/post/$slug"); ?>">View details &raquo;</a></p>
   </div>
 
-  <?php endforeach; //END ALL POSTS ROW ?>
+  <?php endforeach; endif; //END ALL POSTS ROW ?>
 
 </div>

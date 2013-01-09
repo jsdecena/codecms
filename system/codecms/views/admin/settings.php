@@ -46,7 +46,7 @@
 						<select name="post_page_chosen" id="post_page_chosen" class="clear">
 							<option value="0">Choose Page</option>
 							<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : ?>
-			  					<option value="<?php echo $pages['slug']; ?>" <?php if ( $pages['slug'] == $this->input->post('post_page_chosen') ) : ?>selected="selected"<?php endif; ?>><?php echo $pages['title']; ?></option>
+			  					<option value="<?php echo $pages['slug']; ?>"><?php echo $pages['title']; ?></option>
 							<?php endforeach; endif; ?>	
 						</select>
 					</div>	

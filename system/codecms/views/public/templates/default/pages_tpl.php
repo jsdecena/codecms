@@ -29,10 +29,15 @@
 						
 						</span>
 					</h2>
-					<?php echo word_limiter($row['content'], 50); ?>
+					<?php echo word_limiter($row['content'], 30); ?>
+					<p><a href="<?php echo base_url("blog/post/$slug"); ?>">Continue Reading</a></p>
 				</div>				
 
-				<?php endforeach; else: //SHOW NO POST ?>
+				<?php endforeach; ?>
+
+				<p><?php echo $links; ?></p>
+				
+				<?php else: //SHOW NO POST ?>
 
 				<h4>Sorry, there are no posts to show. </h4>
 

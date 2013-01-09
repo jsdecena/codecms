@@ -41,7 +41,7 @@ class Controller_front extends CI_Controller {
                 // END DYNAMICALLY ADD STYLESHEETS
 
                 $this->load->model('public_model');
-                $this->load->model('users_model');
+                $this->load->model('posts_model');
                 $this->load->helper('text');       
 
         }        
@@ -71,7 +71,29 @@ class Controller_front extends CI_Controller {
 
         public function pages() {
 
-                $this->template->set_template('public/templates/default/pages_tpl');                            
+                $this->template->set_template('public/templates/default/pages_tpl');
+
+                $this->load->library('pagination');
+
+                $config['base_url']         = base_url('blog/posts_list');
+                $config['total_rows']       = $this->posts_model->count_all_posts();
+                $config['per_page']         = 2;            
+                $config['full_tag_open']    = '<div class="pagination"><ul>';
+                $config['full_tag_close']   = '</ul></div>';
+                $config['num_tag_open']     = '<li>';
+                $config['num_tag_close']    = '</li>';   
+                $config['cur_tag_open']     = '<li><a href="#" class="current">';
+                $config['cur_tag_close']    = '</a></li>';
+                $config['prev_tag_open']    = '<li id="prev_item">';
+                $config['prev_tag_close']   = '</li>';
+                $config['next_tag_open']    = '<li id="next_item">';
+                $config['next_tag_close']   = '</li>';
+                $config['next_link']        = 'Next';
+                $config['prev_link']        = 'Prev';
+
+                $this->pagination->initialize($config);
+
+                $data['links']              = $this->pagination->create_links();                                           
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
                 $data['page_data']      = $this->public_model->get_all_pages();

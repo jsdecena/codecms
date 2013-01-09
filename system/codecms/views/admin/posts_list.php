@@ -17,10 +17,11 @@
 
 				//POST LIST FORM
 
-				if ( is_array($post_items)) : echo form_open('admin/posts/post_delete'); ?>
+				if ( is_array($post_items)) : ?>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
+							<th>&nbsp;</th>
 							<th class="tbl_id">ID</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
@@ -29,8 +30,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($post_items as $posts) : ?>			
+						<?php echo form_open('admin/posts/post_delete'); foreach ($post_items as $posts) :  ?>			
 							<tr>
+								<td><input type="checkbox" name="<?php echo $posts['post_id']; ?>" /> </td>
 								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
 								<td class="tbl_title"><?php echo $posts['title']; ?></td>
 								<td class="tbl_content"><?php echo $posts['content']; ?></td>
@@ -43,13 +45,23 @@
 								<?php endif; ?>
 								</td>
 							</tr>			
-						<?php endforeach; ?>
+						<?php endforeach;  echo form_close(); ?>
 					</tbody>
 				</table>				
-					
-				<p> <?php echo $links; //PAGINATION ?> </p>					
 				
-				<?php echo form_close(); else: ?>
+				<div class="pull-left action_left">
+
+					<?php echo form_open('admin/posts/post_delete_selected'); ?>
+						<button name="id" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected posts?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
+					<?php  echo form_close(); ?>
+
+				</div>
+
+				<div class="pull-right action_right">
+					<?php echo $links; //PAGINATION ?>
+				</div>
+				
+				<?php else: ?>
 
 				  <div class="text-error alert-block alert-error fade in">
 				    <p>Ooops, No more posts!</p>

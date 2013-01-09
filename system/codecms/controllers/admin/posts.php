@@ -266,4 +266,20 @@ class Posts extends CI_Controller {
         endif;
     }
 
+    public function post_delete_selected(){
+
+        var_dump($_POST); die();
+
+        $query = $this->db->get('posts');
+
+        if ( $query->num_rows() > 0 ) :
+
+        //$this->db->query("DELETE FROM `cc_posts` WHERE `post_id` IN( ". .")");
+
+        endif;        
+
+        //$this->db->query("DELETE FROM `cc_posts` WHERE `post_id` IN( ". .")");        
+
+    }
+
 }
