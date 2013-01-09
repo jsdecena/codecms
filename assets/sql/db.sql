@@ -75,7 +75,7 @@ INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `date_add`, `modi
 VALUES
   (1,'about','About','About us page','2012-12-16 07:38:20','2012-12-16 07:38:20'),
   (2,'portfolio','Portfolio','Portfolio page', '2012-12-16 07:38:20','2012-12-16 07:38:40'),
-  (3,'downloads','Downloads','Downloads page','2012-12-16 07:38:20','2012-12-16 07:38:59'),
+  (3,'blog','Blog','Blog page','2012-12-16 07:38:20','2012-12-16 07:38:59'),
   (4,'contact-us','Contact Us','Contact Us page','2012-12-16 07:38:20','2012-12-16 07:39:13');
 
 /*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
@@ -98,6 +98,16 @@ CREATE TABLE `cc_posts` (
   PRIMARY KEY (`post_id`),
   KEY `users_id` (`users_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `cc_posts` WRITE;
+/*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
+
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `date_add`, `modified`)
+VALUES
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!','0000-00-00 00:00:00','0000-00-00 00:00:00');
+
+/*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 # Dump of table cc_settings
 # ------------------------------------------------------------

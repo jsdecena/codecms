@@ -75,7 +75,22 @@ class Pages_model extends CI_Model {
 		$query = $this->db->count_all_results('pages');
 
 		return $query;
-
 	}
+
+	//SINGLE DELETE
+	function delete_page() {
+
+		$this->db->delete('pages', array('page_id' => $this->input->post('page_id')));
+
+		return true;
+	}
+
+	//MULTIPLE DELETE
+	function delete_page_selection($id) {
+
+	    $this->db->where_in('page_id', $id)->delete('pages');
+
+		return true;
+	}	
 
 }

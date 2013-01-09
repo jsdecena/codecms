@@ -108,7 +108,15 @@ class Controller_front extends CI_Controller {
                 // GET ALL THE POSTS
                 $data['all_posts']      = $this->public_model->get_all_posts();                
 
-                $this->template->title  = $page_title->title;                                              
+                if( isset($page_title) ) :
+                    
+                    $this->template->title  = $page_title->title;
+
+                else:
+
+                    $this->template->title  = 'Page Not Found';
+
+                endif;
 
                 $this->template->content->view('public/templates/default/pages', $data);
 

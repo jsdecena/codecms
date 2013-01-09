@@ -75,6 +75,7 @@ class Posts_model extends CI_Model {
 		$this->db->update('posts', $data); 
 	}
 
+	//SINGLE DELETE
 	function delete_post() {
 
 		$this->db->delete('posts', array('post_id' => $this->input->post('post_id')));
@@ -82,6 +83,7 @@ class Posts_model extends CI_Model {
 		return true;
 	}
 
+	//MULTIPLE DELETE
 	function delete_post_selection($id) {
 
 	    $this->db->where_in('post_id', $id)->delete('posts');

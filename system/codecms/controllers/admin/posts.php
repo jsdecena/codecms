@@ -248,7 +248,7 @@ class Posts extends CI_Controller {
         endif;  
     }
 
-    /* ------- DELETE THE SPECIFIC post ----------- */
+    /* ------- DELETE POSTS ----------- */
 
     public function post_delete(){
 

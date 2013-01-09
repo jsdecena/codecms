@@ -13,8 +13,21 @@
 		<section id="pages">
 			<div class="controlgroup">
 
-				<!-- LOAD THE PAGE CONTENT -->
-				<?php // $this->load->view('admin/pages_tpl_list'); ?>
+				<?php if ( $this->session->flashdata('message_success') ) : ?>
+
+				<div class="text-success alert-block alert-success fade in">
+				  <a class="close" data-dismiss="alert">&times;</a>
+				  <?php echo $this->session->flashdata('message_success'); ?> 
+				</div>
+
+				<?php elseif ( $this->session->flashdata('message_error') ): ?>
+
+				<div class="text-error alert-block alert-error fade in"> 
+				  <a class="close" data-dismiss="alert">&times;</a>
+				  <?php echo $this->session->flashdata('message_error'); ?> 
+				</div>      
+
+				<?php endif; ?>
 
 				<?php 
 
@@ -23,6 +36,7 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
+							<th><input type="checkbox" id="select_all" /></th>
 							<th class="tbl_id">ID</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
@@ -32,6 +46,7 @@
 					<tbody>
 						<?php foreach ($page_items as $pages) : ?>			
 							<tr>
+								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $pages['page_id']; ?>" /></td>
 								<td class="tbl_id"><?php echo $pages['page_id']; ?></td>
 								<td class="tbl_title"><?php echo $pages['title']; ?></td>
 								<td class="tbl_content"><?php echo $pages['content']; ?></td>
@@ -39,7 +54,7 @@
 								<?php echo anchor( $pages["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
 								<?php echo anchor("admin/pages/page_edit" . '/' . $pages["page_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>
-								<button name="id" class="btn btn-danger btn-small" value="<?php echo $pages["page_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
+								<button name="page_id" class="btn btn-danger btn-small" value="<?php echo $pages["page_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
 									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
 								<?php endif; ?>
 								</td>
@@ -48,7 +63,13 @@
 					</tbody>
 				</table>
 
-				<?php // echo $this->pagination->create_links(); ?>
+				<div class="pull-left action_left">
+					<button name="delete_selected" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected pages?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
+				</div>
+
+				<div class="pull-right action_right">
+					<?php // echo $links; //PAGINATION ?>
+				</div>
 					
 				<?php echo form_close(); else: ?>
 

@@ -260,22 +260,34 @@ class Pages extends CI_Controller {
         endif;  
     }
 
-    /* ------- DELETE THE SPECIFIC PAGE ----------- */
+    /* ------- DELETE PAGES ----------- */
 
     public function page_delete(){
 
-        $query = $this->db->get('pages');
+        //SINGLE DELETE
+        if ( $this->input->post('page_id')) :
+            
+            if( $this->pages_model->delete_page() === TRUE) :
 
-        if ( $query->num_rows() > 0 ) :
+                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a page.');
+                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a page. Please try again.');
 
-           if( $this->db->delete('pages', array('page_id' => $this->input->post('id'))) === TRUE) :
-
-                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a user.');
-                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a user.');
-
-               redirect('admin/pages/pages_list' .'/'. $this->input->post('id'), $data);
+               redirect('admin/pages/pages_list' .'/'. $this->input->post('page_id'), $data);
 
             endif;
+
+        else:            
+
+            $id = $this->input->post('delete_selection');                  
+            
+            for( $i=0; $i<sizeof($id); $i++) :
+            
+                $this->pages_model->delete_page_selection($id[$i]);
+            
+            endfor;
+            
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted your selected pages.');
+            redirect('admin/pages/pages_list', $data);
 
         endif;
     }    

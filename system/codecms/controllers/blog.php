@@ -66,10 +66,21 @@ class Blog extends CI_Controller {
         //SINGLE POST
         public function post() {
 
-                $this->template->set_template('public/templates/default/posts_tpl');
+                $this->template->set_template('public/templates/default/posts_tpl');                
 
                 $data['page_data']          = $this->public_model->get_all_pages();
                 $data['post']               = $this->public_model->view_post();
+                $post_title                 = $this->public_model->view_post(); //PAGE TITLE OF THE SPECIFIC POST
+
+                if( isset($page_title) ) :
+                
+                    $this->template->title      = $post_title->title;
+
+                else:
+
+                    $this->template->title  = 'Page Not Found';
+
+                endif;            
 
                 $this->template->content->view('public/templates/default/posts', $data);
 
