@@ -1,9 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Public_model extends CI_Model {	
+class Public_model extends CI_Model {
+
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }		
 
 	//START PAGES ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public function get_all_pages(){
+	function get_all_pages(){
 
 		$query = $this->db->get('pages');
 
@@ -20,7 +26,7 @@ class Public_model extends CI_Model {
 
 	}	
 
-	public function get_page(){
+	function get_page(){
 
 		//GET THE SPECIFIC PAGE
 		$query = $this->db->get_where('pages', array( 'slug' => $this->uri->segment(1) ));
@@ -40,7 +46,7 @@ class Public_model extends CI_Model {
 
 	}
 
-	public function count_all_pages(){
+	function count_all_pages(){
 
 		$query = $this->db->count_all_results('pages');
 
@@ -49,7 +55,7 @@ class Public_model extends CI_Model {
 	}
 
 	//CHECK FOR THE PAGE THAT WILL SHOW ALL THE POSTS. THIS IS SET IN THE DATABASE BY THE SETTINGS.
-	public function check_post_page(){
+	function check_post_page(){
 
 		$query = $this->db->get('cc_settings');
 
@@ -68,7 +74,7 @@ class Public_model extends CI_Model {
 
 
 	//START POSTS ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
+	function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
 
 		$db = $this->db->dbprefix('posts');
 
@@ -82,7 +88,7 @@ class Public_model extends CI_Model {
 
 	}	
 
-    public function view_post(){
+    function view_post(){
 
         $query = $this->db->get_where('posts', array('slug' => $this->uri->segment(3,0)), 1);
 		
@@ -93,7 +99,7 @@ class Public_model extends CI_Model {
 		endif;
     } 	
 
-	public function count_all_posts(){
+	function count_all_posts(){
 
 		$query = $this->db->count_all_results('posts');
 

@@ -24,6 +24,7 @@ class Posts extends CI_Controller {
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
+            'assets/js/default.js'
 
             //USER THE OTHER JS IF YOU NEED IT
 /*          'assets/js/application.js',
@@ -251,30 +252,33 @@ class Posts extends CI_Controller {
 
     public function post_delete(){
 
-        if( $this->posts_model->delete_post() === TRUE) :                
+        //SINGLE DELETE
+        if ( $this->input->post('post_id')) :
+            
+            if( $this->posts_model->delete_post() === TRUE) :
 
-            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
-            $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
+                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
+                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-           redirect('admin/posts/posts_list' .'/'. $this->input->post('post_id'), $data);
+               redirect('admin/posts/posts_list' .'/'. $this->input->post('post_id'), $data);
+
+            endif;
+
+        else:            
+
+            $id = $this->input->post('delete_selection');                  
+            
+            for( $i=0; $i<sizeof($id); $i++) :
+            
+                $this->posts_model->delete_post_selection($id[$i]);
+            
+            endfor;
+            
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted your selected posts.');
+            redirect('admin/posts/posts_list', $data);
 
         endif;
     }
 
-    public function post_delete_selected(){
-
-        var_dump($_POST); die();
-
-        $query = $this->db->get('posts');
-
-        if ( $query->num_rows() > 0 ) :
-
-        //$this->db->query("DELETE FROM `cc_posts` WHERE `post_id` IN( ". .")");
-
-        endif;        
-
-        //$this->db->query("DELETE FROM `cc_posts` WHERE `post_id` IN( ". .")");        
-
-    }
 
 }

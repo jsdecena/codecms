@@ -38,7 +38,7 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>&nbsp;</th>
+							<th><input type="checkbox" id="select_all" /></th>
 							<th class="tbl_id">ID</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
@@ -49,7 +49,7 @@
 					<tbody>
 						<?php foreach ($post_items as $posts) :  ?>			
 							<tr>
-								<td><input type="checkbox" name="<?php echo $posts['post_id']; ?>" /> </td>
+								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $posts['post_id']; ?>" /> </td>
 								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
 								<td class="tbl_title"><?php echo $posts['title']; ?></td>
 								<td class="tbl_content"><?php echo $posts['content']; ?></td>

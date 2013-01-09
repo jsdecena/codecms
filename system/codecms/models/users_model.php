@@ -1,10 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Users_model extends CI_Model { 
+class Users_model extends CI_Model {
 
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }
 
     /* INSERT IDENTITY ON LOGIN */    
-    public function insert_identity(){
+    function insert_identity(){
 
         $data = $this->session->all_userdata();
 
@@ -19,7 +24,7 @@ class Users_model extends CI_Model {
     }    
 
     /* CHECK IF THE PASSWORD AND EMAIL MATCHED THE RECORD IN THE DB */
-	public function login_allowed(){
+	function login_allowed(){
 
         //CHECK IN THE DATABASE THE USERNAME AND PASSWORD COMBINATION
         $query = $this->db->get_where('users', array( 'email' => $this->input->post('email'), 'password' => sha1($this->input->post('password')) ));
@@ -34,7 +39,7 @@ class Users_model extends CI_Model {
 
 
 	/* READING THE USERS LIST */
-	public function users_query_list(){
+	function users_query_list(){
         
         $query = $this->db->get('users');
 
@@ -50,7 +55,7 @@ class Users_model extends CI_Model {
 	}
 
     /* UPDATE THE SPECIFIC USER */
-    public function users_query_specific() {
+    function users_query_specific() {
 
         $query = $this->db->get_where('users', array('users_id' => $this->uri->segment(4,0)));
 
@@ -61,7 +66,7 @@ class Users_model extends CI_Model {
     }
 
     /* RETRIEVES THE CURRENT USER INFORMATION */
-    public function logged_in() {
+    function logged_in() {
 
         $query = $this->db->get_where('users', array('email' => $this->session->userdata('email')));
 
@@ -77,7 +82,7 @@ class Users_model extends CI_Model {
     }
 
     /*CHECKING FOR THE CURRENT USER IF LOGGED IN OR NOT*/
-    public function check_if_logged_in(){
+    function check_if_logged_in(){
         
         //CHECK IF THE USER IS LOGGED IN
         $query = $this->db->get_where('users', array('email' => $this->session->userdata('email'), 'is_logged_in' => 1));
@@ -97,7 +102,7 @@ class Users_model extends CI_Model {
     }
 
     /* LOGS OUT A USER */
-    public function logout_now() {
+    function logout_now() {
 
         $this->db->set('identity', 0 );
         $this->db->set('is_logged_in', 0 );
@@ -107,7 +112,7 @@ class Users_model extends CI_Model {
     }
 
     /* FORGOT PASSWORD CHECKING FOR THE EXISTING EMAIL OF THE USER. */
-    public function retrieve_password_check(){
+    function retrieve_password_check(){
 
         $query = $this->db->get_where('users', array('email' => $this->input->post('email')));
 
@@ -128,7 +133,7 @@ class Users_model extends CI_Model {
     }
 
     /* CHECK FOR THE VALID KEY THAT WAS RETURNED FROM THE EMAIL */
-    public function check_valid_keys($key){
+    function check_valid_keys($key){
 
        $query = $this->db->get_where('users', array('pw_recovery' => $key));
 
@@ -147,7 +152,7 @@ class Users_model extends CI_Model {
     }
 
     /* UPDATE THE USERS PASSWORD CONSIDERING THAT THE KEY FROM THE EMAIL IS VALID. */
-    public function update_new_pw_in_db(){
+    function update_new_pw_in_db(){
 
         $query = $this->db->get_where('users', array('pw_recovery' => $this->input->post('key')));
 

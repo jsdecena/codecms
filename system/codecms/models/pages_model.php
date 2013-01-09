@@ -2,7 +2,13 @@
 
 class Pages_model extends CI_Model {
 
-	public function get_all_pages(){
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }		
+
+	function get_all_pages(){
 
 		$query = $this->db->get('pages');
 
@@ -14,7 +20,7 @@ class Pages_model extends CI_Model {
 
 	}
 
-	public function get_specific_page(){
+	function get_specific_page(){
 
 		$query = $this->db->get_where('pages', array( 'page_id' => $this->uri->segment(4) ));
 		
@@ -30,7 +36,7 @@ class Pages_model extends CI_Model {
 		endif;		
 	}
 
-	public function insert_page(){
+	function insert_page(){
 
 			$data = array(
 			   'title' 			=> $this->input->post('title'),
@@ -42,7 +48,7 @@ class Pages_model extends CI_Model {
 			$this->db->insert('pages', $data);	
 	}
 
-	public function get_page_id() {
+	function get_page_id() {
 
 		$query = $this->db->get_where('pages', array( 'title' => $this->input->post('title') ));
 
@@ -52,7 +58,7 @@ class Pages_model extends CI_Model {
 
 	}	
 
-	public function insert_edited_page(){
+	function insert_edited_page(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),
@@ -64,7 +70,7 @@ class Pages_model extends CI_Model {
 		$this->db->update('pages', $data); 
 	}
 
-	public function count_all_pages(){
+	function count_all_pages(){
 
 		$query = $this->db->count_all_results('pages');
 

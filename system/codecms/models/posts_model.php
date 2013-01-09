@@ -2,7 +2,13 @@
 
 class Posts_model extends CI_Model {
 
-	public function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }	
+
+	function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
 
 		$db = $this->db->dbprefix('posts');
 
@@ -16,7 +22,7 @@ class Posts_model extends CI_Model {
 
 	}
 
-	public function get_post($post_id){
+	function get_post($post_id){
 
 		$post_id = $this->uri->segment(4);
 
@@ -29,7 +35,7 @@ class Posts_model extends CI_Model {
 		endif;		
 	}	
 
-	public function insert_post(){
+	function insert_post(){
 
 			$query = $this->db->get_where('users', array( 'email' => $this->session->userdata('email') ));
 
@@ -48,7 +54,7 @@ class Posts_model extends CI_Model {
 	}
 
 
-	public function get_post_id() {
+	function get_post_id() {
 
 		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
 
@@ -57,7 +63,7 @@ class Posts_model extends CI_Model {
 		return $create_post_id;
 
 	}
-	public function update_post(){
+	function update_post(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),
@@ -69,22 +75,29 @@ class Posts_model extends CI_Model {
 		$this->db->update('posts', $data); 
 	}
 
-	public function delete_post() {
+	function delete_post() {
 
 		$this->db->delete('posts', array('post_id' => $this->input->post('post_id')));
 
 		return true;
 	}
 
-	public function count_all_posts(){
+	function delete_post_selection($id) {
+
+	    $this->db->where_in('post_id', $id)->delete('posts');
+
+		return true;
+	}
+
+	function count_all_posts(){
 
 		$query = $this->db->count_all_results('posts');
 		
 		return $query;
 
-	}
+	}		
 
-	public function update_post_settings() {
+	function update_post_settings() {
 
 		$data = array(
 		    array(
@@ -113,7 +126,7 @@ class Posts_model extends CI_Model {
 
 	}
 
-	public function view_post_settings() {
+	function view_post_settings() {
 
 		$query = $this->db->get('settings');
 
