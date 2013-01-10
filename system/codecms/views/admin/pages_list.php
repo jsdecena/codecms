@@ -68,7 +68,7 @@
 				</div>
 
 				<div class="pull-right action_right">
-					<?php // echo $links; //PAGINATION ?>
+					<?php echo $links; //PAGINATION ?>
 				</div>
 					
 				<?php echo form_close(); else: ?>

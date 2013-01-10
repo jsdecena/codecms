@@ -86,23 +86,27 @@ class Pages extends CI_Controller {
 
             $config['base_url']         = base_url('admin/pages/pages_list');
             $config['total_rows']       = $this->pages_model->count_all_pages();;
-            $config['per_page']         = 5;
-            $config['num_links']        = 20;
-            $config['uri_segment']      = 5;
+            $config['per_page']         = 2;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
             $config['num_tag_close']    = '</li>';   
-            $config['cur_tag_open']     = '<li><a href="#" class="current">';
+            $config['cur_tag_open']     = '<li class="active"><a href="#">';
             $config['cur_tag_close']    = '</a></li>';
             $config['prev_tag_open']    = '<li id="prev_item">';
             $config['prev_tag_close']   = '</li>';
             $config['next_tag_open']    = '<li id="next_item">';
             $config['next_tag_close']   = '</li>';
+            $config['first_tag_open']   = '<li id="first">';
+            $config['first_tag_close']  = '</li>';            
+            $config['last_tag_open']    = '<li id="last">';
+            $config['last_tag_close']   = '</li>';
             $config['next_link']        = 'Next';
             $config['prev_link']        = 'Prev';
 
             $this->pagination->initialize($config);
+
+            $data['links']              = $this->pagination->create_links();
         
             $this->template->title      = 'Pages Listing';
 

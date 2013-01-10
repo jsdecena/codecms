@@ -47,14 +47,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($post_items as $posts) :  ?>			
+						<?php foreach ($post_items as $posts) : $post_url = $posts["slug"] ?>			
 							<tr>
 								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $posts['post_id']; ?>" /> </td>
 								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
 								<td class="tbl_title"><?php echo $posts['title']; ?></td>
 								<td class="tbl_content"><?php echo $posts['content']; ?></td>
 								<td class="tbl_author"><?php echo $posts['author']; ?></td>
-								<td class="tbl_actions">								
+								<td class="tbl_actions">
+								<?php echo anchor( base_url("blog/post/$post_url"), '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
 								<?php echo anchor("admin/posts/post_edit" . '/' . $posts["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin' ) : ?>
 								<button name="post_id" class="btn btn-danger btn-small" value="<?php echo $posts["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">

@@ -77,17 +77,21 @@ class Controller_front extends CI_Controller {
 
                 $config['base_url']         = base_url('blog/posts_list');
                 $config['total_rows']       = $this->posts_model->count_all_posts();
-                $config['per_page']         = 2;            
+                $config['per_page']         = 10;       
                 $config['full_tag_open']    = '<div class="pagination"><ul>';
                 $config['full_tag_close']   = '</ul></div>';
                 $config['num_tag_open']     = '<li>';
                 $config['num_tag_close']    = '</li>';   
-                $config['cur_tag_open']     = '<li><a href="#" class="current">';
+                $config['cur_tag_open']     = '<li class="active"><a href="#">';
                 $config['cur_tag_close']    = '</a></li>';
                 $config['prev_tag_open']    = '<li id="prev_item">';
                 $config['prev_tag_close']   = '</li>';
                 $config['next_tag_open']    = '<li id="next_item">';
                 $config['next_tag_close']   = '</li>';
+                $config['first_tag_open']   = '<li id="first">';
+                $config['first_tag_close']  = '</li>';            
+                $config['last_tag_open']    = '<li id="last">';
+                $config['last_tag_close']   = '</li>';
                 $config['next_link']        = 'Next';
                 $config['prev_link']        = 'Prev';
 

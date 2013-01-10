@@ -82,21 +82,28 @@ class Posts extends CI_Controller {
 
         if ( $this->users_model->check_if_logged_in() ) :
 
+            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS          
+
             $this->load->library('pagination');
 
             $config['base_url']         = base_url('admin/posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
-            $config['per_page']         = 2;            
+            $config['per_page']         = $query[1]['settings_value'];
+            $config['num_links']        = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
             $config['num_tag_close']    = '</li>';   
-            $config['cur_tag_open']     = '<li><a href="#" class="current">';
+            $config['cur_tag_open']     = '<li class="active"><a href="#">';
             $config['cur_tag_close']    = '</a></li>';
             $config['prev_tag_open']    = '<li id="prev_item">';
             $config['prev_tag_close']   = '</li>';
             $config['next_tag_open']    = '<li id="next_item">';
             $config['next_tag_close']   = '</li>';
+            $config['first_tag_open']   = '<li id="first">';
+            $config['first_tag_close']  = '</li>';            
+            $config['last_tag_open']    = '<li id="last">';
+            $config['last_tag_close']   = '</li>';
             $config['next_link']        = 'Next';
             $config['prev_link']        = 'Prev';
 
@@ -107,7 +114,7 @@ class Posts extends CI_Controller {
             $this->template->title      = 'Post Listing';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts('post_id', 'desc', '0,3');
+            $data['post_items']         = $this->posts_model->get_all_posts('post_id', 'desc', $config['per_page']);
             
             $this->template->content->view('admin/posts_list', $data);
             

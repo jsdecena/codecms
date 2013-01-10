@@ -8,16 +8,10 @@ How To install
 
 
 Upcoming functionality (Todo List):
-1. Batch delete of post/pages.
-2. Post/Pages pagination (Backend/Frontend).
-3. After page or post created, redirect to edit mode.
-4. Settings page.
-	4.1 Page to display blogs. ok
-	4.2 Number of post to display. ok 
-	4.3 Default arrangement by Id or date created. ok
-	4.4 Default post order. ok
-	4.5 Theme to be used.
+1. Post/Pages pagination (Backend/Frontend).
+2. Settings page.
+	2.1 Theme to be used.
+3. Post Categories and Taxonomies.
 
 Knows bugs:
-1. Settings page - after saving the settings, I cannot retrieve the db values inserted for the post page chosen.
-2. User Management - an admin can delete his own. Also even when logged in.
+1. User Management - an admin can delete his own account. Also even when logged in.
