@@ -82,13 +82,17 @@ class Posts extends CI_Controller {
 
         if ( $this->users_model->check_if_logged_in() ) :
 
-            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS          
+            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
+
+            $per_page       = $query[1]['settings_value'];   //SETTINGS PER PAGE VALUE  
+            $order_by       = $query[2]['settings_value'];   //SETTINGS POST BY "post_id" or "date"
+            $arrange_by     = $query[3]['settings_value'];   //ARRANGE BY DESC OR ASC
 
             $this->load->library('pagination');
 
             $config['base_url']         = base_url('admin/posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
-            $config['per_page']         = $query[1]['settings_value'];
+            $config['per_page']         = $per_page;
             $config['num_links']        = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
@@ -114,7 +118,7 @@ class Posts extends CI_Controller {
             $this->template->title      = 'Post Listing';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts('post_id', 'desc', $config['per_page']);
+            $data['post_items']         = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page']);
             
             $this->template->content->view('admin/posts_list', $data);
             

@@ -73,7 +73,7 @@
 							<label for="arrange_post_by" class="input-block-level">Default arrange post by.</label>
 							<select name="arrange_post_by" id="arrange_post_by">
 								<option value="post_id" <?php if ( $value['settings_value'] == 'post_id' ) : ?>selected="selected"<?php endif; ?>>By ID</option>
-								<option value="date" <?php if ( $value['settings_value'] == 'date' ) : ?>selected="selected"<?php endif; ?>>By Date</option>
+								<option value="date_add" <?php if ( $value['settings_value'] == 'date_add' ) : ?>selected="selected"<?php endif; ?>>By Date</option>
 							</select>
 						</div>
 
