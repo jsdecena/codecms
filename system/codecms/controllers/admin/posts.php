@@ -156,8 +156,6 @@ class Posts extends CI_Controller {
             endif;
 
             $this->_post_insert_db();
-
-            echo "hello"; die();
             redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
 
         else:
