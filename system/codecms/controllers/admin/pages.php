@@ -25,8 +25,8 @@ class Pages extends CI_Controller {
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
-
-//USER THE OTHER JS IF YOU NEED IT
+                        
+            //USER THE OTHER JS IF YOU NEED IT
 /*          'assets/js/application.js',
             'assets/js/bootstrap-affix.js',
             'assets/js/bootstrap-alert.js',

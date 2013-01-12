@@ -26,8 +26,7 @@ class Main extends CI_Controller {
             'assets/js/ckeditor/ckeditor.js',
             'assets/js/default.js'
 
-
-//USER THE OTHER JS IF YOU NEED IT
+            //USER THE OTHER JS IF YOU NEED IT
 /*        	'assets/js/application.js',
         	'assets/js/bootstrap-affix.js',
         	'assets/js/bootstrap-alert.js',
