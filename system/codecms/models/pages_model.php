@@ -42,6 +42,7 @@ class Pages_model extends CI_Model {
 			   'title' 			=> $this->input->post('title'),
 			   'content' 		=> $this->input->post('content'),
 			   'slug' 			=> $this->input->post('slug'),
+			   'status' 		=> $this->input->post('status'),
 			   'date_add'		=> date("Y-m-d H:i:s")
 			);
 
@@ -63,7 +64,8 @@ class Pages_model extends CI_Model {
 		$data = array(
 			'title' 	=> $this->input->post('title'),
 			'content' 	=> $this->input->post('content'),
-			'slug' 		=> $this->input->post('slug')
+			'slug' 		=> $this->input->post('slug'),
+			'status' 	=> $this->input->post('status')
 		);
 
 		$this->db->where('page_id', $this->input->post('id'));

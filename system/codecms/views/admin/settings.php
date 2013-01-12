@@ -45,9 +45,9 @@
 						<label for="choose_page" class="input-block-level">Page to display your posts. <a href="#" id="cancel_edit">Cancel post page.</a></label>	
 						<select name="post_page" id="post_page_chosen" class="clear">
 							<option value="0">Choose Page</option>
-							<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : ?>
+							<?php if ( is_array($page_items)) : foreach ($page_items as $pages) : if ( $pages['status'] == 'published') : ?>
 			  					<option value="<?php echo $pages['slug']; ?>"><?php echo $pages['title']; ?></option>
-							<?php endforeach; endif; ?>	
+							<?php endif; endforeach; endif; ?>	
 						</select>
 					</div>
 

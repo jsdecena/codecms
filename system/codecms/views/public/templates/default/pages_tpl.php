@@ -1,3 +1,5 @@
+<?php if ( $page->status == 'published') : ?>
+
 <?php $this->load->view('public/templates/default/tpl_top'); ?>
       
 <div class="row-fluid page_tpl">
@@ -79,3 +81,5 @@
 </div><!--/row-->
 
 <?php $this->load->view('public/templates/default/tpl_btm'); ?>
+
+<?php endif; ?>

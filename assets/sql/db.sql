@@ -63,6 +63,7 @@ CREATE TABLE `cc_pages` (
   `slug` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
+  `status` varchar(128) NOT NULL DEFAULT 'unpublished',  
   `date_add` datetime DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`page_id`)
@@ -71,12 +72,12 @@ CREATE TABLE `cc_pages` (
 LOCK TABLES `cc_pages` WRITE;
 /*!40000 ALTER TABLE `cc_pages` DISABLE KEYS */;
 
-INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `date_add`, `modified`)
+INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `unpublished`, `date_add`, `modified`)
 VALUES
-  (1,'about','About','About us page','2012-12-16 07:38:20','2012-12-16 07:38:20'),
-  (2,'portfolio','Portfolio','Portfolio page', '2012-12-16 07:38:20','2012-12-16 07:38:40'),
-  (3,'blog','Blog','Blog page','2012-12-16 07:38:20','2012-12-16 07:38:59'),
-  (4,'contact-us','Contact Us','Contact Us page','2012-12-16 07:38:20','2012-12-16 07:39:13');
+  (1,'about','About','About us page','published','2012-12-16 07:38:20','2012-12-16 07:38:20'),
+  (2,'portfolio','Portfolio','Portfolio page','published','2012-12-16 07:38:20','2012-12-16 07:38:40'),
+  (3,'blog','Blog','Blog page','published','2012-12-16 07:38:20','2012-12-16 07:38:59'),
+  (4,'contact-us','Contact Us','Contact Us page','published','2012-12-16 07:38:20','2012-12-16 07:39:13');
 
 /*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -93,6 +94,7 @@ CREATE TABLE `cc_posts` (
   `slug` varchar(255) DEFAULT NULL,
   `author` varchar(128) NOT NULL DEFAULT 'user',
   `content` varchar(255) DEFAULT NULL,
+  `status` varchar(128) NOT NULL DEFAULT 'unpublished',
   `date_add` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`),
@@ -102,9 +104,9 @@ CREATE TABLE `cc_posts` (
 LOCK TABLES `cc_posts` WRITE;
 /*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
 
-INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `date_add`, `modified`)
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`)
 VALUES
-  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!','0000-00-00 00:00:00','0000-00-00 00:00:00');
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'unpublished','0000-00-00 00:00:00','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;

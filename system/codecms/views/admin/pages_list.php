@@ -37,7 +37,7 @@
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all" /></th>
-							<th class="tbl_id">ID</th>
+							<th class="tbl_status">Status</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
 							<th class="tbl_actions">Actions</th>
@@ -47,7 +47,13 @@
 						<?php foreach ($page_items as $pages) : ?>			
 							<tr>
 								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $pages['page_id']; ?>" /></td>
-								<td class="tbl_id"><?php echo $pages['page_id']; ?></td>
+								<td class="tbl_status">
+									<?php if ( $pages['status'] == 'unpublished') : ?>
+										<i class="icon-remove icon-black icon_status">&nbsp;</i>
+									<?php else: ?>
+										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
+									<?php endif; ?>									
+								</td>
 								<td class="tbl_title"><?php echo $pages['title']; ?></td>
 								<td class="tbl_content"><?php echo $pages['content']; ?></td>
 								<td class="tbl_actions">

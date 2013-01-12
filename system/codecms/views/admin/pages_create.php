@@ -57,6 +57,16 @@
 				</div>
 
 				<div class="controls">
+					<label>Publishing options:</label>
+					<div class="controlgroup clearfix">
+						<select name="status">
+							<option value="unpublished" selected="selected">Unpublished</option>
+							<option value="published">Published</option>
+						</select>
+					</div>					
+				</div>				
+
+				<div class="controls">
 					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
 					<input type="submit" name="page_create" class="btn btn-primary" value="Create a page" />
 

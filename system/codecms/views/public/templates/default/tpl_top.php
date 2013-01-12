@@ -32,9 +32,9 @@
                 <li> <a href="<?php echo base_url(); ?>">Home</a></li>
                 <?php 
                   if ( is_array($page_data) && isset($page_data) ):
-                  foreach ($page_data as $row) : //var_dump($row); die(); ?>
-                  <li<?php if ( $this->uri->segment(1) == $row['slug']  ) : ?> class="active"<?php endif; ?>><a href="<?php echo base_url() . $row['slug']; ?>"><?php echo $row['title']; ?></a></li>
-                <?php endforeach; endif; ?>
+                  foreach ($page_data as $row) : if( $row['status'] == 'published') ://var_dump($row); die(); ?>
+                    <li<?php if ( $this->uri->segment(1) == $row['slug']  ) : ?> class="active"<?php endif; ?>><a href="<?php echo base_url() . $row['slug']; ?>"><?php echo $row['title']; ?></a></li>
+                <?php endif; endforeach; endif; ?>
               </ul>
             </div>
           </div>
