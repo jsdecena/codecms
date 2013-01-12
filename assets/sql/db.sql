@@ -72,7 +72,7 @@ CREATE TABLE `cc_pages` (
 LOCK TABLES `cc_pages` WRITE;
 /*!40000 ALTER TABLE `cc_pages` DISABLE KEYS */;
 
-INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `unpublished`, `date_add`, `modified`)
+INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `status`, `date_add`, `modified`)
 VALUES
   (1,'about','About','About us page','published','2012-12-16 07:38:20','2012-12-16 07:38:20'),
   (2,'portfolio','Portfolio','Portfolio page','published','2012-12-16 07:38:20','2012-12-16 07:38:40'),
