@@ -17,24 +17,26 @@
 
     ?>
     
-    <div class="text-success"> <?php if( $this->session->flashdata('create_success')) : echo $this->session->flashdata('create_success'); else: echo $this->session->flashdata('create_error'); endif; ?> </div>
-    <?php if ( validation_errors() ) : ?>
-      <div class="text-error alert-block alert-error fade in"> 
-        <a class="close" data-dismiss="alert">&times;</a>
-        <?php echo validation_errors(); ?>
-      </div>
-    <?php endif;  ?>
-
+  <p class="text-success"> <?php if( $this->session->flashdata('create_success')) : echo $this->session->flashdata('create_success'); else: echo $this->session->flashdata('create_error'); endif; ?> </p>
+  
   <input type="text" class="input-block-level" name="username" placeholder="Username" value="<?php echo $this->input->post('username'); ?>">
+  
   <input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $this->input->post('first_name'); ?>">
+  
   <input type="text" class="input-block-level" name="last_name" placeholder="Last Name" value="<?php echo $this->input->post('last_name'); ?>">
-    <input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $this->input->post('email'); ?>">
-    <select name="role" id="role">
-      <option value="0" selected="selected">Select Role</option>
-      <option value="admin">Admin</option>
-      <option value="subscriber">Subscriber</option>
-    </select>
-    <input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $this->input->post('email'); ?>">
+  
+  <?php echo form_error('email', '<div class="text-error">', '</div>'); ?>
+  <input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $this->input->post('email'); ?>">
+  
+  <?php echo form_error('role', '<div class="text-error">', '</div>'); ?>
+  <select name="role" id="role">
+    <option value="0" selected="selected">Select Role</option>
+    <option value="admin">Admin</option>
+    <option value="subscriber">Subscriber</option>
+  </select>
+  
+  <?php echo form_error('password', '<div class="text-error">', '</div>'); ?>
+  <input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $this->input->post('email'); ?>">
    
    <input type="submit" name="create" class="btn btn-primary" value="Create a user" />
   

@@ -22,7 +22,7 @@
 		        foreach ($all_posts as $row) : 
 
 		        //GET ONLY THE PUBLISHED POST/S
-		        if ( $row['status'] != 'unpublished') : $slug = $row['slug']; ?>
+		        if ( $row['status'] == 'published') : $slug = $row['slug']; ?>
 
 				<div class="post_page">
 					<h2>

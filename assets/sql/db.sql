@@ -1,4 +1,4 @@
-  # ************************************************************
+# ************************************************************
 # Sequel Pro SQL dump
 # Version 3408
 #
@@ -131,7 +131,7 @@ INSERT INTO `cc_settings` (`settings_id`, `settings_name`, `settings_value`)
 VALUES
   (1,'post_page_chosen','blog'),
   (2,'post_per_page','10'),
-  (3,'arrange_post_by','post_id'),
+  (3,'arrange_post_by','id'),
   (4,'order_post_by','asc');
 
 /*!40000 ALTER TABLE `cc_settings` ENABLE KEYS */;

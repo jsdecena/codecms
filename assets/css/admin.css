@@ -40,6 +40,9 @@ body.admin .update_details label {
 body.admin .update_details .controls {
 	padding: 0;
 }
+#pages table {
+	min-width: 320px;
+}
 
 /* ============== END BOOTSTRAP OVERRIDE =============================================== */
 
@@ -81,6 +84,7 @@ label[for="forgot_password"] {
 .clearfix {
 	clear: both;;
 }
+
 sup {
 	font-size: 13px;
 }
@@ -105,6 +109,11 @@ sup {
 }
 .post_page_chosen_label {
 	text-transform: capitalize;
+}
+.icon_status {
+	display: block;
+	width: 16px;
+	margin: 0 auto;
 }
 /* ============== END GENERAL STYLES =============================================== */
 
