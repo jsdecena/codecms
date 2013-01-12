@@ -13,14 +13,23 @@
 <!-- Example row of columns -->
 <div class="row-fluid">
 
-  <?php if ( is_array($all_posts) ) : foreach ($all_posts as $row) : $slug = $row['slug']; ?>
+  <?php 
 
-  <div class="span4">
-    <h2><a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo character_limiter($row['title'], 15); ?></a></h2>
-    <?php echo word_limiter($row['content'], 50); ?>
-    <p><a class="btn" href="<?php echo base_url("blog/post/$slug"); ?>">View details &raquo;</a></p>
-  </div>
+        //CHECK IF THERE IS A POST/S
+        if ( is_array($all_posts) ) : 
 
-  <?php endforeach; endif; //END ALL POSTS ROW ?>
+        //IF THERE IS/ARE, SHOW THEM 
+        foreach ($all_posts as $row) : 
+
+        //GET ONLY THE PUBLISHED POST/S
+        if ( $row['status'] != 'unpublished') : $slug = $row['slug']; ?>
+
+        <div class="span4">
+          <h2><a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo character_limiter($row['title'], 15); ?></a></h2>
+          <?php echo word_limiter($row['content'], 50); ?>
+          <p><a class="btn" href="<?php echo base_url("blog/post/$slug"); ?>">View details &raquo;</a></p>
+        </div>
+
+  <?php endif; endforeach; endif; //END ALL POSTS ROW ?>
 
 </div>

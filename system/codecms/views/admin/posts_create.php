@@ -56,6 +56,16 @@
 				</div>
 
 				<div class="controls">
+					<label>Publishing options:</label>
+					<div class="controlgroup clearfix">
+						<select name="status">
+							<option value="unpublished" selected="selected">Unpublished</option>
+							<option value="published">Published</option>
+						</select>
+					</div>					
+				</div>
+
+				<div class="controls">
 					<a href="<?php echo base_url('admin/posts/posts_list'); ?>" class="btn btn-info">Go Back</a>
 					<input type="submit" name="post_create" class="btn btn-primary" value="Create a post" />
 

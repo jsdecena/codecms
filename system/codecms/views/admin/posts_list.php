@@ -39,7 +39,7 @@
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all" /></th>
-							<th class="tbl_id">ID</th>
+							<th class="tbl_status">Status</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
 							<th class="tbl_author">Author</th>
@@ -50,7 +50,13 @@
 						<?php foreach ($post_items as $posts) : $post_url = $posts["slug"] ?>			
 							<tr>
 								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $posts['post_id']; ?>" /> </td>
-								<td class="tbl_id"><?php echo $posts['post_id']; ?></td>
+								<td class="tbl_status">
+									<?php if ( $posts['status'] == 'unpublished') : ?>
+										<i class="icon-remove icon-black icon_status">&nbsp;</i>
+									<?php else: ?>
+										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
+									<?php endif; ?>									
+								</td>
 								<td class="tbl_title"><?php echo $posts['title']; ?></td>
 								<td class="tbl_content"><?php echo $posts['content']; ?></td>
 								<td class="tbl_author"><?php echo $posts['author']; ?></td>

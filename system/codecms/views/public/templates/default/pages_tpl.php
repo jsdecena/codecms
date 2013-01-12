@@ -11,7 +11,16 @@
 		
 			<div id="post_page_wrap" class="span9">
 			
-				<?php if ( is_array($all_posts) ) : foreach ($all_posts as $row) : $slug = $row['slug']; ?>
+		  <?php 
+
+		        //CHECK IF THERE IS A POST/S
+		        if ( is_array($all_posts) ) : 
+
+		        //IF THERE IS/ARE, SHOW THEM 
+		        foreach ($all_posts as $row) : 
+
+		        //GET ONLY THE PUBLISHED POST/S
+		        if ( $row['status'] != 'unpublished') : $slug = $row['slug']; ?>
 
 				<div class="post_page">
 					<h2>
@@ -33,7 +42,7 @@
 					<p><a href="<?php echo base_url("blog/post/$slug"); ?>">Continue Reading</a></p>
 				</div>				
 
-				<?php endforeach; ?>
+				<?php endif; endforeach; ?>
 
 				<p><?php echo $links; ?></p>
 				

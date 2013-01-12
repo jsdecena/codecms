@@ -47,6 +47,7 @@ class Posts_model extends CI_Model {
 			   	'content' 		=> $this->input->post('content'),
 			   	'slug' 			=> strtolower(url_title($this->input->post('title'))),
 			   	'author' 		=> $author->first_name ." ". $author->last_name,
+			   	'status'		=> $this->input->post('status'),
 			   	'date_add'		=> date("Y-m-d H:i:s")
 			);
 
@@ -54,19 +55,20 @@ class Posts_model extends CI_Model {
 	}
 
 
-	function get_post_id($post_id) {
+	function get_post_id() {
 
 		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
 
 		$create_post_id = $query->row('post_id');
 
-		return $post_id;
+		return $create_post_id;
 
 	}
 	function update_post(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),
+			'status' 	=> $this->input->post('status'),
 			'content' 	=> $this->input->post('content'),
 			'slug' 		=> url_title($this->input->post('title'))
 		);

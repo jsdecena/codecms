@@ -55,6 +55,17 @@
 				</div>
 
 				<div class="controls">
+					<label>Publishing options:</label>
+					<div class="controlgroup clearfix">
+						<select name="status">
+							<option value="unpublished" <?php if ( $post_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
+							<option value="published" <?php if ( $post_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
+						</select>
+					</div>					
+				</div>
+
+
+				<div class="controls">
 					<a href="<?php echo base_url('admin/posts/posts_list'); ?>" class="btn btn-info">Back</a>
 					<input type="submit" name="post_edit" class="btn btn-primary" value="Save" />
 

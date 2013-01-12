@@ -155,8 +155,10 @@ class Posts extends CI_Controller {
             
             endif;
 
-            $this->_post_insert_db();            
-            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id($post_id), $data);            
+            $this->_post_insert_db();
+
+            echo "hello"; die();
+            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
 
         else:
 
@@ -213,13 +215,13 @@ class Posts extends CI_Controller {
             $this->_post_edit_insert();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this post.');
-            redirect('admin/posts/post_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/posts/post_edit' .'/'. $this->input->post('post_id'), $data);
 
         else:
 
             //VALIDATION FAILURE
             $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, Title is required.');
-            redirect('admin/posts/post_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/posts/post_edit' .'/'. $this->input->post('post_id'), $data);
 
         endif;            
     }
