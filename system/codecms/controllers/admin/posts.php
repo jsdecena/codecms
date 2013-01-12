@@ -25,20 +25,6 @@ class Posts extends CI_Controller {
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
             'assets/js/default.js'
-
-            //USER THE OTHER JS IF YOU NEED IT
-/*          'assets/js/application.js',
-            'assets/js/bootstrap-affix.js',
-            'assets/js/bootstrap-alert.js',
-            'assets/js/bootstrap-button.js',
-            'assets/js/bootstrap-carousel.js',
-            'assets/js/bootstrap-collapse.js',
-            'assets/js/bootstrap-modal.js',
-            'assets/js/bootstrap-scrollspy.js',
-            'assets/js/bootstrap-tooltip.js',
-            'assets/js/bootstrap-transition.js',
-            'assets/js/bootstrap-typeahead.js',
-            'assets/templates/default/js/default.js' //CC JS */
         );
 
         $this->template->javascript->add($js);

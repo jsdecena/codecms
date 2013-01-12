@@ -18,21 +18,7 @@ class Controller_front extends CI_Controller {
 
                 // START DYNAMICALLY ADD JAVASCRIPTS
                 $js = array(
-                    'assets/js/jquery.js',                    
-                    //USER THE OTHER JS IF YOU NEED IT              
-                    /*'assets/js/application.js',
-                    'assets/js/bootstrap-affix.js',
-                    'assets/js/bootstrap-alert.js',
-                    'assets/js/bootstrap-button.js',
-                    'assets/js/bootstrap-carousel.js',
-                    'assets/js/bootstrap-collapse.js',
-                    'assets/js/bootstrap-dropdown.js',
-                    'assets/js/bootstrap-modal.js',
-                    'assets/js/bootstrap-scrollspy.js',
-                    'assets/js/bootstrap-tab.js',
-                    'assets/js/bootstrap-tooltip.js',
-                    'assets/js/bootstrap-transition.js',
-                    'assets/js/bootstrap-typeahead.js',*/
+                    'assets/js/jquery.js',
                     'assets/js/bootstrap.min.js'
                 );
 
