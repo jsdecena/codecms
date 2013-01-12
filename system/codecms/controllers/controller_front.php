@@ -18,8 +18,7 @@ class Controller_front extends CI_Controller {
 
                 // START DYNAMICALLY ADD JAVASCRIPTS
                 $js = array(
-                    'http://code.jquery.com/jquery-latest.min.js',
-                    
+                    'assets/js/jquery.js',                    
                     //USER THE OTHER JS IF YOU NEED IT              
                     /*'assets/js/application.js',
                     'assets/js/bootstrap-affix.js',

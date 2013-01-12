@@ -19,7 +19,7 @@ class Main extends CI_Controller {
 
         // START DYNAMICALLY ADD JAVASCRIPTS
         $js = array(
-        	'http://code.jquery.com/jquery-latest.min.js',
+            'assets/js/jquery.js',
             'assets/js/bootstrap-dropdown.js',
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',

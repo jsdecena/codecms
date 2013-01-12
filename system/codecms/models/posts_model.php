@@ -8,7 +8,7 @@ class Posts_model extends CI_Model {
         parent::__construct();
     }	
 
-	function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
+	function get_all_posts($order ='post_id', $asc_desc ='desc', $limit = '18446744073709551615'){
 
 		$db = $this->db->dbprefix('posts');
 

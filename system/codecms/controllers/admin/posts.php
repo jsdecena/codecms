@@ -19,7 +19,7 @@ class Posts extends CI_Controller {
 
         // START DYNAMICALLY ADD JAVASCRIPTS
         $js = array(
-            'http://code.jquery.com/jquery-latest.min.js',
+            'assets/js/jquery.js',
             'assets/js/bootstrap-dropdown.js',
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
@@ -90,7 +90,7 @@ class Posts extends CI_Controller {
 
             $this->load->library('pagination');
 
-            $config['base_url']         = base_url('admin/posts/posts_list');
+            $config['base_url']         = site_url('admin/posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
             $config['per_page']         = $per_page;
             $config['num_links']        = 3;
