@@ -13,12 +13,9 @@
 		<section id="posts">
 			<div class="controlgroup">
 
-				<!-- LOAD THE post CONTENT -->
-				<?php // $this->load->view('admin/posts_tpl_edit'); ?>
-
 				<?php 
 
-				//post EDIT FORM
+				//POST EDIT FORM
 
 				$attr = array('class' => 'clear', 'id' => 'post_edit');
 				echo form_open('admin/posts/post_edit_check', $attr); ?>
@@ -48,7 +45,7 @@
 
 				<div class="controls clearfix">
 					<input type="hidden" class="input-block-level" name="slug" value="<?php echo $post_items->slug; ?>">
-					<input type="hidden" class="input-block-level" name="id" value="<?php echo $post_items->post_id; ?>">
+					<input type="hidden" class="input-block-level" name="post_id" value="<?php echo $post_items->post_id; ?>">
 					<label for="post_title">Post Title <sup class="text-error">*</sup></label>
 					<input type="text" class="input-block-level" name="title" value="<?php echo $post_items->title; ?>">
 				</div>

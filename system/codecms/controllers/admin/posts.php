@@ -4,7 +4,7 @@ class Posts extends CI_Controller {
 
     public function __construct(){ 
 
-    	parent::__construct();
+    	 parent::__construct();
 
         // START DYNAMICALLY ADD STYLESHEETS
         $css = array(
@@ -93,7 +93,7 @@ class Posts extends CI_Controller {
             $config['base_url']         = site_url('admin/posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
             $config['per_page']         = $per_page;
-            $config['num_links']        = 15;
+            $config['num_links']        = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
@@ -170,7 +170,7 @@ class Posts extends CI_Controller {
             endif;
 
             $this->_post_insert_db();            
-            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
+            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id($post_id), $data);            
 
         else:
 

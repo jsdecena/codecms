@@ -12,7 +12,7 @@ class Posts_model extends CI_Model {
 
 		$db = $this->db->dbprefix('posts');
 
-		$query = $this->db->query(' SELECT * FROM '. $db .' ORDER BY '. $order .' '. $asc_desc .' LIMIT '. $limit .'');
+		$query = $this->db->query('SELECT * FROM '. $db .' ORDER BY '. $order .' '. $asc_desc .' LIMIT '. $limit .'');
 
 		if ( $query->num_rows() > 0 ) :
 
@@ -54,13 +54,13 @@ class Posts_model extends CI_Model {
 	}
 
 
-	function get_post_id() {
+	function get_post_id($post_id) {
 
 		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
 
 		$create_post_id = $query->row('post_id');
 
-		return $create_post_id;
+		return $post_id;
 
 	}
 	function update_post(){
@@ -71,7 +71,7 @@ class Posts_model extends CI_Model {
 			'slug' 		=> url_title($this->input->post('title'))
 		);
 
-		$this->db->where('post_id', $this->input->post('id'));
+		$this->db->where('post_id', $this->input->post('post_id'));
 		$this->db->update('posts', $data); 
 	}
 

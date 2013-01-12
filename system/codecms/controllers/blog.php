@@ -71,7 +71,15 @@ class Blog extends CI_Controller {
                 $data['post']               = $this->public_model->view_post();
                 $post_title                 = $this->public_model->view_post(); //PAGE TITLE OF THE SPECIFIC POST
 
-                $this->template->title      = $post_title->title;           
+                if( isset($post_title) ) :
+                
+                    $this->template->title      = $post_title->title;
+
+                else:
+
+                    $this->template->title  = 'Page Not Found';
+
+                endif;            
 
                 $this->template->content->view('public/templates/default/posts', $data);
 
