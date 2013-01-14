@@ -59,6 +59,15 @@ label[for="forgot_password"] {
 .alert-block p {
 	padding: 0 10px
 }
+.login .alert-block p {
+	padding: 0;
+}
+.login .alert-block {
+	padding: 5px 0 5px 10px;
+}
+.login .alert-block a {
+	padding: 0;
+}
 .alert-block a {
 	margin-right: 10px;
 }
