@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posts extends CI_Controller {
+class Posts extends CI_Controller {    
 
     public function __construct(){ 
 
@@ -19,25 +19,12 @@ class Posts extends CI_Controller {
 
         // START DYNAMICALLY ADD JAVASCRIPTS
         $js = array(
-            'http://code.jquery.com/jquery-latest.min.js',
+            'assets/js/jquery.js',
             'assets/js/bootstrap-dropdown.js',
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
-
-//USER THE OTHER JS IF YOU NEED IT
-/*          'assets/js/application.js',
-            'assets/js/bootstrap-affix.js',
-            'assets/js/bootstrap-alert.js',
-            'assets/js/bootstrap-button.js',
-            'assets/js/bootstrap-carousel.js',
-            'assets/js/bootstrap-collapse.js',
-            'assets/js/bootstrap-modal.js',
-            'assets/js/bootstrap-scrollspy.js',
-            'assets/js/bootstrap-tooltip.js',
-            'assets/js/bootstrap-transition.js',
-            'assets/js/bootstrap-typeahead.js',*/
-            'assets/templates/default/js/default.js' //CC JS
+            'assets/js/default.js'
         );
 
         $this->template->javascript->add($js);
@@ -77,36 +64,47 @@ class Posts extends CI_Controller {
         $this->template->publish();
 	}
 
-    public function posts_list($limit=0){
+    public function posts_list(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
+            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
+
+            $per_page       = $query[1]['settings_value'];   //SETTINGS PER PAGE VALUE  
+            $order_by       = $query[2]['settings_value'];   //SETTINGS POST BY "post_id" or "date"
+            $arrange_by     = $query[3]['settings_value'];   //ARRANGE BY DESC OR ASC
+
             $this->load->library('pagination');
 
-            $config['base_url']         = base_url('admin/post/posts_list');
-            $config['total_rows']       = $this->posts_model->count_all_posts();;
-            $config['per_page']         = 5;
-            $config['num_links']        = 20;
-            $config['uri_segment']      = 5;
+            $config['base_url']         = site_url('admin/posts/posts_list');
+            $config['total_rows']       = $this->posts_model->count_all_posts();
+            $config['per_page']         = $per_page;
+            $config['num_links']        = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
             $config['num_tag_close']    = '</li>';   
-            $config['cur_tag_open']     = '<li><a href="#" class="current">';
+            $config['cur_tag_open']     = '<li class="active"><a href="#">';
             $config['cur_tag_close']    = '</a></li>';
             $config['prev_tag_open']    = '<li id="prev_item">';
             $config['prev_tag_close']   = '</li>';
             $config['next_tag_open']    = '<li id="next_item">';
             $config['next_tag_close']   = '</li>';
+            $config['first_tag_open']   = '<li id="first">';
+            $config['first_tag_close']  = '</li>';            
+            $config['last_tag_open']    = '<li id="last">';
+            $config['last_tag_close']   = '</li>';
             $config['next_link']        = 'Next';
             $config['prev_link']        = 'Prev';
 
             $this->pagination->initialize($config);
+
+            $data['links']              = $this->pagination->create_links();
         
             $this->template->title      = 'Post Listing';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts();
+            $data['post_items']         = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page']);
             
             $this->template->content->view('admin/posts_list', $data);
             
@@ -150,12 +148,15 @@ class Posts extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
+            //SET THE MESAGE ONLY WHEN THE BUTTON "POST CREATE" IS CLICKED
             if ( $this->input->post('post_create') ) :
+                
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');
-            endif;            
+            
+            endif;
 
-            $this->post_create_insert();            
-            redirect('admin/posts/post_create', $data);
+            $this->_post_insert_db();
+            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
 
         else:
 
@@ -164,12 +165,12 @@ class Posts extends CI_Controller {
         endif;
     }
 
-    public function post_create_insert(){
+    private function _post_insert_db(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->posts_model->insert_created_post();
+            $this->posts_model->insert_post();
 
         else:
 
@@ -180,14 +181,14 @@ class Posts extends CI_Controller {
 
     }
 
-    public function post_edit(){
+    public function post_edit($post_id){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->check_if_logged_in() ) : 
 
             $this->template->title      = 'posts';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_specific_post();
+            $data['post_items']         = $this->posts_model->get_post($post_id);
             
             $this->template->content->view('admin/posts_edit', $data);
             
@@ -209,25 +210,25 @@ class Posts extends CI_Controller {
         if ( $this->form_validation->run() ) :
 
             //VALIDATION SUCCCESS
-            $this->post_edit_insert();
+            $this->_post_edit_insert();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this post.');
-            redirect('admin/posts/post_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/posts/post_edit' .'/'. $this->input->post('post_id'), $data);
 
         else:
 
             //VALIDATION FAILURE
             $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, Title is required.');
-            redirect('admin/posts/post_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/posts/post_edit' .'/'. $this->input->post('post_id'), $data);
 
         endif;            
     }
 
-    public function post_edit_insert(){
+    private function _post_edit_insert(){
 
         if ( $this->users_model->check_if_logged_in() ) :        
 
-            if ( $this->posts_model->insert_edited_post() ) :
+            if ( $this->posts_model->update_post() ) :
 
                     //SUCCESFULL INSERTION OF THE EDITED post IN THE DB
                     return true;
@@ -244,24 +245,37 @@ class Posts extends CI_Controller {
         endif;  
     }
 
-    /* ------- DELETE THE SPECIFIC post ----------- */
+    /* ------- DELETE POSTS ----------- */
 
     public function post_delete(){
 
-        $query = $this->db->get('posts');
+        //SINGLE DELETE
+        if ( $this->input->post('post_id')) :
+            
+            if( $this->posts_model->delete_post() === TRUE) :
 
-        if ( $query->num_rows() > 0 ) :
+                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
+                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-           if( $this->db->delete('posts', array('post_id' => $this->input->post('id'))) === TRUE) :
-
-                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a user.');
-                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a user.');
-
-               redirect('admin/posts/posts_list' .'/'. $this->input->post('id'), $data);
+               redirect('admin/posts/posts_list' .'/'. $this->input->post('post_id'), $data);
 
             endif;
 
+        else:            
+
+            $id = $this->input->post('delete_selection');                  
+            
+            for( $i=0; $i<sizeof($id); $i++) :
+            
+                $this->posts_model->delete_post_selection($id[$i]);
+            
+            endfor;
+            
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted your selected posts.');
+            redirect('admin/posts/posts_list', $data);
+
         endif;
     }
+
 
 }

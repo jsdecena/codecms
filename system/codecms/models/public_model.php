@@ -2,30 +2,33 @@
 
 class Public_model extends CI_Model {
 
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }		
+
 	//START PAGES ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public function get_all_pages(){
+	function get_all_pages(){
 
 		$query = $this->db->get('pages');
 
-		if($query->num_rows() > 0):
+		if ( $query->num_rows() > 0 ) :
 
-			foreach ($query->result_array() as $row) :
-			   $page_list[] = $row;
-			endforeach;
+			return $query->result_array();
 
-			return $page_list;
-
-		else:
+		else :
 
 			return false;
-		
+
 		endif;
 
 
 	}	
 
-	public function get_page(){
+	function get_page(){
 
+		//GET THE SPECIFIC PAGE
 		$query = $this->db->get_where('pages', array( 'slug' => $this->uri->segment(1) ));
 		
 		if($query->num_rows() > 0):
@@ -39,10 +42,11 @@ class Public_model extends CI_Model {
 			
 			return $page;
 
-		endif;		
+		endif;
+
 	}
 
-	public function count_all_pages(){
+	function count_all_pages(){
 
 		$query = $this->db->count_all_results('pages');
 
@@ -50,54 +54,57 @@ class Public_model extends CI_Model {
 
 	}
 
+	//CHECK FOR THE PAGE THAT WILL SHOW ALL THE POSTS. THIS IS SET IN THE DATABASE BY THE SETTINGS.
+	function check_post_page(){
+
+		$query = $this->db->get('cc_settings');
+
+		if ( $query->num_rows() > 0 ) :
+
+			foreach ($query->result_array() as $value) :
+				
+				return $value;
+
+			endforeach;
+
+		endif;	
+
+	}
+
 
 
 	//START POSTS ------------------------------------------------------------------------------------------------------------------------------------------------------
-	public function get_all_posts(){
+	function get_all_posts($order ='post_id', $asc_desc ='DESC', $limit = '0,18446744073709551615'){
 
-		$query = $this->db->get('posts');
+		$db = $this->db->dbprefix('posts');
 
-		if($query->num_rows() > 0):
+		$query = $this->db->query(' SELECT * FROM '. $db .' ORDER BY '. $order .' '. $asc_desc .' LIMIT '. $limit .'');
 
-			foreach ($query->result_array() as $row) :
-			   $post_list[] = $row;
-			endforeach;
+		if ( $query->num_rows() > 0 ) :
 
-			return $post_list;
+			return $query->result_array();
 
-		else:
-
-			return false;
-		
 		endif;
-
 
 	}	
 
-	public function get_post(){
+    function view_post(){
 
-		$query = $this->db->get_where('posts', array( 'slug' => $this->uri->segment(1) ));
+        $query = $this->db->get_where('posts', array('slug' => $this->uri->segment(3,0)), 1);
 		
-		if($query->num_rows() > 0):
+		if($query->num_rows() == 1):
 
-			//IF A post IS FOUND DISPLAY THE DATA WITH IT
-			foreach ($query->result() as $row) :
-			    
-			    $post = $row;
+ 			return $query->row();
 
-			endforeach;
-			
-			return $post;
+		endif;
+    } 	
 
-		endif;		
-	}
-
-	public function count_all_posts(){
+	function count_all_posts(){
 
 		$query = $this->db->count_all_results('posts');
 
 		return $query;
 
-	}	
+	}
 
 }

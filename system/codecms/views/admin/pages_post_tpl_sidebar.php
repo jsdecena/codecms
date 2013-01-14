@@ -9,7 +9,7 @@
     <div id="collapseOne" class="accordion-body collapse <?php if ( $this->uri->segment(3) == 'pages_list' || $this->uri->segment(3) == 'page_create' || $this->uri->segment(3) == 'page_create_check' || $this->uri->segment(3) == 'page_edit'): echo "in"; endif; ?>">
       <div class="accordion-inner">
 		<ul class="nav nav-list">
-			<li <?php if ( $this->uri->segment(3) == 'pages_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/pages/pages_list'); ?>">List Pages</a></li>
+			<li <?php if ( $this->uri->segment(3) == 'pages_list' || $this->uri->segment(3) == 'page_edit' ) : echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/pages/pages_list'); ?>">List Pages</a></li>
 			<li <?php if ( $this->uri->segment(3) == 'page_create' || $this->uri->segment(3) == 'page_create_check') : echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a page</a></li>
 		</ul>
       </div>
@@ -24,7 +24,7 @@
     <div id="collapseTwo" class="accordion-body collapse <?php if ( $this->uri->segment(3) == 'posts_list' || $this->uri->segment(3) == 'post_create' || $this->uri->segment(3) == 'post_create_check' || $this->uri->segment(3) == 'post_edit'): echo "in"; endif; ?>">
       <div class="accordion-inner">
 		<ul class="nav nav-list">
-			<li <?php if ( $this->uri->segment(3) == 'posts_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/posts/posts_list'); ?>">List Posts</a></li>
+			<li <?php if ( $this->uri->segment(3) == 'posts_list' || $this->uri->segment(3) == 'post_edit' ): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/posts/posts_list'); ?>">List Posts</a></li>
 			<li <?php if ( $this->uri->segment(3) == 'post_create'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/posts/post_create'); ?>">Create a Post</a></li>
 		</ul>
       </div>

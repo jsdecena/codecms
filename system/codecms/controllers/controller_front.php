@@ -18,20 +18,7 @@ class Controller_front extends CI_Controller {
 
                 // START DYNAMICALLY ADD JAVASCRIPTS
                 $js = array(
-                    'http://code.jquery.com/jquery-latest.min.js',
-                    'assets/js/application.js',
-                    'assets/js/bootstrap-affix.js',
-                    'assets/js/bootstrap-alert.js',
-                    'assets/js/bootstrap-button.js',
-                    'assets/js/bootstrap-carousel.js',
-                    'assets/js/bootstrap-collapse.js',
-                    'assets/js/bootstrap-dropdown.js',
-                    'assets/js/bootstrap-modal.js',
-                    'assets/js/bootstrap-scrollspy.js',
-                    'assets/js/bootstrap-tab.js',
-                    'assets/js/bootstrap-tooltip.js',
-                    'assets/js/bootstrap-transition.js',
-                    'assets/js/bootstrap-typeahead.js',
+                    'assets/js/jquery.js',
                     'assets/js/bootstrap.min.js'
                 );
 
@@ -39,7 +26,8 @@ class Controller_front extends CI_Controller {
                 // END DYNAMICALLY ADD STYLESHEETS
 
                 $this->load->model('public_model');
-                $this->load->model('users_model');           
+                $this->load->model('posts_model');
+                $this->load->helper('text');       
 
         }        
 
@@ -50,29 +38,76 @@ class Controller_front extends CI_Controller {
 
         public function home(){          
 
-                $this->template->set_template('templates/default/home_tpl'); 
+                $this->template->set_template('public/templates/default/home_tpl'); 
 
-                $this->template->title = 'Home';
+                $this->template->title  = 'Home';
 
-                $data['page_data'] = $this->public_model->get_all_pages();
-                $this->template->content->view('templates/default/home', $data);
+                //ALL THE PAGES FOR THE MENU PAGE LISTING
+                $data['page_data']      = $this->public_model->get_all_pages();
+                
+                //GET ALL THE POSTS
+                $data['all_posts']      = $this->public_model->get_all_posts('post_id', 'desc', '0,3');
+
+                $this->template->content->view('public/templates/default/home', $data);
 
                 // publish the template
                 $this->template->publish();		
         }
 
-        public function pages() {   
+        public function pages() {
 
-                $this->template->set_template('templates/default/pages_tpl');
+                $this->template->set_template('public/templates/default/pages_tpl');
+
+                $this->load->library('pagination');
+
+                $config['base_url']         = base_url('blog/posts_list');
+                $config['total_rows']       = $this->posts_model->count_all_posts();
+                $config['per_page']         = 10;       
+                $config['full_tag_open']    = '<div class="pagination"><ul>';
+                $config['full_tag_close']   = '</ul></div>';
+                $config['num_tag_open']     = '<li>';
+                $config['num_tag_close']    = '</li>';   
+                $config['cur_tag_open']     = '<li class="active"><a href="#">';
+                $config['cur_tag_close']    = '</a></li>';
+                $config['prev_tag_open']    = '<li id="prev_item">';
+                $config['prev_tag_close']   = '</li>';
+                $config['next_tag_open']    = '<li id="next_item">';
+                $config['next_tag_close']   = '</li>';
+                $config['first_tag_open']   = '<li id="first">';
+                $config['first_tag_close']  = '</li>';            
+                $config['last_tag_open']    = '<li id="last">';
+                $config['last_tag_close']   = '</li>';
+                $config['next_link']        = 'Next';
+                $config['prev_link']        = 'Prev';
+
+                $this->pagination->initialize($config);
+
+                $data['links']              = $this->pagination->create_links();                                           
+
+                //ALL THE PAGES FOR THE MENU PAGE LISTING
+                $data['page_data']      = $this->public_model->get_all_pages();
                 
-                $this->template->title = 'Pages';
+                $data['page']           = $this->public_model->get_page(); // THE SPECIFIC PAGE
+                $page_title             = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
-                $data['page_data']  = $this->public_model->get_all_pages();
-                $data['page']       = $this->public_model->get_page();
-                $data['post_data']  = $this->public_model->get_all_posts();
-                $data['post']       = $this->public_model->get_post();
+                
+                // CHECK FOR THE PAGE TO DISPLAY ALL THE POSTS              
+                $data['post_page']      = $this->public_model->check_post_page();                
 
-                $this->template->content->view('templates/default/pages', $data);
+                // GET ALL THE POSTS
+                $data['all_posts']      = $this->public_model->get_all_posts();                
+
+                if( isset($page_title) ) :
+                    
+                    $this->template->title  = $page_title->title;
+
+                else:
+
+                    $this->template->title  = 'Page Not Found';
+
+                endif;
+
+                $this->template->content->view('public/templates/default/pages', $data);
 
                 // publish the template
                 $this->template->publish();     

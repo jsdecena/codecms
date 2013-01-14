@@ -2,28 +2,25 @@
 
 class Pages_model extends CI_Model {
 
-	public function get_all_pages(){
+    function __construct() {
+        
+        // Call the Model constructor
+        parent::__construct();
+    }		
+
+	function get_all_pages(){
 
 		$query = $this->db->get('pages');
 
-		if($query->num_rows() > 0):
+		if ( $query->num_rows() > 0 ) :
 
-			foreach ($query->result_array() as $row) :
-			   $page_list[] = $row;
-			endforeach;
+			return $query->result_array();
 
-			return $page_list;
-
-		else:
-
-			return false;
-		
 		endif;
-
 
 	}
 
-	public function get_specific_page(){
+	function get_specific_page(){
 
 		$query = $this->db->get_where('pages', array( 'page_id' => $this->uri->segment(4) ));
 		
@@ -39,35 +36,63 @@ class Pages_model extends CI_Model {
 		endif;		
 	}
 
-	public function insert_created_page(){
+	function insert_page(){
 
 			$data = array(
-			   'title' 		=> $this->input->post('title'),
-			   'content' 	=> $this->input->post('content'),
-			   'slug' 		=> $this->input->post('slug')
+			   'title' 			=> $this->input->post('title'),
+			   'content' 		=> $this->input->post('content'),
+			   'slug' 			=> $this->input->post('slug'),
+			   'status' 		=> $this->input->post('status'),
+			   'date_add'		=> date("Y-m-d H:i:s")
 			);
 
 			$this->db->insert('pages', $data);	
 	}
 
-	public function insert_edited_page(){
+	function get_page_id() {
+
+		$query = $this->db->get_where('pages', array( 'title' => $this->input->post('title') ));
+
+		$create_page_id = $query->row('page_id');
+
+		return $create_page_id;
+
+	}	
+
+	function insert_edited_page(){
 
 		$data = array(
 			'title' 	=> $this->input->post('title'),
 			'content' 	=> $this->input->post('content'),
-			'slug' 		=> $this->input->post('slug')
+			'slug' 		=> $this->input->post('slug'),
+			'status' 	=> $this->input->post('status')
 		);
 
 		$this->db->where('page_id', $this->input->post('id'));
 		$this->db->update('pages', $data); 
 	}
 
-	public function count_all_pages(){
+	function count_all_pages(){
 
 		$query = $this->db->count_all_results('pages');
 
 		return $query;
-
 	}
+
+	//SINGLE DELETE
+	function delete_page() {
+
+		$this->db->delete('pages', array('page_id' => $this->input->post('page_id')));
+
+		return true;
+	}
+
+	//MULTIPLE DELETE
+	function delete_page_selection($id) {
+
+	    $this->db->where_in('page_id', $id)->delete('pages');
+
+		return true;
+	}	
 
 }

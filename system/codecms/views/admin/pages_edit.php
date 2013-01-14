@@ -47,10 +47,10 @@
 				<?php endif; ?>
 
 				<div class="controls clearfix">
-					<input type="hidden" class="input-block-level" name="slug" value="<?php echo $page_items->slug; ?>">
+					<input type="hidden" id="page_slug" class="input-block-level" name="slug" value="<?php echo $page_items->slug; ?>">
 					<input type="hidden" class="input-block-level" name="id" value="<?php echo $page_items->page_id; ?>">
 					<label for="page_title">Page Title <sup class="text-error">*</sup></label>
-					<input type="text" class="input-block-level" name="title" value="<?php echo $page_items->title; ?>">
+					<input type="text" id="page_title" class="input-block-level" name="title" value="<?php echo $page_items->title; ?>">
 				</div>
 
 				<div class="controls clearfix">
@@ -58,8 +58,18 @@
 				</div>
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Go Back</a>
-					<input type="submit" name="page_edit" class="btn btn-primary" value="Save Your Edit" />
+					<label>Publishing options:</label>
+					<div class="controlgroup clearfix">
+						<select name="status">
+							<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
+							<option value="published" <?php if ( $page_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
+						</select>
+					</div>					
+				</div>				
+
+				<div class="controls">
+					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
+					<input type="submit" name="page_edit" class="btn btn-primary" value="Save" />
 
 				</div>
 

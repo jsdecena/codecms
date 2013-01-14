@@ -94,7 +94,7 @@
         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo base_url('admin/main/user_profile'); ?>"><i class="icon-star"></i> View Profile</a></li>
-          <li><a href="<?php echo base_url('admin/main/users_update') . '/' . $logged_info['id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
+          <li><a href="<?php echo base_url('admin/main/users_update') . '/' . $logged_info['users_id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
           <li><a href="<?php echo base_url("admin/main/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>        
         </ul>
       </div>      

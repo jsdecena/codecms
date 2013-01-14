@@ -66,47 +66,19 @@ body {
         border-radius: 0 3px 3px 0;
       }
 
-/* ================= MY STYLES ================== */
+/* my styles*/
 
-  /* GENERAL */
-  .page_tpl {
-    min-height: 600px;
-  }
-  .logo {
-    color: #999;
-    text-decoration: none;
-  }
-  .logo:hover {
-    color: #333;
-    text-decoration: none;
-  }
-  .footer {
-    padding: 20px 0;
-  }
-
-  /* BLOG */
-  #post_page_wrap {
-    padding: 10px;
-    border: 1px solid #eee;
-  }
-  #post_page_wrap a:hover {
-    text-decoration: none;
-  }
-  .post_page {
-    padding: 0 0 20px;
-    margin: 0 0 20px;
-    border-bottom: 1px dashed #ddd;
-  }
-  .post_page h2 > span {
-    display: block;
-    font-size: 13px;
-    font-weight: normal;
-    color: #777;
-    background: #efefef;
-    padding: 3px;
-    margin: 5px 0 0;
-    line-height: normal;
-  }
-  .author {
-    text-transform: capitalize;
-  }
+.page_tpl {
+  min-height: 600px;
+}
+.logo {
+  color: #999;
+  text-decoration: none;
+}
+.logo:hover {
+  color: #333;
+  text-decoration: none;
+}
+.footer {
+  padding: 20px 0;
+}

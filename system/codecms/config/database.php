@@ -82,9 +82,15 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
+<<<<<<< HEAD
 	'username' => 'jsd',
 	'password' => 'PrivatePw123!!',
 	'database' => 'codecms',
+=======
+	'username' => 'root',		//IF YOU HAVE OTHER USERNAME, PUT IT HERE OTHERWISE DEFAULT IS ROOT
+	'password' => '',			//PUT YOUR DATABASE PASSWORD HERE
+	'database' => 'codecms',			//PUT YOUR DATABASE NAME HERE
+>>>>>>> db819e13cb83ca6f7bc07066f722313bc39a0b96
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'cc_',
 	'pconnect' => TRUE,

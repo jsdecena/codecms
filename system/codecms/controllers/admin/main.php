@@ -19,31 +19,21 @@ class Main extends CI_Controller {
 
         // START DYNAMICALLY ADD JAVASCRIPTS
         $js = array(
-        	'http://code.jquery.com/jquery-latest.min.js',
+            'assets/js/jquery.js',
             'assets/js/bootstrap-dropdown.js',
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
-            'assets/js/ckeditor/ckeditor.js'
-
-//USER THE OTHER JS IF YOU NEED IT
-/*        	'assets/js/application.js',
-        	'assets/js/bootstrap-affix.js',
-        	'assets/js/bootstrap-alert.js',
-        	'assets/js/bootstrap-button.js',
-        	'assets/js/bootstrap-carousel.js',
-        	'assets/js/bootstrap-collapse.js',
-        	'assets/js/bootstrap-modal.js',
-        	'assets/js/bootstrap-scrollspy.js',
-        	'assets/js/bootstrap-tooltip.js',
-        	'assets/js/bootstrap-transition.js',
-        	'assets/js/bootstrap-typeahead.js',*/
+            'assets/js/ckeditor/ckeditor.js',
+            'assets/js/default.js'
         );
 
         $this->template->javascript->add($js);
         // END DYNAMICALLY ADD STYLESHEETS
 
         $this->template->set_template('admin/dashboard_tpl');
-        $this->load->model('users_model'); 
+        $this->load->model('users_model');
+        $this->load->model('pages_model');
+        $this->load->model('posts_model');
         $this->load->library('form_validation');
     }
 
@@ -463,12 +453,12 @@ class Main extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'users_id = '. $this->input->post('users_id').'') === TRUE) :
 
                         $data['message_success']    = $this->session->set_flashdata('message_success', 'Update successful.');
                         $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem updating a user.');
 
-                        redirect('admin/main/users_update/'. $this->input->post('id').'');
+                        redirect('admin/main/users_update/'. $this->input->post('users_id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
                 else:
@@ -477,7 +467,7 @@ class Main extends CI_Controller {
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
-                    redirect('admin/main/users_update/'. $this->input->post('id').'');
+                    redirect('admin/main/users_update/'. $this->input->post('users_id').'');
                 endif; // PASSED THE VALIDATION
         endif; //IF POST SAVE
 
@@ -509,12 +499,12 @@ class Main extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'users_id = '. $this->input->post('users_id').'') === TRUE) :
 
                         $data['message_success']    = $this->session->set_flashdata('message_success', 'Update successful.');
                         $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem updating a user.');
 
-                        redirect('admin/main/users_update_by_admin/'. $this->input->post('id').'');
+                        redirect('admin/main/users_update_by_admin/'. $this->input->post('users_id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
                 else:
@@ -523,7 +513,7 @@ class Main extends CI_Controller {
                     
                     // IF VALIDATION FAILS, GO BACK TO THE USERS UPDATE PAGE
                     // WITH THE ERRORS                    
-                    redirect('admin/main/users_update_by_admin/'. $this->input->post('id').'');
+                    redirect('admin/main/users_update_by_admin/'. $this->input->post('users_id').'');
                 endif; // PASSED THE VALIDATION
         endif; //IF POST SAVE
 
@@ -570,11 +560,11 @@ class Main extends CI_Controller {
                 if ( $this->form_validation->run()) :                
 
                     //IF SUCCESSFULL UPDATE TO DATABASE
-                   if( $this->db->update('users', $data, 'id = '. $this->input->post('id').'') === TRUE) :
+                   if( $this->db->update('users', $data, 'users_id = '. $this->input->post('users_id').'') === TRUE) :
 
                         $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully changed password.');
 
-                        redirect('admin/main/users_update_pw/'. $this->input->post('id').'');
+                        redirect('admin/main/users_update_pw/'. $this->input->post('users_id').'');
 
                     endif; // SUCCESS UPDATE DATABASE
 
@@ -585,7 +575,7 @@ class Main extends CI_Controller {
 
                     $data['message_error']    = $this->session->set_flashdata('message_error', 'You need to put a password.');
 
-                    redirect('admin/main/users_update_pw/'. $this->input->post('id').'');
+                    redirect('admin/main/users_update_pw/'. $this->input->post('users_id').'');
 
                 endif; // PASSED THE VALIDATION
 
@@ -604,12 +594,12 @@ class Main extends CI_Controller {
 
         if ( $query->num_rows() > 1 ) :
 
-           if( $this->db->delete('users', array('id' => $this->uri->segment(4,0))) === TRUE) :
+           if( $this->db->delete('users', array('users_id' => $this->uri->segment(4,0))) === TRUE) :
 
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a user.');
                 $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a user.');
 
-                return $this->users_list();
+                redirect('admin/main/users_list', $data, 'refresh');
 
             endif;
 
@@ -646,21 +636,21 @@ class Main extends CI_Controller {
         endif;
     }
 
-    /* ------- USER PROFILE ----------- */
+    /* ------- END USER PROFILE ----------- */
+
+    
+
+    /* ------- SETTINGS PAGE ----------- */
 
     public function settings(){
 
-        if ( $this->session->userdata('is_logged_in')) :
+        if ( $this->session->userdata('is_logged_in')) :                                
 
-            $this->load->model('pages_model');
-            //$this->load->model('main_model');
+            $this->template->title      = 'Settings page';
 
-            $this->template->title  = 'Settings page';
-
-            $data['logged_info']    = $this->users_model->logged_in();
-            $data['page_items']     = $this->pages_model->get_all_pages();
-
-            //$this->main_model->check_settings();            
+            $data['logged_info']        = $this->users_model->logged_in();
+            $data['page_items']         = $this->pages_model->get_all_pages();
+            $data['post_settings']      = $this->posts_model->view_post_settings();
 
             $this->template->content->view('admin/settings', $data);
 
@@ -673,7 +663,7 @@ class Main extends CI_Controller {
         endif;
     }
 
-    public function post_settings_check(){        
+    public function post_settings_check(){
 
             $this->form_validation->set_rules('post_page_chosen','Chosen Page for the posts','trim|xss_clean');
             $this->form_validation->set_rules('post_per_page','Show per page','trim|xss_clean|is_natural');
@@ -681,19 +671,17 @@ class Main extends CI_Controller {
             $this->form_validation->set_rules('order_post_by','Order posts by','trim|xss_clean');
 
             if ( $this->form_validation->run()) :
-                
-                $this->load->model('main_model');
 
-                //ENABLE WHEN THE DB QUERY IF KNOWN                 
-                //$this->main_model->insert_settings();
-                
+                $this->posts_model->update_post_settings();              
+
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully cofigured your post settings.');
+
                 redirect('admin/main/settings', $data);
 
             else:
 
                 $data['message_error']    = $this->session->set_flashdata('message_error', 'Something wrong with your post settings.');
-                $this->settings();
+                redirect('admin/main/settings', $data);
 
             endif;        
     }
