@@ -312,16 +312,19 @@ class Main extends CI_Controller {
 
     }
 
-    /* --------- CREATE A USER CHECKING --------*/
+    /* --------- CREATE A USER CHECKING -------- */
 
     public function users_create_check(){
 
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[3]|max_length[12]|xss_clean');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[users.email]');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|sha1');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]|sha1');
         $this->form_validation->set_rules('role','Role','required|callback_check_default');
 
         //CUSTOM MESSAGE FOR THE EMAIL THAT ALREADY EXIST IN THE DATABASE
         $this->form_validation->set_message('is_unique', 'The email you are creating already exists. Please use a different email.');
+
+        //CUSTOM MESSAGE FOR THE ROLE TO BE CHOSEN FIRST.
         $this->form_validation->set_message('check_default', 'You must select role for the user.');
 
         if ( $this->form_validation->run()) :

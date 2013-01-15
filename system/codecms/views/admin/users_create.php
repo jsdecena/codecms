@@ -19,6 +19,7 @@
     
   <p class="text-success"> <?php if( $this->session->flashdata('create_success')) : echo $this->session->flashdata('create_success'); else: echo $this->session->flashdata('create_error'); endif; ?> </p>
   
+  <?php echo form_error('username', '<div class="text-error">', '</div>'); ?>
   <input type="text" class="input-block-level" name="username" placeholder="Username" value="<?php echo $this->input->post('username'); ?>">
   
   <input type="text" class="input-block-level" name="first_name" placeholder="First Name" value="<?php echo $this->input->post('first_name'); ?>">
@@ -30,9 +31,9 @@
   
   <?php echo form_error('role', '<div class="text-error">', '</div>'); ?>
   <select name="role" id="role">
-    <option value="0" selected="selected">Select Role</option>
-    <option value="admin">Admin</option>
-    <option value="subscriber">Subscriber</option>
+    <option value="0" <?php if ( $this->input->post('role') == '0') : ?>selected="selected"<?php endif; ?>>Select Role</option>
+    <option value="admin" <?php if ( $this->input->post('role') == 'admin') : ?>selected="selected"<?php endif; ?>>Admin</option>
+    <option value="subscriber" <?php if ( $this->input->post('role') == 'subscriber') : ?>selected="selected"<?php endif; ?>>Subscriber</option>
   </select>
   
   <?php echo form_error('password', '<div class="text-error">', '</div>'); ?>
