@@ -70,9 +70,9 @@ class Posts extends CI_Controller {
 
             $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
 
-            $per_page       = $query[1]['settings_value'];   //SETTINGS PER PAGE VALUE  
-            $order_by       = $query[2]['settings_value'];   //SETTINGS POST BY "post_id" or "date"
-            $arrange_by     = $query[3]['settings_value'];   //ARRANGE BY DESC OR ASC
+            $per_page       = $query[1]['settings_value'];      //SETTINGS PER PAGE VALUE  
+            $order_by       = $query[2]['settings_value'];      //SETTINGS POST BY "post_id" or "date"
+            $arrange_by     = $query[3]['settings_value'];      //ARRANGE BY DESC OR ASC
 
             $this->load->library('pagination');
 
@@ -103,8 +103,10 @@ class Posts extends CI_Controller {
         
             $this->template->title      = 'Post Listing';
 
+            $offset                     = $this->uri->segment(4);
+
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page']);
+            $data['post_items']         = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page'], $offset);
             
             $this->template->content->view('admin/posts_list', $data);
             

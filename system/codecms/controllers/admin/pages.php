@@ -73,7 +73,7 @@ class Pages extends CI_Controller {
 
             $config['base_url']         = base_url('admin/pages/pages_list');
             $config['total_rows']       = $this->pages_model->count_all_pages();;
-            $config['per_page']         = 2;
+            $config['per_page']         = 5;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
@@ -98,7 +98,9 @@ class Pages extends CI_Controller {
             $this->template->title      = 'Pages Listing';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['page_items']         = $this->pages_model->get_all_pages();
+
+            $offset                     = $this->uri->segment(4);
+            $data['page_items']         = $this->pages_model->get_all_pages($order_by ='page_id', $arrange_by ='desc', $config['per_page'], $offset);
             
             $this->template->content->view('admin/pages_list', $data);
             

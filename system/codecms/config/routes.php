@@ -64,13 +64,13 @@
 |
 */
 
-$route['default_controller'] 				= 	'controller_front';
+$route['default_controller'] 				= 	'frontController';
 $route['404_override'] 						= 	'';
 
 $route['admin'] 							= 	'admin/main/index';
 $route['admin/(login|logout)']			    = 	'admin/main/$1';
 
-$route['(:any)']		 					= 	'controller_front/pages/';
+$route['(:any)']		 					= 	'frontController/pages/';
 
 
 

@@ -8,11 +8,9 @@ class Posts_model extends CI_Model {
         parent::__construct();
     }	
 
-	function get_all_posts($order ='post_id', $asc_desc ='desc', $limit = '18446744073709551615'){
+	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
-		$db = $this->db->dbprefix('posts');
-
-		$query = $this->db->query('SELECT * FROM '. $db .' ORDER BY '. $order .' '. $asc_desc .' LIMIT '. $limit .'');
+		$query = $this->db->get('posts', $limit, $offset);
 
 		if ( $query->num_rows() > 0 ) :
 

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Controller_front extends CI_Controller {
+class frontController extends CI_Controller {
 
         public function __construct(){
 
@@ -46,7 +46,7 @@ class Controller_front extends CI_Controller {
                 $data['page_data']      = $this->public_model->get_all_pages();
                 
                 //GET ALL THE POSTS
-                $data['all_posts']      = $this->public_model->get_all_posts('post_id', 'desc', '0,3');
+                $data['all_posts']      = $this->public_model->get_all_posts($order_by = 'posts_id', $arrange_by = 'desc', $limit = 3, $offset = 0);
 
                 $this->template->content->view('public/templates/default/home', $data);
 
@@ -60,9 +60,9 @@ class Controller_front extends CI_Controller {
 
                 $this->load->library('pagination');
 
-                $config['base_url']         = base_url('blog/posts_list');
+                $config['base_url']         = base_url('frontController/pages');
                 $config['total_rows']       = $this->posts_model->count_all_posts();
-                $config['per_page']         = 10;       
+                $config['per_page']         = 3;       
                 $config['full_tag_open']    = '<div class="pagination"><ul>';
                 $config['full_tag_close']   = '</ul></div>';
                 $config['num_tag_open']     = '<li>';
@@ -85,17 +85,20 @@ class Controller_front extends CI_Controller {
                 $data['links']              = $this->pagination->create_links();                                           
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
-                $data['page_data']      = $this->public_model->get_all_pages();
+                $data['page_data']          = $this->public_model->get_all_pages();
                 
-                $data['page']           = $this->public_model->get_page(); // THE SPECIFIC PAGE
-                $page_title             = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
+                $data['page']               = $this->public_model->get_page(); // THE SPECIFIC PAGE
+                $page_title                 = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
                 
                 // CHECK FOR THE PAGE TO DISPLAY ALL THE POSTS              
-                $data['post_page']      = $this->public_model->check_post_page();                
+                $data['post_page']          = $this->public_model->check_post_page();                
 
+
+                $offset                     = $this->uri->segment(3);
+                
                 // GET ALL THE POSTS
-                $data['all_posts']      = $this->public_model->get_all_posts();                
+                $data['all_posts']          = $this->public_model->get_all_posts($order_by = 'posts_id', $arrange_by = 'desc', $limit = 3, $offset);
 
                 if( isset($page_title) ) :
                     

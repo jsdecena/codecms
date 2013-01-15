@@ -8,9 +8,9 @@ class Pages_model extends CI_Model {
         parent::__construct();
     }		
 
-	function get_all_pages(){
+	function get_all_pages($order_by ='page_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
-		$query = $this->db->get('pages');
+		$query = $this->db->get('pages', $limit, $offset);
 
 		if ( $query->num_rows() > 0 ) :
 
