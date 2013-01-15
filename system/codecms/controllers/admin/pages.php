@@ -65,7 +65,7 @@ class Pages extends CI_Controller {
         $this->template->publish();
 	}
 
-    public function pages_list($limit=0){
+    public function pages_list(){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
