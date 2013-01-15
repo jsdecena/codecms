@@ -106,7 +106,7 @@ LOCK TABLES `cc_posts` WRITE;
 
 INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`)
 VALUES
-  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'unpublished','0000-00-00 00:00:00','0000-00-00 00:00:00');
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;
