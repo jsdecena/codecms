@@ -1,6 +1,13 @@
 <IfModule mod_rewrite.c>
  
     RewriteEngine On
+
+    #####################################################
+    #                                                   #
+    #   Change to your RewriteBase to your base name    #
+    #                                                   #
+    #####################################################
+    
     RewriteBase /codecms
  
     ### Canonicalize codeigniter URLs
