@@ -77,7 +77,7 @@ VALUES
   (1,'about','About','About us page','published','2012-12-16 07:38:20','2012-12-16 07:38:20'),
   (2,'portfolio','Portfolio','Portfolio page','published','2012-12-16 07:38:20','2012-12-16 07:38:40'),
   (3,'blog','Blog','Blog page','published','2012-12-16 07:38:20','2012-12-16 07:38:59'),
-  (4,'contact-us','Contact Us','Contact Us page','published','2012-12-16 07:38:20','2012-12-16 07:39:13');
+  (4,'contact','Contact','Contact Us page','published','2012-12-16 07:38:20','2012-12-16 07:39:13');
 
 /*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
 UNLOCK TABLES;
