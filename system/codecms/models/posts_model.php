@@ -10,7 +10,9 @@ class Posts_model extends CI_Model {
 
 	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
-		$query = $this->db->get('posts', $limit, $offset);
+		$this->db->select('*')->from('posts')->order_by($order_by , $arrange_by)->limit($limit, $offset);
+		
+		$query = $this->db->get();
 
 		if ( $query->num_rows() > 0 ) :
 

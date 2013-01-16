@@ -10,7 +10,9 @@ class Pages_model extends CI_Model {
 
 	function get_all_pages($order_by ='page_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
-		$query = $this->db->get('pages', $limit, $offset);
+		$this->db->select('*')->from('pages')->order_by($order_by , $arrange_by)->limit($limit, $offset);
+		
+		$query = $this->db->get();
 
 		if ( $query->num_rows() > 0 ) :
 

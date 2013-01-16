@@ -65,7 +65,7 @@ class Pages extends CI_Controller {
         $this->template->publish();
 	}
 
-    public function pages_list(){
+    public function pages_list($order_by = 'page_id', $arrange_by = 'desc'){
 
         if ( $this->users_model->check_if_logged_in() ) :
 
@@ -100,7 +100,7 @@ class Pages extends CI_Controller {
             $data['logged_info']        = $this->users_model->logged_in();
 
             $offset                     = $this->uri->segment(4);
-            $data['page_items']         = $this->pages_model->get_all_pages($order_by ='page_id', $arrange_by ='desc', $config['per_page'], $offset);
+            $data['page_items']         = $this->pages_model->get_all_pages($order_by, $arrange_by, $config['per_page'], $offset);
             
             $this->template->content->view('admin/pages_list', $data);
             
