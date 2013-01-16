@@ -259,7 +259,7 @@ class Posts extends CI_Controller {
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
                 $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-               redirect('admin/posts/posts_list' .'/'. $this->input->post('post_id'), $data);
+               redirect('admin/posts/posts_list', $data);
 
             endif;
 

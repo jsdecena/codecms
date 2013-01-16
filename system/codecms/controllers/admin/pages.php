@@ -172,7 +172,7 @@ class Pages extends CI_Controller {
 
     }
 
-    public function view_page() {
+    public function page_view() {
 
             $this->template->set_template('public/templates/default/pages_tpl');                
 
@@ -265,11 +265,11 @@ class Pages extends CI_Controller {
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a page.');
                 $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a page. Please try again.');
 
-               redirect('admin/pages/pages_list' .'/'. $this->input->post('page_id'), $data);
+                redirect('admin/pages/pages_list', $data);
 
             endif;
 
-        else:            
+        else:  
 
             $id = $this->input->post('delete_selection');                  
             
