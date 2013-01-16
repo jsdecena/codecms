@@ -87,6 +87,7 @@ body {
   /* BLOG */
   #post_page_wrap {
     padding: 10px;
+    margin: 0 0 20px;
     border: 1px solid #eee;
   }
   #post_page_wrap a:hover {
