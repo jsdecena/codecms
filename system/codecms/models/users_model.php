@@ -82,7 +82,7 @@ class Users_model extends CI_Model {
     }
 
     /*CHECKING FOR THE CURRENT USER IF LOGGED IN OR NOT*/
-    function check_if_logged_in(){
+    function logged_in_check(){
         
         //CHECK IF THE USER IS LOGGED IN
         $query = $this->db->get_where('users', array('email' => $this->session->userdata('email'), 'is_logged_in' => 1));

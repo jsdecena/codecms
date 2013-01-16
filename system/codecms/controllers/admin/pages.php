@@ -39,7 +39,7 @@ class Pages extends CI_Controller {
 
 	public function index(){
 
-		if ( $this->users_model->check_if_logged_in() ) :
+		if ( $this->users_model->logged_in_check() ) :
 
 			$this->page_home();
 
@@ -67,7 +67,7 @@ class Pages extends CI_Controller {
 
     public function pages_list($order_by = 'page_id', $arrange_by = 'desc'){
 
-        if ( $this->users_model->check_if_logged_in() ) :
+        if ( $this->users_model->logged_in_check() ) :
 
             $this->load->library('pagination');
 
@@ -118,7 +118,7 @@ class Pages extends CI_Controller {
 
     public function page_create(){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->logged_in_check() ) :        
 
             $this->template->title      = 'Pages';
 
@@ -158,7 +158,7 @@ class Pages extends CI_Controller {
 
     public function page_create_insert(){
 
-        if ( $this->users_model->check_if_logged_in() ) :
+        if ( $this->users_model->logged_in_check() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
             $this->pages_model->insert_page();
@@ -191,7 +191,7 @@ class Pages extends CI_Controller {
 
     public function page_edit(){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->logged_in_check() ) :        
 
             $this->template->title      = 'Pages';
 
@@ -234,7 +234,7 @@ class Pages extends CI_Controller {
 
     public function page_edit_insert(){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->logged_in_check() ) :        
 
             if ( $this->pages_model->insert_edited_page() ) :
 

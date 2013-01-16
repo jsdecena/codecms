@@ -38,7 +38,7 @@ class Posts extends CI_Controller {
 
 	public function index(){
 
-		if ( $this->users_model->check_if_logged_in() ) :
+		if ( $this->users_model->logged_in_check() ) :
 
 			$this->post_home();
 
@@ -66,7 +66,7 @@ class Posts extends CI_Controller {
 
     public function posts_list(){
 
-        if ( $this->users_model->check_if_logged_in() ) :
+        if ( $this->users_model->logged_in_check() ) :
 
             $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
 
@@ -124,7 +124,7 @@ class Posts extends CI_Controller {
 
     public function post_create(){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->logged_in_check() ) :        
 
             $this->template->title      = 'posts';
 
@@ -169,7 +169,7 @@ class Posts extends CI_Controller {
 
     private function _post_insert_db(){
 
-        if ( $this->users_model->check_if_logged_in() ) :
+        if ( $this->users_model->logged_in_check() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
             $this->posts_model->insert_post();
@@ -185,7 +185,7 @@ class Posts extends CI_Controller {
 
     public function post_edit($post_id){
 
-        if ( $this->users_model->check_if_logged_in() ) : 
+        if ( $this->users_model->logged_in_check() ) : 
 
             $this->template->title      = 'posts';
 
@@ -228,7 +228,7 @@ class Posts extends CI_Controller {
 
     private function _post_edit_insert(){
 
-        if ( $this->users_model->check_if_logged_in() ) :        
+        if ( $this->users_model->logged_in_check() ) :        
 
             if ( $this->posts_model->update_post() ) :
 
