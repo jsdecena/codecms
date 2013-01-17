@@ -51,7 +51,7 @@
 						</select>
 					</div>
 
-					<div id="choose_page_default" class="controls">
+					<div id="choose_page_default" class="controls" style="display:none">
 						<label for="choose_page" class="input-block-level">Page to display your posts. <a href="#" id="change_post_page">Change post page.</a></label>
 						<input name="post_page_chosen" id="post_page_chosen_label" class="post_page_chosen_label" type="text" value="<?php echo set_value('Blog', $value['settings_value']); ?>">
 					</div>

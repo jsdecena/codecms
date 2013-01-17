@@ -142,11 +142,14 @@ class Posts_model extends CI_Model {
 		$this->db->count_all_results('posts');
 		$this->db->from('posts');
 		$this->db->where('post_type', 'post');
+
+		if ( $this->uri->segment(1) == 'blog') :
+			$this->db->where('status', 'published');
+		endif;
 		
 		$query = $this->db->get();		
 		
-
-		if ( $query->num_rows() > 0) :
+		if ( $query->num_rows() > 0) :			
 			return $query->num_rows();
 		endif;
 
@@ -158,10 +161,10 @@ class Posts_model extends CI_Model {
 		$this->db->count_all_results('posts');
 		$this->db->from('posts');
 		$this->db->where('post_type', 'page');
+		$this->db->where('status', 'published');
 		
 		$query = $this->db->get();		
 		
-
 		if ( $query->num_rows() > 0) :
 			return $query->num_rows();
 		endif;

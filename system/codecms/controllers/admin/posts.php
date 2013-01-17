@@ -80,7 +80,6 @@ class Posts extends CI_Controller {
             $config['base_url']         = site_url('admin/posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
             $config['per_page']         = $per_page;
-            $config['num_links']        = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';

@@ -27,20 +27,25 @@ class Blog extends CI_Controller {
 
                 $this->load->model('posts_model');
                 $this->load->model('users_model');
-                $this->load->helper('text');       
+                $this->load->helper('text');
+
+                $this->template->set_template('public/templates/default/posts_tpl');
 
         }	
 
-        public function posts_list(){
-
-            $this->template->set_template('public/templates/default/posts_tpl');
+        public function posts_list(){            
 
             $this->load->library('pagination');
+            
+            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
+
+            $per_page       = $query[1]['settings_value'];      //SETTINGS PER PAGE VALUE  
+            $order_by       = $query[2]['settings_value'];      //SETTINGS POST BY "post_id" or "date"
+            $arrange_by     = $query[3]['settings_value'];      //ARRANGE BY DESC OR ASC            
 
             $config['base_url']         = base_url('blog/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
-            $config['per_page']         = 10;
-            $config['uri_segment']      = 3;
+            $config['per_page']         = $per_page;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
@@ -86,9 +91,7 @@ class Blog extends CI_Controller {
         }        
 
         //SINGLE POST
-        public function post() {
-
-                $this->template->set_template('public/templates/default/single_posts_tpl');                
+        public function post() {            
 
                 $data['pages']             = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = 10);
                 $data['post']              = $this->posts_model->view_post();
@@ -104,7 +107,7 @@ class Blog extends CI_Controller {
 
                 endif;            
 
-                $this->template->content->view('public/templates/default/single_posts', $data);
+                $this->template->content->view('public/templates/default/posts', $data);
 
                 // publish the template
                 $this->template->publish();
