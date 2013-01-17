@@ -2,11 +2,27 @@
 
 <section id="main_content hidden">
 
-	<?php if ( isset($post) ) : //var_dump($post); die(); ?>
-		
-		<h1><?php echo $post->title; ?></h1>
+	<?php if ( isset($post) ) : $slug = $post->slug; //var_dump($post); die(); ?>
+		<div class="post_page">
+			<h2>
+			<a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo $post->title; ?></a>
+				<span> 
+				
+				<?php							
 
-		<p><?php echo $post->content; ?></p>
+					echo '<span class="author">' . $post->author . "</span> on ";
+
+					$newDate = date("M jS Y", strtotime($post->date_add));
+					echo $newDate;
+
+				?>
+				
+				</span>
+			</h2>		
+
+			<?php echo $post->content; ?>
+					
+		</div>
 
 		<?php else: ?>
 
