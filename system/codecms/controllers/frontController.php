@@ -59,7 +59,7 @@ class frontController extends CI_Controller {
 
                 $this->load->library('pagination');
 
-                $config['base_url']         = base_url('frontController/pages');
+                $config['base_url']         = base_url('blog/posts_list');
                 $config['total_rows']       = $this->posts_model->count_all_posts();
                 $config['per_page']         = 3;       
                 $config['full_tag_open']    = '<div class="pagination"><ul>';

@@ -39,7 +39,7 @@ class Blog extends CI_Controller {
 
             $config['base_url']         = base_url('blog/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
-            $config['per_page']         = 3;
+            $config['per_page']         = 10;
             $config['uri_segment']      = 3;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
@@ -60,28 +60,24 @@ class Blog extends CI_Controller {
 
             $this->pagination->initialize($config);
 
-            $data['links']              = $this->pagination->create_links();                                           
+            $data['links']              = $this->pagination->create_links();
+
+            $offset                     = $this->uri->segment(3);                                       
 
             //ALL THE PAGES FOR THE MENU PAGE LISTING
-            $data['pages']          = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'desc', $limit = $config['per_page'], $offset);
+            $data['pages']              = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = $config['per_page'], $offset);
             
             $data['page']               = $this->posts_model->get_page(); // THE SPECIFIC PAGE
             $page_title                 = $this->posts_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
             
             // CHECK FOR THE PAGE TO DISPLAY ALL THE POSTS              
-            $data['post_page']          = $this->posts_model->check_post_page();                
-
-            $offset                     = $this->uri->segment(3);
+            $data['post_page']          = $this->posts_model->check_post_page();
             
             // GET ALL THE POSTS
             $data['posts']              = $this->posts_model->get_all_posts($order_by = 'post_id', $arrange_by = 'desc', $limit = $config['per_page'], $offset);
 
             $this->template->title      = 'Post Listing';
-
-                //$data['logged_info']        = $this->users_model->logged_in();
-                //$data['page_data']          = $this->posts_model->get_all_pages();
-                //$data['post_items']         = $this->posts_model->get_all_posts();
             
             $this->template->content->view('public/templates/default/posts', $data);
             
@@ -92,7 +88,7 @@ class Blog extends CI_Controller {
         //SINGLE POST
         public function post() {
 
-                $this->template->set_template('public/templates/default/posts_tpl');                
+                $this->template->set_template('public/templates/default/single_posts_tpl');                
 
                 $data['pages']             = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = 10);
                 $data['post']              = $this->posts_model->view_post();
@@ -108,7 +104,7 @@ class Blog extends CI_Controller {
 
                 endif;            
 
-                $this->template->content->view('public/templates/default/posts', $data);
+                $this->template->content->view('public/templates/default/single_posts', $data);
 
                 // publish the template
                 $this->template->publish();

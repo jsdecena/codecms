@@ -35,6 +35,7 @@
                   foreach ($pages as $row) : if( $row['status'] == 'published') ://var_dump($row); die(); ?>
                     <li<?php if ( $this->uri->segment(1) == $row['slug']  ) : ?> class="active"<?php endif; ?>><a href="<?php echo base_url() . $row['slug']; ?>"><?php echo $row['title']; ?></a></li>
                 <?php endif; endforeach; endif; ?>
+                <li> <a href="<?php echo base_url('blog/posts_list'); ?>">Blog</a></li>
               </ul>
             </div>
           </div>

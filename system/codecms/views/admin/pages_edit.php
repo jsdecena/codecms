@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="controls">
-					<label>Publishing options:</label>
+					<label>Status:</label>
 					<div class="controlgroup clearfix">
 						<select name="status">
 							<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>

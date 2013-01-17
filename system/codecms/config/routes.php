@@ -72,6 +72,8 @@ $route['admin/(login|logout)']			    = 	'admin/main/$1';
 
 $route['(:any)']		 					= 	'frontController/pages/';
 
+$route['blog/post/(:any)']					=	'blog/post';
+
 
 
 /* End of file routes.php */
