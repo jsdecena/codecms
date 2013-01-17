@@ -52,39 +52,6 @@ CREATE TABLE `cc_user_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
-# Dump of table cc_pages
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `cc_pages`;
-
-CREATE TABLE `cc_pages` (
-  `page_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `slug` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `status` varchar(128) NOT NULL DEFAULT 'unpublished',  
-  `date_add` datetime DEFAULT '0000-00-00 00:00:00',
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`page_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-LOCK TABLES `cc_pages` WRITE;
-/*!40000 ALTER TABLE `cc_pages` DISABLE KEYS */;
-
-INSERT INTO `cc_pages` (`page_id`, `slug`, `title`, `content`, `status`, `date_add`, `modified`)
-VALUES
-  (1,'about','About','About us page','published','2012-12-16 07:38:20','2012-12-16 07:38:20'),
-  (2,'portfolio','Portfolio','Portfolio page','published','2012-12-16 07:38:20','2012-12-16 07:38:40'),
-  (3,'blog','Blog','Blog page','published','2012-12-16 07:38:20','2012-12-16 07:38:59'),
-  (4,'contact','Contact','Contact Us page','published','2012-12-16 07:38:20','2012-12-16 07:39:13');
-
-/*!40000 ALTER TABLE `cc_pages` ENABLE KEYS */;
-UNLOCK TABLES;
-
-# Dump of table cc_pages
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `cc_posts`;
 
 CREATE TABLE `cc_posts` (
@@ -97,6 +64,7 @@ CREATE TABLE `cc_posts` (
   `status` varchar(128) NOT NULL DEFAULT 'unpublished',
   `date_add` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `post_type` varchar(20) NOT NULL DEFAULT 'post',
   PRIMARY KEY (`post_id`),
   KEY `users_id` (`users_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -104,9 +72,12 @@ CREATE TABLE `cc_posts` (
 LOCK TABLES `cc_posts` WRITE;
 /*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
 
-INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`)
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`)
 VALUES
-  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00');
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'post'),
+  (2, 1,'About us','about-us','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
+  (3, 1,'Blog','blog','John Doe','This is blog page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
+  (4, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page');
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -132,7 +103,7 @@ VALUES
   (1,'post_page_chosen','blog'),
   (2,'post_per_page','10'),
   (3,'arrange_post_by','post_id'),
-  (4,'order_post_by','asc');
+  (4,'order_post_by','desc');
 
 /*!40000 ALTER TABLE `cc_settings` ENABLE KEYS */;
 UNLOCK TABLES;

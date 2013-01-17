@@ -32,7 +32,7 @@ class Pages extends CI_Controller {
         // END DYNAMICALLY ADD STYLESHEETS    	 
 
         $this->load->model('users_model');
-        $this->load->model('pages_model');
+        $this->load->model('posts_model');
         $this->template->set_template('admin/dashboard_tpl');
         $this->load->library('form_validation');
     }	
@@ -57,7 +57,7 @@ class Pages extends CI_Controller {
         $this->template->title      = 'Pages';
 
         $data['logged_info']    	= $this->users_model->logged_in();
-        $data['page_items']    		= $this->pages_model->get_all_pages();
+        $data['page_items']    		= $this->posts_model->get_all_pages();
         
         $this->template->content->view('admin/pages_list', $data);
         
@@ -65,14 +65,14 @@ class Pages extends CI_Controller {
         $this->template->publish();
 	}
 
-    public function pages_list($order_by = 'page_id', $arrange_by = 'desc'){
+    public function pages_list($order_by = 'post_id', $arrange_by = 'asc'){
 
         if ( $this->users_model->logged_in_check() ) :
 
             $this->load->library('pagination');
 
             $config['base_url']         = base_url('admin/pages/pages_list');
-            $config['total_rows']       = $this->pages_model->count_all_pages();;
+            $config['total_rows']       = $this->posts_model->count_all_posts();;
             $config['per_page']         = 5;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
@@ -100,7 +100,7 @@ class Pages extends CI_Controller {
             $data['logged_info']        = $this->users_model->logged_in();
 
             $offset                     = $this->uri->segment(4);
-            $data['page_items']         = $this->pages_model->get_all_pages($order_by, $arrange_by, $config['per_page'], $offset);
+            $data['posts']              = $this->posts_model->get_all_pages($order_by, $arrange_by, $config['per_page'], $offset);
             
             $this->template->content->view('admin/pages_list', $data);
             
@@ -120,7 +120,7 @@ class Pages extends CI_Controller {
 
         if ( $this->users_model->logged_in_check() ) :        
 
-            $this->template->title      = 'Pages';
+            $this->template->title      = 'Create a Page';
 
             $data['logged_info']        = $this->users_model->logged_in();            
             
@@ -147,7 +147,7 @@ class Pages extends CI_Controller {
             $this->page_create_insert();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.'); 
-            redirect('admin/pages/page_edit' .'/'. $this->pages_model->get_page_id(), $data, 'refresh');
+            redirect('admin/pages/page_edit' .'/'. $this->posts_model->get_post_id(), $data, 'refresh');
 
         else:
 
@@ -161,7 +161,7 @@ class Pages extends CI_Controller {
         if ( $this->users_model->logged_in_check() ) :
 
             //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->pages_model->insert_page();
+            $this->posts_model->insert_post();
 
         else:
 
@@ -196,7 +196,7 @@ class Pages extends CI_Controller {
             $this->template->title      = 'Pages';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['page_items']         = $this->pages_model->get_specific_page();
+            $data['page_items']         = $this->posts_model->get_post();
             
             $this->template->content->view('admin/pages_edit', $data);
             
@@ -218,31 +218,31 @@ class Pages extends CI_Controller {
         if ( $this->form_validation->run() ) :
 
             //VALIDATION SUCCCESS
-            $this->page_edit_insert();
+            $this->page_update();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this page.');
-            redirect('admin/pages/page_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/pages/page_edit' .'/'. $this->input->post('post_id'), $data);
 
         else:
 
             //VALIDATION FAILURE
             $data['message_error'] = $this->session->set_flashdata('message_error', 'Sorry, Title is required.');
-            redirect('admin/pages/page_edit' .'/'. $this->input->post('id'), $data);
+            redirect('admin/pages/page_edit' .'/'. $this->input->post('post_id'), $data);
 
         endif;            
     }
 
-    public function page_edit_insert(){
+    public function page_update(){
 
         if ( $this->users_model->logged_in_check() ) :        
 
-            if ( $this->pages_model->insert_edited_page() ) :
+            if ( $this->posts_model->update_post() ) :
 
                     //SUCCESFULL INSERTION OF THE EDITED PAGE IN THE DB
-                    return true;
+                   redirect('admin/pages/page_edit' .'/'. $this->input->post('post_id'), $data);
             else :
                     //FAILURE OF INSERTION OF THE EDITED PAGE IN THE DB
-                    return false;
+                    $this->page_edit();
             endif;
 
         else:
@@ -258,9 +258,9 @@ class Pages extends CI_Controller {
     public function page_delete(){
 
         //SINGLE DELETE
-        if ( $this->input->post('page_id')) :
+        if ( $this->input->post('delete_page')) :
             
-            if( $this->pages_model->delete_page() === TRUE) :
+            if( $this->posts_model->delete_post() === TRUE) :
 
                 $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a page.');
                 $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a page. Please try again.');
@@ -275,7 +275,7 @@ class Pages extends CI_Controller {
             
             for( $i=0; $i<sizeof($id); $i++) :
             
-                $this->pages_model->delete_page_selection($id[$i]);
+                $this->posts_model->delete_page_selection($id[$i]);
             
             endfor;
             

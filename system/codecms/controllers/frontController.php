@@ -43,10 +43,10 @@ class frontController extends CI_Controller {
                 $this->template->title  = 'Home';
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
-                $data['page_data']      = $this->public_model->get_all_pages();
+                $data['pages']      = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', '', $offset = 0);
                 
                 //GET ALL THE POSTS
-                $data['all_posts']      = $this->public_model->get_all_posts($order_by = 'posts_id', $arrange_by = 'desc', $limit = 3, $offset = 0);
+                $data['posts']      = $this->posts_model->get_all_posts($order_by = 'post_id', $arrange_by = 'desc', $limit = 3, $offset = 0);
 
                 $this->template->content->view('public/templates/default/home', $data);
 

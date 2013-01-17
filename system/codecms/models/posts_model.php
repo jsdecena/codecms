@@ -8,9 +8,10 @@ class Posts_model extends CI_Model {
         parent::__construct();
     }	
 
+    //LIST ALL THE POSTS
 	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
-		$this->db->select('*')->from('posts')->order_by($order_by , $arrange_by)->limit($limit, $offset);
+		$this->db->select('*')->from('posts')->where('post_type', 'post')->order_by($order_by , $arrange_by)->limit($limit, $offset);
 		
 		$query = $this->db->get();
 
@@ -22,7 +23,22 @@ class Posts_model extends CI_Model {
 
 	}
 
-	function get_post($post_id){
+	//LIST ALL THE PAGES
+	function get_all_pages($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
+
+		$this->db->select('*')->from('posts')->where('post_type', 'page')->order_by($order_by , $arrange_by)->limit($limit, $offset);
+		
+		$query = $this->db->get();
+
+		if ( $query->num_rows() > 0 ) :
+
+			return $query->result_array();
+
+		endif;
+
+	}
+
+	function get_post(){
 
 		$post_id = $this->uri->segment(4);
 
@@ -33,6 +49,16 @@ class Posts_model extends CI_Model {
  			return $query->row();
 
 		endif;		
+	}
+
+	function get_post_id() {
+
+		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
+
+		$create_post_id = $query->row('post_id');
+
+		return $create_post_id;
+
 	}	
 
 	function insert_post(){
@@ -42,6 +68,7 @@ class Posts_model extends CI_Model {
 			$author = $query->row();		
 
 			$data = array(
+				'post_type'		=> $this->input->post('post_type'),
 				'users_id' 		=> $author->users_id,
 			   	'title' 		=> $this->input->post('title'),
 			   	'content' 		=> $this->input->post('content'),
@@ -54,16 +81,6 @@ class Posts_model extends CI_Model {
 			$this->db->insert('posts', $data);
 	}
 
-
-	function get_post_id() {
-
-		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
-
-		$create_post_id = $query->row('post_id');
-
-		return $create_post_id;
-
-	}
 	function update_post(){
 
 		$data = array(
@@ -77,10 +94,21 @@ class Posts_model extends CI_Model {
 		$this->db->update('posts', $data); 
 	}
 
-	//SINGLE DELETE
+	//SINGLE POST DELETE
 	function delete_post() {
 
-		$this->db->delete('posts', array('post_id' => $this->input->post('post_id')));
+		if ( $this->input->post('delete_post') ) :
+			
+			//DELETE A POST
+			$this->db->delete('posts', array('post_id' => $this->input->post('delete_post')));
+
+		else:
+		
+			//DELETE A PAGE
+			$this->db->delete('posts', array('post_id' => $this->input->post('delete_page')));
+
+		endif;
+		
 
 		return true;
 	}
@@ -93,13 +121,37 @@ class Posts_model extends CI_Model {
 		return true;
 	}
 
+	//COUNT ALL POSTS
 	function count_all_posts(){
 
-		$query = $this->db->count_all_results('posts');
+		$this->db->count_all_results('posts');
+		$this->db->from('posts');
+		$this->db->where('post_type', 'post');
 		
-		return $query;
+		$query = $this->db->get();		
+		
 
-	}		
+		if ( $query->num_rows() > 0) :
+			return $query->num_rows();
+		endif;
+
+	}
+	
+	//COUNT ALL PAGES
+	function count_all_pages(){
+
+		$this->db->count_all_results('posts');
+		$this->db->from('posts');
+		$this->db->where('post_type', 'page');
+		
+		$query = $this->db->get();		
+		
+
+		if ( $query->num_rows() > 0) :
+			return $query->num_rows();
+		endif;
+
+	}	
 
 	function update_post_settings() {
 

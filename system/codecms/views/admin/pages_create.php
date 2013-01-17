@@ -14,7 +14,6 @@
 			<div class="controlgroup">
 
 				<!-- LOAD THE PAGE CONTENT -->
-				<?php // $this->load->view('admin/pages_tpl_create'); ?>
 
 				<?php
 
@@ -47,6 +46,7 @@
 				<?php endif; ?>
 
 				<div class="controls clearfix">
+					<input type="hidden" id="page" name="post_type" value="page" />
 					<label for="page_title">Page Title <sup class="text-error">*</sup></label>
 					<input type="text" class="input-block-level" id="page_title" name="title" value="<?php echo $this->input->post('title'); ?>">
 					<input type="hidden" class="input-block-level" id="page_slug" name="slug" value="">

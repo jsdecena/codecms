@@ -252,7 +252,7 @@ class Posts extends CI_Controller {
     public function post_delete(){
 
         //SINGLE DELETE
-        if ( $this->input->post('post_id')) :
+        if ( $this->input->post('delete_post')) :
             
             if( $this->posts_model->delete_post() === TRUE) :
 

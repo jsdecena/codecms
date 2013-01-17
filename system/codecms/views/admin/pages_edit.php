@@ -14,8 +14,6 @@
 			<div class="controlgroup">
 
 				<!-- LOAD THE PAGE CONTENT -->
-				<?php // $this->load->view('admin/pages_tpl_edit'); ?>
-
 				<?php 
 
 				//PAGE EDIT FORM
@@ -48,7 +46,7 @@
 
 				<div class="controls clearfix">
 					<input type="hidden" id="page_slug" class="input-block-level" name="slug" value="<?php echo $page_items->slug; ?>">
-					<input type="hidden" class="input-block-level" name="id" value="<?php echo $page_items->page_id; ?>">
+					<input type="hidden" class="input-block-level" name="post_id" value="<?php echo $page_items->post_id; ?>">
 					<label for="page_title">Page Title <sup class="text-error">*</sup></label>
 					<input type="text" id="page_title" class="input-block-level" name="title" value="<?php echo $page_items->title; ?>">
 				</div>

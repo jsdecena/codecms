@@ -32,7 +32,6 @@ class Main extends CI_Controller {
 
         $this->template->set_template('admin/dashboard_tpl');
         $this->load->model('users_model');
-        $this->load->model('pages_model');
         $this->load->model('posts_model');
         $this->load->library('form_validation');
     }
@@ -652,7 +651,7 @@ class Main extends CI_Controller {
             $this->template->title      = 'Settings page';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['page_items']         = $this->pages_model->get_all_pages();
+            $data['pages']              = $this->posts_model->get_all_pages();
             $data['post_settings']      = $this->posts_model->view_post_settings();
 
             $this->template->content->view('admin/settings', $data);

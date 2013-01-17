@@ -1,4 +1,4 @@
-<?php // echo "<pre>"; var_dump($page_items); die(); ?>
+<?php // echo "<pre>"; var_dump($posts); die(); ?>
 
 <div class="row clearfix:after pages_list">
 	
@@ -32,7 +32,7 @@
 				<?php 
 
 				//PAGE LIST FORM
-				if ( is_array($page_items)) : echo form_open('admin/pages/page_delete'); ?>
+				if ( is_array($posts)) : echo form_open('admin/pages/page_delete'); ?>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -44,23 +44,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($page_items as $pages) : ?>			
+						<?php foreach ($posts as $post) : ?>		
 							<tr>
-								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $pages['page_id']; ?>" /></td>
+								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $post['post_id']; ?>" /></td>
 								<td class="tbl_status">
-									<?php if ( $pages['status'] == 'unpublished') : ?>
+									<?php if ( $post['status'] == 'unpublished') : ?>
 										<i class="icon-remove icon-black icon_status">&nbsp;</i>
 									<?php else: ?>
 										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
 									<?php endif; ?>									
 								</td>
-								<td class="tbl_title"><?php echo $pages['title']; ?></td>
-								<td class="tbl_content"><?php echo $pages['content']; ?></td>
+								<td class="tbl_title"><?php echo $post['title']; ?></td>
+								<td class="tbl_content"><?php echo $post['content']; ?></td>
 								<td class="tbl_actions">
-								<?php echo anchor( $pages["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
-								<?php echo anchor("admin/pages/page_edit" . '/' . $pages["page_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
+								<?php echo anchor( $post["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
+								<?php echo anchor("admin/pages/page_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								<?php if ( $logged_info['role'] == 'admin') : ?>
-								<button name="page_id" class="btn btn-danger btn-small" value="<?php echo $pages["page_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
+								<button name="delete_page" class="btn btn-danger btn-small" value="<?php echo $post["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
 									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
 								<?php endif; ?>
 								</td>
