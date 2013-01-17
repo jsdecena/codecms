@@ -4,43 +4,38 @@
       
 <div class="row-fluid page_tpl">
 
-		<?php
-
-			//CHECK IF THIS IS THE POST PAGE SET IN THE SETTINGS, DISPLAY THE POSTS			
-			if ( isset($post_page['settings_value']) && $post_page['settings_value'] == $this->uri->segment(1) ) :
-
-		?>
+		<?php if ( isset($post_page['settings_value']) && $post_page['settings_value'] == $this->uri->segment(1) ) : ?>
 		
 			<div id="post_page_wrap" class="span9">
 			
-		  <?php 
+		  <?php
 
 		        //CHECK IF THERE IS A POST/S
-		        if ( is_array($all_posts) ) : 
+		        if ( is_array($posts) || isset($posts) ) : 
 
 		        //IF THERE IS/ARE, SHOW THEM 
-		        foreach ($all_posts as $row) : 
+		        foreach ($posts as $post) :
 
 		        //GET ONLY THE PUBLISHED POST/S
-		        if ( $row['status'] == 'published') : $slug = $row['slug']; ?>
+		        if ( $post['status'] == 'published') : $slug = $post['slug']; ?>
 
 				<div class="post_page">
 					<h2>
-					<a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo $row['title']; ?></a>
+					<a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo $post['title']; ?></a>
 						<span> 
 						
 						<?php							
 
-							echo '<span class="author">' . $row['author'] . "</span> on ";
+							echo '<span class="author">' . $post['author'] . "</span> on ";
 
-							$newDate = date("M jS Y", strtotime($row['date_add']));
+							$newDate = date("M jS Y", strtotime($post['date_add']));
 							echo $newDate;
 
 						?>
 						
 						</span>
 					</h2>
-					<?php echo word_limiter($row['content'], 30); ?>
+					<?php echo word_limiter($post['content'], 30); ?>
 					<p><a href="<?php echo base_url("blog/post/$slug"); ?>">Continue Reading</a></p>
 				</div>				
 

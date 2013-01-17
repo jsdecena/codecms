@@ -25,7 +25,6 @@ class frontController extends CI_Controller {
                 $this->template->javascript->add($js);
                 // END DYNAMICALLY ADD STYLESHEETS
 
-                $this->load->model('public_model');
                 $this->load->model('posts_model');
                 $this->load->helper('text');       
 
@@ -85,20 +84,19 @@ class frontController extends CI_Controller {
                 $data['links']              = $this->pagination->create_links();                                           
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
-                $data['page_data']          = $this->public_model->get_all_pages();
+                $data['pages']              = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', '', $offset = 0);
                 
-                $data['page']               = $this->public_model->get_page(); // THE SPECIFIC PAGE
-                $page_title                 = $this->public_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
+                $data['page']               = $this->posts_model->get_page(); // THE SPECIFIC PAGE
+                $page_title                 = $this->posts_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
 
                 
                 // CHECK FOR THE PAGE TO DISPLAY ALL THE POSTS              
-                $data['post_page']          = $this->public_model->check_post_page();                
-
+                $data['post_page']          = $this->posts_model->check_post_page();
 
                 $offset                     = $this->uri->segment(3);
                 
                 // GET ALL THE POSTS
-                $data['all_posts']          = $this->public_model->get_all_posts($order_by = 'posts_id', $arrange_by = 'desc', $limit = 3, $offset);
+                $data['posts']          = $this->posts_model->get_all_posts($order_by = 'post_id', $arrange_by = 'desc', $limit = 3, $offset);                
 
                 if( isset($page_title) ) :
                     

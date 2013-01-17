@@ -8,6 +8,8 @@ class Posts_model extends CI_Model {
         parent::__construct();
     }	
 
+	/* ===============================================================	BACK END =============================================================== */
+
     //LIST ALL THE POSTS
 	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
 
@@ -50,6 +52,19 @@ class Posts_model extends CI_Model {
 
 		endif;		
 	}
+
+	function get_page(){		
+
+		$post_title = $this->uri->segment(1);		
+
+		$query = $this->db->get_where('posts', array( 'slug' => $post_title ));
+		
+		if($query->num_rows() == 1):
+
+ 			return $query->row();
+
+		endif;		
+	}	
 
 	function get_post_id() {
 
@@ -191,5 +206,35 @@ class Posts_model extends CI_Model {
 			return $query->result_array();
 
 		endif;	
-	}	
+	}
+
+	//CHECK FOR THE PAGE THAT WILL SHOW ALL THE POSTS. THIS IS SET IN THE DATABASE BY THE SETTINGS.
+	function check_post_page(){
+
+		$query = $this->db->get('cc_settings');
+
+		if ( $query->num_rows() > 0 ) :
+
+			foreach ($query->result_array() as $value) :
+				
+				return $value;
+
+			endforeach;
+
+		endif;	
+
+	}
+
+	/* ===============================================================	FRONT END =============================================================== */
+	
+    function view_post(){
+
+        $query = $this->db->get_where('posts', array('slug' => $this->uri->segment(3,0)), 1);
+		
+		if($query->num_rows() == 1):
+
+ 			return $query->row();
+
+		endif;
+    }	
 }
