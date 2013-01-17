@@ -34,6 +34,7 @@ class Posts extends CI_Controller {
         $this->load->model('posts_model');
         $this->template->set_template('admin/dashboard_tpl');
         $this->load->library('form_validation');
+        $this->load->helper('text');
     }
 
 	public function index(){
@@ -208,6 +209,7 @@ class Posts extends CI_Controller {
     public function post_edit_check(){
 
         $this->form_validation->set_rules('title', 'Title', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('content', 'Content', 'trim|xss_clean');
 
         if ( $this->form_validation->run() ) :
 

@@ -58,7 +58,7 @@
 									<?php endif; ?>									
 								</td>
 								<td class="tbl_title"><?php echo $posts['title']; ?></td>
-								<td class="tbl_content"><?php echo $posts['content']; ?></td>
+								<td class="tbl_content"><?php echo word_limiter($posts['content'], 10); ?></td>
 								<td class="tbl_author"><?php echo $posts['author']; ?></td>
 								<td class="tbl_actions">
 								<?php echo anchor( base_url("blog/post/$post_url"), '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>

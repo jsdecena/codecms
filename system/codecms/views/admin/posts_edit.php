@@ -67,7 +67,7 @@
 
 				<div class="controls">
 					<a href="<?php echo base_url('admin/posts/posts_list'); ?>" class="btn btn-info">Back</a>
-					<input type="submit" name="post_edit" class="btn btn-primary" value="Save" />
+					<input type="submit" name="post_edit" class="btn btn-primary post_edit" value="Save" />
 
 				</div>
 
