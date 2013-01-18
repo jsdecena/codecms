@@ -40,9 +40,7 @@ class Posts_model extends CI_Model {
 
 	}
 
-	function get_post(){
-
-		$post_id = $this->uri->segment(4);
+	function get_post($post_id){
 
 		$query = $this->db->get_where('posts', array( 'post_id' => $post_id ));
 		
@@ -102,7 +100,7 @@ class Posts_model extends CI_Model {
 			'title' 	=> $this->input->post('title'),
 			'status' 	=> $this->input->post('status'),
 			'content' 	=> $this->input->post('content'),
-			'slug' 		=> url_title($this->input->post('title'))
+			'slug' 		=> strtolower(url_title($this->input->post('title'))),
 		);
 
 		$this->db->where('post_id', $this->input->post('post_id'));

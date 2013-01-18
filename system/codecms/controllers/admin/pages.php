@@ -189,14 +189,16 @@ class Pages extends CI_Controller {
             $this->template->publish();     
     }   
 
-    public function page_edit(){
-
-        if ( $this->users_model->logged_in_check() ) :        
-
+    public function page_edit(){        
+        
             $this->template->title      = 'Pages';
 
+        if ( $this->users_model->logged_in_check() ) :
+
+            $post_id                    = $this->uri->segment(4);            
+
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['page_items']         = $this->posts_model->get_post();
+            $data['page_items']         = $this->posts_model->get_post($post_id); //THIS IS ACTUALLY RETURNING THE POST WITH A PAGE 'POST TYPE'
             
             $this->template->content->view('admin/pages_edit', $data);
             

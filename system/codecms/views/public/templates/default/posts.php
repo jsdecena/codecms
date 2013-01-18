@@ -2,7 +2,7 @@
 
 <section id="main_content" class="post_page">
 
-<?php if ( $this->uri->segment(2) == 'post' ) : ?>
+<?php if ( $this->uri->segment(2) == 'post' ) : //CHECK IF THIS IS THE PAGE TO DISPLAY THE POST! ?>
 
 	<?php if ( isset($post) ) : ?>
 
@@ -15,9 +15,9 @@
 
 	<?php endif; ?>
 
-<?php elseif ( $this->uri->segment(2) == 'posts_list' ): ?>
+<?php elseif ( $this->uri->segment(2) == 'posts_list' ): //CHECK IF THIS THE PAGE TO LIST ALL THE POSTS! ?>
 
-	<?php foreach ($posts as $post) : $slug = $post['slug']; ?>
+	<?php if ( is_array($posts) ) : foreach ($posts as $post) : $slug = $post['slug']; ?>
 
 		<?php if ( $post['status'] == 'published' ) : ?>
 
@@ -31,11 +31,21 @@
 
 			<?php echo word_limiter($post['content'], 30, '<p><a href="'. base_url("blog/post/$slug") .'">Continue Reading</a></p>'); ?>
 
+		<?php else: //IF THERE IS A POST BUT ONLY NOT PUBLISHED ?>
+
+			<p class="text-error">Sorry, there are no posts to show. </p>
+
 		<?php endif; ?>
 
 	<?php endforeach; ?>
 
 	<?php echo $links; ?>
+
+	<?php else: //IF THERE IS REALLY NO POST CREATED ?>
+
+		<p class="text-error">Sorry, there are no posts to show. </p>
+
+	<?php endif; ?>
 
 <?php endif; ?>
 	

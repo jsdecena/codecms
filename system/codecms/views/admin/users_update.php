@@ -75,7 +75,13 @@
                     <option value="subscriber" <?php if ( $user_data->role == 'subscriber' ): echo "selected=\"selected\""; endif; ?>>Subscriber</option>
                   </select>
                 </div>
-              
+
+              <?php else: ?>
+                
+                <div class="controls">
+                  <input type="hidden" name="role" value="<?php echo $logged_info['role']; ?>" />
+                </div>
+
               <?php endif; ?>
 
               <div class="controls">

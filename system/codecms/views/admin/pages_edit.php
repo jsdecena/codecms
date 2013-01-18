@@ -11,7 +11,7 @@
 
 	<div class="span9">
 		<section id="pages">
-			<div class="controlgroup">
+			<div class="control-group">
 
 				<!-- LOAD THE PAGE CONTENT -->
 				<?php 
@@ -55,14 +55,27 @@
 					<textarea name="content" id="content" class="input-block-level ckeditor" cols="30" rows="10"><?php echo $page_items->content; ?></textarea>
 				</div>
 
-				<div class="controls">
-					<label>Status:</label>
-					<div class="controlgroup clearfix">
-						<select name="status">
-							<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
-							<option value="published" <?php if ( $page_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
-						</select>
-					</div>					
+				<div id="page_attributes" class="controls">
+					<h5>Page Attributes</h5>
+					<div class="control-group">
+						<label class="page_status control-label">Status:</label>
+						<div class="controls">							
+							<select name="status">
+								<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
+								<option value="published" <?php if ( $page_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
+							</select>					
+						</div>												
+					</div>
+
+					<div class="control-group">
+						<label class="page_parent control-label">Page Parent:</label>
+						<div class="controls">							
+							<select name="status">
+								<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
+								<option value="published" <?php if ( $page_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
+							</select>						
+						</div>												
+					</div>									
 				</div>				
 
 				<div class="controls">

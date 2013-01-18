@@ -11,7 +11,7 @@
 
 	<div class="span9">
 		<section id="pages">
-			<div class="controlgroup">
+			<div class="control-group">
 
 				<?php if ( $this->session->flashdata('message_success') ) : ?>
 
@@ -33,27 +33,20 @@
 
 				//PAGE LIST FORM
 				if ( is_array($posts)) : echo form_open('admin/pages/page_delete'); ?>
-				<table class="table table-bordered">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all" /></th>
-							<th class="tbl_status">Status</th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
 							<th class="tbl_actions">Actions</th>
+							<th class="tbl_status">Status</th>							
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($posts as $post) : ?>		
 							<tr>
 								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $post['post_id']; ?>" /></td>
-								<td class="tbl_status">
-									<?php if ( $post['status'] == 'unpublished') : ?>
-										<i class="icon-remove icon-black icon_status">&nbsp;</i>
-									<?php else: ?>
-										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
-									<?php endif; ?>									
-								</td>
 								<td class="tbl_title"><?php echo $post['title']; ?></td>
 								<td class="tbl_content"><?php echo $post['content']; ?></td>
 								<td class="tbl_actions">
@@ -64,6 +57,13 @@
 									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
 								<?php endif; ?>
 								</td>
+								<td class="tbl_status">
+									<?php if ( $post['status'] == 'unpublished') : ?>
+										<i class="icon-remove icon-black icon_status">&nbsp;</i>
+									<?php else: ?>
+										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
+									<?php endif; ?>									
+								</td>								
 							</tr>			
 						<?php endforeach; ?>	
 					</tbody>
