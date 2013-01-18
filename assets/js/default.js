@@ -1,16 +1,5 @@
 $(document).ready(function(){
 
-	var editor = CKEDITOR.editor.replace('content');
-
-	$('#post_edit').click(function() {
-	    
-	    var value = editor.getData();
-
-	    console.log(value);
-
-	    //grab data first then send data to model for insert
-	});
-
 	//SETTINGS PAGE
 	$('#change_post_page').click(function(){
 		$('#choose_page').removeClass('hidden');
