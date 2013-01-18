@@ -20,4 +20,9 @@ $(document).ready(function(){
 	$('#select_all').click(function(){
 		$('input[name=delete_selection]').attr('checked', true);
 	});
+
+    $('#select_all').click(function () {
+    	var delete_selection = $('tbody').find('.delete_selection');
+    	$(delete_selection).attr('checked', this.checked);
+    });	
  })

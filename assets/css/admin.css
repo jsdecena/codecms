@@ -29,6 +29,10 @@ body.admin .controls label {
 }
 body.admin .controls label, body.admin .controls p {
 	float: left;
+	line-height: 30px;
+}
+#page_attributes .control-group label {
+	line-height: 51px;
 }
 body.admin .controls p {
 	color: #3A87AD;
@@ -42,6 +46,7 @@ body.admin .update_details .controls {
 }
 #pages table {
 	min-width: 320px;
+	border: 1px solid #eee;
 }
 
 /* ============== END BOOTSTRAP OVERRIDE =============================================== */
@@ -136,5 +141,8 @@ sup {
 }
 .tbl_content {
 	max-width: 200px;
+}
+table .tbl_status {
+	text-align: center;
 }
 /* ============== END TABLE STYLES =============================================== */
