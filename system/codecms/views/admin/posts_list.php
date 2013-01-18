@@ -35,7 +35,7 @@
 
 				if ( is_array($post_items)) : echo form_open('admin/posts/post_delete'); ?>
 				
-				<table class="table table-bordered">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="select_all" /></th>

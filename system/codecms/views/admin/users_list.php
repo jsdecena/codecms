@@ -11,7 +11,7 @@
 
 		<div class="page-header"> Users List </div>		
 		
-		<table class="table table-condensed table-bordered">
+		<table class="table table-striped">
 			<thead>
 			<tr>
 				<th>ID</th>

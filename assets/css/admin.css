@@ -44,7 +44,7 @@ body.admin .update_details label {
 body.admin .update_details .controls {
 	padding: 0;
 }
-#pages table {
+.table {
 	min-width: 320px;
 	border: 1px solid #eee;
 }
