@@ -60,7 +60,7 @@ CREATE TABLE `cc_posts` (
   `title` varchar(255) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `author` varchar(128) NOT NULL DEFAULT 'user',
-  `content` varchar(255) DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `status` varchar(128) NOT NULL DEFAULT 'unpublished',
   `date_add` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -74,7 +74,7 @@ LOCK TABLES `cc_posts` WRITE;
 
 INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`)
 VALUES
-  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'post'),
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','2013-01-01 12:00:00','0000-00-00 00:00:00', 'post'),
   (2, 1,'About us','about-us','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
   (3, 1,'Blog','blog','John Doe','This is blog page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
   (4, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page');
