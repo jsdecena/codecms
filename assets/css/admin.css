@@ -129,6 +129,9 @@ sup {
 	width: 16px;
 	margin: 0 auto;
 }
+.controls .text-error {
+	padding: 0 0 0 10px;
+}
 /* ============== END GENERAL STYLES =============================================== */
 
 
