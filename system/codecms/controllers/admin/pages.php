@@ -147,7 +147,7 @@ class Pages extends CI_Controller {
             $this->posts_model->insert_post();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.'); 
-            redirect('admin/pages/page_edit' .'/'. $this->posts_model->get_post_id(), $data, 'refresh');
+            redirect('admin/pages/page_edit', $data, 'refresh');
 
         else:
 

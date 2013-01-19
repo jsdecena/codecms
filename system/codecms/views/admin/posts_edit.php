@@ -1,4 +1,4 @@
-<?php // echo "<pre>"; var_dump($post_items); die(); ?>
+<?php  ?>
 
 <div class="row clearfix:after pages_list">
 	
@@ -44,22 +44,22 @@
 				<?php endif; ?>
 
 				<div class="controls clearfix">
-					<input type="hidden" class="input-block-level" name="slug" value="<?php echo $post_items->slug; ?>">
-					<input type="hidden" class="input-block-level" name="post_id" value="<?php echo $post_items->post_id; ?>">
+					<input type="hidden" class="input-block-level" name="slug" value="<?php echo $posts->slug; ?>">
+					<input type="hidden" class="input-block-level" name="post_id" value="<?php echo $posts->post_id; ?>">
 					<label for="post_title">Post Title <sup class="text-error">*</sup></label>
-					<input type="text" class="input-block-level" name="title" value="<?php echo $post_items->title; ?>">
+					<input type="text" class="input-block-level" name="title" value="<?php echo $posts->title; ?>">
 				</div>
 
 				<div class="controls clearfix">
-					<textarea name="content" id="content" class="input-block-level ckeditor" cols="30" rows="10"><?php echo $post_items->content; ?></textarea>
+					<textarea name="content" id="content" class="input-block-level ckeditor" cols="30" rows="10"><?php echo $posts->content; ?></textarea>
 				</div>
 
 				<div class="controls">
 					<label>Publishing options:</label>
 					<div class="controlgroup clearfix">
 						<select name="status">
-							<option value="unpublished" <?php if ( $post_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
-							<option value="published" <?php if ( $post_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
+							<option value="unpublished" <?php if ( $posts->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
+							<option value="published" <?php if ( $posts->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
 						</select>
 					</div>					
 				</div>

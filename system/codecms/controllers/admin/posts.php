@@ -150,33 +150,33 @@ class Posts extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
-            //SET THE MESAGE ONLY WHEN THE BUTTON "POST CREATE" IS CLICKED
-            if ( $this->input->post('post_create') ) :
-                
-                $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');
-            
-            endif;
+            if ( $this->input->post('post_create') && $this->posts_model->insert_post() === TRUE ) :
 
-            $this->posts_model->insert_post();
-            redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
+                $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');              
+
+                redirect("admin/posts/post_edit", $data);    
+
+            endif;                   
 
         else:
 
             $this->post_create();
 
         endif;
-    }
+    }    
 
-    public function post_edit($post_id){
+    public function post_edit(){
 
-        if ( $this->users_model->logged_in_check() ) : 
+        if ( $this->users_model->logged_in_check() ) :
+
+            $post_id = $this->uri->segment(4);
 
             $this->template->title      = 'posts';
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_post($post_id);
+            $data['posts']              = $this->posts_model->get_post($post_id);
             
-            $this->template->content->view('admin/posts_edit', $data);
+            $this->template->content->view("admin/posts_edit", $data);
             
             // publish the template
             $this->template->publish();

@@ -19,7 +19,7 @@
 
 	<?php if ( is_array($posts) ) : foreach ($posts as $post) : $slug = $post['slug']; ?>
 
-		<?php if ( $post['status'] == 'published' ) : ?>
+		<?php if ( isset($post) && $post['status'] !== 'unpublished' ) : ?>
 
 			<h2>
 				<a href="<?php echo base_url("blog/post/$slug"); ?>"><?php echo $post['title']; ?></a>
@@ -30,10 +30,6 @@
 			</h2>
 
 			<?php echo word_limiter($post['content'], 30, '<p><a href="'. base_url("blog/post/$slug") .'">Continue Reading</a></p>'); ?>
-
-		<?php else: //IF THERE IS A POST BUT ONLY NOT PUBLISHED ?>
-
-			<p class="text-error">Sorry, there are no posts to show. </p>
 
 		<?php endif; ?>
 

@@ -24,5 +24,28 @@ $(document).ready(function(){
     $('#select_all').click(function () {
     	var delete_selection = $('tbody').find('.delete_selection');
     	$(delete_selection).attr('checked', this.checked);
-    });	
+    });
+
+    //GET SELECTED POSTS/PAGES FOR DELETION	
+	$("#delete_selected").click(function(event) {
+	 
+	  	/* stop form from submitting normally */
+	  	event.preventDefault();
+
+		$.each($('input[name="delete_selection[]"]:checked'), function() {
+
+			var selected = $(this).val();
+
+		});
+	});
+
+
+	//CREATE THE PAGE
+/*	$('form').submit(function(e) {
+
+		e.preventDefault;
+		
+	  	console.log($(this).serializeArray());
+	  	return false;
+	});*/   
  })

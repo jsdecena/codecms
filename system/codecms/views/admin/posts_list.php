@@ -54,15 +54,15 @@
 								<td class="tbl_actions">
 								
 								<!-- ACTION TO VIEW THE PAGE-->
-								<?php echo anchor( base_url("blog/post/$post_url"), '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
+								<?php echo anchor( base_url("blog/post/$post_url"), '<i class="icon-search icon-white">&nbsp;</i>', 'target="_blank" class="btn btn-small btn-info "'); ?>
 								
 								<!-- ACTION TO EDIT THE PAGE-->
-								<?php echo anchor("admin/posts/post_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
+								<?php echo anchor("admin/posts/post_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i>', 'class="btn btn-small btn-primary"'); ?>
 								
 								<!-- ACTION TO DELETE THE PAGE-->
 								<?php if ( $logged_info['role'] == 'admin' ) : echo form_open('admin/posts/post_delete'); ?>
 								<button name="delete_post" class="btn btn-danger btn-small" value="<?php echo $post["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
-									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
+									<i class="icon-trash icon-white"> &nbsp; </i> </button>
 								<?php echo form_close(); endif; ?>
 								</td>
 

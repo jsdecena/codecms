@@ -58,7 +58,7 @@ class Posts_model extends CI_Model {
 		endif;		
 	}
 
-	function get_page(){		
+	function get_page(){
 
 		$post_title = $this->uri->segment(1);		
 
@@ -75,30 +75,30 @@ class Posts_model extends CI_Model {
 
 		$query = $this->db->get_where($this->posts_table, array( 'slug' => $this->input->post('slug') ));
 
-		$create_post_id = $query->row('post_id');
-
-		return $create_post_id;
+		return  $query->row('post_id');
 
 	}	
 
 	function insert_post(){
 
-			$query = $this->db->get_where('users', array( 'email' => $this->session->userdata('email') ));
+		$query = $this->db->get_where('users', array( 'email' => $this->session->userdata('email') ));
 
-			$author = $query->row();		
+		$author = $query->row();		
 
-			$data = array(
-				'post_type'		=> $this->input->post('post_type'),
-				'users_id' 		=> $author->users_id,
-			   	'title' 		=> $this->input->post('title'),
-			   	'content' 		=> $this->input->post('content'),
-			   	'slug' 			=> strtolower(url_title($this->input->post('title'))),
-			   	'author' 		=> $author->first_name ." ". $author->last_name,
-			   	'status'		=> $this->input->post('status'),
-			   	'date_add'		=> date("Y-m-d H:i:s")
-			);
+		$data = array(
+			'post_type'		=> $this->input->post('post_type'),
+			'users_id' 		=> $author->users_id,
+		   	'title' 		=> $this->input->post('title'),
+		   	'content' 		=> $this->input->post('content'),
+		   	'slug' 			=> strtolower(url_title($this->input->post('title'))),
+		   	'author' 		=> $author->first_name ." ". $author->last_name,
+		   	'status'		=> $this->input->post('status'),
+		   	'date_add'		=> date("Y-m-d H:i:s")
+		);		
 
-			$this->db->insert($this->posts_table, $data);
+		$this->db->insert($this->posts_table, $data);
+
+		return TRUE;		
 	}
 
 	function update_post(){
