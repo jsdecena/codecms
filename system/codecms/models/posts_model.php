@@ -47,6 +47,7 @@ class Posts_model extends CI_Model {
 
 	}
 
+	//WHEN POST ID AS ALREADY CREATED AND CAN BE RETRIEVE IN THE URI SEGMENT
 	function get_post($post_id){
 
 		$query = $this->db->get_where($this->posts_table, array( 'post_id' => $post_id ));
@@ -71,11 +72,12 @@ class Posts_model extends CI_Model {
 		endif;		
 	}	
 
+	//WHEN THE ID IS NOT YET AVAILABLE FOR QUERY. GET THE MATCH ON THE TITLE IN THE DB TO GET ITS ID
 	function get_post_id() {
 
-		$query = $this->db->get_where($this->posts_table, array( 'slug' => $this->input->post('slug') ));
+		$query = $this->db->get_where($this->posts_table, array( 'title' => $this->input->post('title') ));
 
-		return  $query->row('post_id');
+		return $query->row('post_id');
 
 	}	
 
