@@ -49,7 +49,7 @@
 					<tbody>
 						<?php foreach ($posts as $post) : $post_url = $post["slug"] ?>			
 							<tr class="row_<?php echo $post["post_id"]; ?>">
-								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $post['post_id']; ?>" /> </td>
+								<td><input class="delete_selection" type="checkbox" name="delete_selection" value="<?php echo $post['post_id']; ?>" /> </td>
 								<td class="tbl_title"><?php echo $post['title']; ?></td>
 								<td class="tbl_content"><?php echo word_limiter($post['content'], 10); ?></td>
 								<td class="tbl_author"><?php echo $post['author']; ?></td>
@@ -93,10 +93,8 @@
 					</tbody>
 				</table>				
 				
-				<div class="pull-left action_left" id="post_selected">
-					<?php echo form_open('admin/posts/post_delete_selection', 'id="delete_selection_form"'); ?>
-						<button id="delete_selection" name="delete_selection" class="btn btn-danger btn-small" value=""><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
-					<?php echo form_close(); ?>
+				<div class="pull-left action_left">
+					<button id="delete_selection" name="delete_selection" class="btn btn-danger btn-small" value=""><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
 				</div>
 
 				<div class="pull-right action_right">

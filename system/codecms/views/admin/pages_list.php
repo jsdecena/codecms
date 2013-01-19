@@ -45,8 +45,8 @@
 					</thead>
 					<tbody>
 						<?php foreach ($posts as $post) : ?>		
-							<tr>
-								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $post['post_id']; ?>" /></td>
+							<tr class="row_<?php echo $post["post_id"]; ?>">
+								<td><input class="delete_selection" type="checkbox" name="delete_selection" value="<?php echo $post['post_id']; ?>" /></td>
 								<td class="tbl_title"><?php echo $post['title']; ?></td>
 								<td class="tbl_content"><?php echo $post['content']; ?></td>
 								<td class="tbl_actions">
@@ -84,7 +84,7 @@
 				</table>
 
 				<div class="pull-left action_left">
-					<button name="delete_selected" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected pages?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
+					<button id="delete_selection" name="delete_selection" class="btn btn-danger btn-small" value=""><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
 				</div>
 
 				<div class="pull-right action_right">

@@ -242,32 +242,21 @@ class Pages extends CI_Controller {
 
     public function page_delete(){
 
-        //SINGLE DELETE
-        if ( $this->input->post('delete_page')) :
-            
-            if( $this->posts_model->delete_post() === TRUE) :
+        if( $this->posts_model->delete_post() === TRUE) :
 
-                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a page.');
-                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a page. Please try again.');
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
+            $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-                redirect('admin/pages/pages_list', $data);
-
-            endif;
-
-        else:  
-
-            $id = $this->input->post('delete_selection');                  
-            
-            for( $i=0; $i<sizeof($id); $i++) :
-            
-                $this->posts_model->delete_page_selection($id[$i]);
-            
-            endfor;
-            
-            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted your selected pages.');
-            redirect('admin/pages/pages_list', $data);
+           redirect('admin/pages/pages_list', $data);
 
         endif;
-    }    
+    }
+
+    public function post_delete_selection(){
+            
+        $selectedIds = $_POST['selected'];
+        $this->posts_model->delete_post_selection($selectedIds);         
+
+    }        
 
 }
