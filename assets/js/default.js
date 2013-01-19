@@ -27,25 +27,29 @@ $(document).ready(function(){
     });
 
     //GET SELECTED POSTS/PAGES FOR DELETION	
-	$("#delete_selected").click(function(event) {
+	$("#delete_selection").click(function(event) {
+
+		if(!confirm('Delete selected posts?')) return false;//ask user if they're sure
 	 
 	  	/* stop form from submitting normally */
 	  	event.preventDefault();
 
-		$.each($('input[name="delete_selection[]"]:checked'), function() {
+  		$.each($('input[name="delete_selection[]"]:checked'), function() {	
 
-			var selected = $(this).val();
+			$.ajax({
+			  type: "POST",
+			  url: 'post_delete_selection',
+			  data: 
+			  	{ selected: $(this).val() },
+			  success: function(data){				
 
-		});
-	});
+				setTimeout(function () {
+					window.location.href = window.location.href;
+				}, 1000);				
+				$('#ajax_message').show().html('Successfully deleted.');
+			  },			  
+			});				
 
-
-	//CREATE THE PAGE
-/*	$('form').submit(function(e) {
-
-		e.preventDefault;
-		
-	  	console.log($(this).serializeArray());
-	  	return false;
-	});*/   
+		});	
+	});   
  })

@@ -149,9 +149,9 @@ class Posts_model extends CI_Model {
 	}
 
 	//MULTIPLE DELETE
-	function delete_post_selection($id) {
+	function delete_post_selection($selectedIds) {
 
-	    $this->db->where_in('post_id', $id)->delete('posts');
+	    $this->db->where_in('post_id', $selectedIds)->delete('posts');
 
 		return true;
 	}

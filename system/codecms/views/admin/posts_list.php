@@ -10,6 +10,8 @@
 	<div class="span9">
 		<section id="pages">
 			<div class="controlgroup">
+				
+				<div id="ajax_message" class="text-success alert-block alert-success fade in" style="display:none"></div>
 
 				<?php if ( $this->session->flashdata('message_success') ) : ?>
 
@@ -46,7 +48,7 @@
 					</thead>
 					<tbody>
 						<?php foreach ($posts as $post) : $post_url = $post["slug"] ?>			
-							<tr>
+							<tr class="row_<?php echo $post["post_id"]; ?>">
 								<td><input class="delete_selection" type="checkbox" name="delete_selection[]" value="<?php echo $post['post_id']; ?>" /> </td>
 								<td class="tbl_title"><?php echo $post['title']; ?></td>
 								<td class="tbl_content"><?php echo word_limiter($post['content'], 10); ?></td>
@@ -92,8 +94,8 @@
 				</table>				
 				
 				<div class="pull-left action_left" id="post_selected">
-					<?php echo form_open('admin/posts/post_delete', 'id="delete_selection_form"'); ?>
-						<button id="delete_selection" name="delete_selection" class="btn btn-danger btn-small" value="" onClick="return confirm('Delete selected posts?')"><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
+					<?php echo form_open('admin/posts/post_delete_selection', 'id="delete_selection_form"'); ?>
+						<button id="delete_selection" name="delete_selection" class="btn btn-danger btn-small" value=""><i class="icon-trash icon-white"> &nbsp; </i> Delete Selected</button>
 					<?php echo form_close(); ?>
 				</div>
 

@@ -233,34 +233,22 @@ class Posts extends CI_Controller {
     /* ------- DELETE POSTS ----------- */
 
     public function post_delete(){
-
-        //SINGLE DELETE
-        if ( $this->input->post('delete_post')) :
             
-            if( $this->posts_model->delete_post() === TRUE) :
+        if( $this->posts_model->delete_post() === TRUE) :
 
-                $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
-                $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
+            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted a post.');
+            $data['message_error']      = $this->session->set_flashdata('message_error', 'Sorry, we have a problem deleting a post. Please try again.');
 
-               redirect('admin/posts/posts_list', $data);
-
-            endif;
-
-        else:            
-
-            $id = $this->input->post('delete_selection');                  
-            
-            for( $i=0; $i<sizeof($id); $i++) :
-            
-                $this->posts_model->delete_post_selection($id[$i]);
-            
-            endfor;
-            
-            $data['message_success']    = $this->session->set_flashdata('message_success', 'You have successfully deleted your selected posts.');
-            redirect('admin/posts/posts_list', $data);
+           redirect('admin/posts/posts_list', $data);
 
         endif;
+
     }
 
+    public function post_delete_selection(){
+            
+        $selectedIds = $_POST['selected'];
+        $this->posts_model->delete_post_selection($selectedIds);         
 
+    }
 }
