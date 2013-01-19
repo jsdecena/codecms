@@ -13,9 +13,6 @@
 		<section id="pages">
 			<div class="controlgroup">
 
-				<!-- LOAD THE PAGE CONTENT -->
-				<?php // $this->load->view('admin/pages_tpl_create'); ?>
-
 				<?php
 
 				//PAGE CREATION FORM

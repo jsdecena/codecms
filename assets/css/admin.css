@@ -148,4 +148,14 @@ sup {
 table .tbl_status {
 	text-align: center;
 }
+.tbl_actions {
+	min-width: 200px;
+}
+table form {
+	margin: 0;
+}
+.tbl_actions a, .tbl_actions .btn {
+	float: left;
+	margin: 0 5px;
+}
 /* ============== END TABLE STYLES =============================================== */

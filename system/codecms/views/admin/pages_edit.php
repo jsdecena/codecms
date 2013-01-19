@@ -55,6 +55,7 @@
 					<textarea name="content" id="content" class="input-block-level ckeditor" cols="30" rows="10"><?php echo $page_items->content; ?></textarea>
 				</div>
 
+
 				<div id="page_attributes" class="controls">
 					<h5>Page Attributes</h5>
 					<div class="control-group">
@@ -70,10 +71,12 @@
 					<div class="control-group">
 						<label class="page_parent control-label">Page Parent:</label>
 						<div class="controls">							
-							<select name="status">
-								<option value="unpublished" <?php if ( $page_items->status == 'unpublished') : ?>selected="selected"<?php endif; ?>>Unpublished</option>
-								<option value="published" <?php if ( $page_items->status == 'published') : ?>selected="selected"<?php endif; ?>>Published</option>
-							</select>						
+							<select name="page_parent">
+								<option value="0"> -- Select a page -- </option>
+								<?php foreach ($pages as $page) : if ( $page['post_id'] != $this->uri->segment(4) && $page['status'] != 'unpublished' ) : //DO NOT INCLUDE THE CURRENT PAGE & UNPUBLISHED PAGE/s ON THE CHOICES ?>									
+									<option value="<?php echo $page['post_id']; ?>"<?php if ( $this->input->post('page_parent') == $page['post_id'] ): ?> selected="selected"<?php endif; ?>><?php echo $page['title']; ?></option>
+								<?php endif; endforeach;?>
+							</select>					
 						</div>												
 					</div>									
 				</div>				

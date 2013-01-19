@@ -65,19 +65,21 @@ CREATE TABLE `cc_posts` (
   `date_add` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `post_type` varchar(20) NOT NULL DEFAULT 'post',
+  `post_parent` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`post_id`),
-  KEY `users_id` (`users_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+  KEY `users_id` (`users_id`),
+  KEY `post_parent` (`post_parent`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `cc_posts` WRITE;
 /*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
 
-INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`)
+INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`, `post_parent`)
 VALUES
-  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','2013-01-01 12:00:00','0000-00-00 00:00:00', 'post'),
-  (2, 1,'About us','about-us','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
-  (3, 1,'Blog','blog','John Doe','This is blog page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page'),
-  (4, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page');
+  (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','2013-01-01 12:00:00','0000-00-00 00:00:00', 'post', 0),
+  (2, 1,'About us','about-us','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
+  (3, 1,'Blog','blog','John Doe','This is blog page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
+  (4, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0);
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;

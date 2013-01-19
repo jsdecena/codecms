@@ -1,17 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posts_model extends CI_Model {
+class Posts_model extends CI_Model {	
+
+	protected $database 			= 'codecms';
+	protected $posts_table 			= 'posts';
+	protected $settings_table 		= 'settings';
+	protected $users_table 			= 'users';
 
     function __construct() {
         
         // Call the Model constructor
-        parent::__construct();
+        parent::__construct();        
     }	
 
 	/* ===============================================================	BACK END =============================================================== */
 
     //LIST ALL THE POSTS
 	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
+
+		//echo $this->$posts_table; die();
 
 		$this->db->select('*')->from('posts')->where('post_type', 'post')->order_by($order_by , $arrange_by)->limit($limit, $offset);
 		
@@ -42,7 +49,7 @@ class Posts_model extends CI_Model {
 
 	function get_post($post_id){
 
-		$query = $this->db->get_where('posts', array( 'post_id' => $post_id ));
+		$query = $this->db->get_where($this->posts_table, array( 'post_id' => $post_id ));
 		
 		if($query->num_rows() == 1):
 
@@ -55,7 +62,7 @@ class Posts_model extends CI_Model {
 
 		$post_title = $this->uri->segment(1);		
 
-		$query = $this->db->get_where('posts', array( 'slug' => $post_title ));
+		$query = $this->db->get_where($this->posts_table, array( 'slug' => $post_title ));
 		
 		if($query->num_rows() == 1):
 
@@ -66,7 +73,7 @@ class Posts_model extends CI_Model {
 
 	function get_post_id() {
 
-		$query = $this->db->get_where('posts', array( 'title' => $this->input->post('title') ));
+		$query = $this->db->get_where($this->posts_table, array( 'slug' => $this->input->post('slug') ));
 
 		$create_post_id = $query->row('post_id');
 
@@ -91,7 +98,7 @@ class Posts_model extends CI_Model {
 			   	'date_add'		=> date("Y-m-d H:i:s")
 			);
 
-			$this->db->insert('posts', $data);
+			$this->db->insert($this->posts_table, $data);
 	}
 
 	function update_post(){
@@ -104,8 +111,23 @@ class Posts_model extends CI_Model {
 		);
 
 		$this->db->where('post_id', $this->input->post('post_id'));
-		$this->db->update('posts', $data); 
+		$this->db->update($this->posts_table, $data);
 	}
+
+
+	//QUICK UPDATE A POST TYPE ( PAGE OR POST )
+	function quick_update(){
+		
+		$data = array(
+			'status' => $this->input->post('status'),
+			'post_type' => $this->input->post('post_type')
+		);
+
+		$this->db->where('post_id', $this->input->post('post_id'));
+		$this->db->update($this->posts_table, $data);
+		
+		return true;
+	}	
 
 	//SINGLE POST DELETE
 	function delete_post() {

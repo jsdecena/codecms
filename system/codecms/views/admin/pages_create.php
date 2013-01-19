@@ -58,17 +58,25 @@
 
 				<div class="controls">
 					<label>Status:</label>
-					<div class="controlgroup clearfix">
-						<select name="status">
-							<option value="unpublished" selected="selected">Unpublished</option>
-							<option value="published">Published</option>
-						</select>
-					</div>					
+					<select name="status">
+						<option value="unpublished" selected="selected">Unpublished</option>
+						<option value="published">Published</option>
+					</select>				
+				</div>
+				
+				<div class="controls">
+					<label class="post_parent control-label">Page Parent:</label>
+					<select name="post_parent">
+						<option value="0"> -- Select a page -- </option>
+						<?php foreach ($pages as $page) : if ( $page['post_id'] != $this->uri->segment(4) && $page['status'] != 'unpublished' ) : //DO NOT INCLUDE THE CURRENT PAGE & UNPUBLISHED PAGE/s ON THE CHOICES ?>									
+							<option value="<?php echo $page['post_id']; ?>"><?php echo $page['title']; ?></option>
+						<?php endif; endforeach;?>
+					</select>					
 				</div>				
 
 				<div class="controls">
 					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
-					<input type="submit" name="page_create" class="btn btn-primary" value="Create a page" />
+					<input type="submit" name="page_create" id="page_create" class="btn btn-primary" value="Create a page" />
 
 				</div>
 

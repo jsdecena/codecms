@@ -32,7 +32,7 @@
 				<?php 
 
 				//PAGE LIST FORM
-				if ( is_array($posts)) : echo form_open('admin/pages/page_delete'); ?>
+				if ( is_array($posts)) : ?>
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -52,17 +52,31 @@
 								<td class="tbl_actions">
 								<?php echo anchor( $post["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
 								<?php echo anchor("admin/pages/page_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
-								<?php if ( $logged_info['role'] == 'admin') : ?>
+								
+								<?php if ( $logged_info['role'] == 'admin') : echo form_open('admin/pages/page_delete'); ?>
 								<button name="delete_page" class="btn btn-danger btn-small" value="<?php echo $post["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
 									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
-								<?php endif; ?>
+								<?php echo form_close(); endif; ?>
 								</td>
 								<td class="tbl_status">
-									<?php if ( $post['status'] == 'unpublished') : ?>
-										<i class="icon-remove icon-black icon_status">&nbsp;</i>
+
+									<?php echo form_open('admin/pages/quick_update'); if ( $post['status'] == 'unpublished') : ?>
+										
+										<!-- ACTION TO QUICK PUBLISH THE PAGE-->
+										<input type="hidden" name="post_id" value="<?php echo $post["post_id"]; ?>" />
+										<input type="hidden" name="post_type" value="<?php echo $post["post_type"]; ?>" />
+										<button name="status" class="btn btn-danger btn-small" value="published" onClick="return confirm('Publish this page?')">
+										<i class="icon-remove icon-white icon_status">&nbsp;</i>
+
 									<?php else: ?>
-										<i class="icon-ok icon-black icon_status">&nbsp;</i>									
-									<?php endif; ?>									
+
+										<!-- ACTION TO QUICK UNPUBLISH THE PAGE-->
+										<input type="hidden" name="post_id" value="<?php echo $post["post_id"]; ?>" />
+										<input type="hidden" name="post_type" value="<?php echo $post["post_type"]; ?>" />
+										<button name="status" class="btn btn-success btn-small" value="unpublished" onClick="return confirm('Unpublish this page?')">
+										<i class="icon-ok icon-white icon_status">&nbsp;</i>
+																				
+									<?php endif; echo form_close(); ?>
 								</td>								
 							</tr>			
 						<?php endforeach; ?>	
@@ -77,7 +91,7 @@
 					<?php echo $links; //PAGINATION ?>
 				</div>
 					
-				<?php echo form_close(); else: ?>
+				<?php else: ?>
 
 				  <div class="text-error alert-block alert-error fade in">
 				    <p>Ooops, No more pages!</p>

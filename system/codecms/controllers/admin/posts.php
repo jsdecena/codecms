@@ -106,7 +106,7 @@ class Posts extends CI_Controller {
             $offset                     = $this->uri->segment(4);
 
             $data['logged_info']        = $this->users_model->logged_in();
-            $data['post_items']         = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page'], $offset);
+            $data['posts']              = $this->posts_model->get_all_posts($order_by, $arrange_by, $config['per_page'], $offset);
             
             $this->template->content->view('admin/posts_list', $data);
             
@@ -157,7 +157,7 @@ class Posts extends CI_Controller {
             
             endif;
 
-            $this->_post_insert_db();
+            $this->posts_model->insert_post();
             redirect('admin/posts/post_edit' .'/'. $this->posts_model->get_post_id(), $data);            
 
         else:
@@ -165,22 +165,6 @@ class Posts extends CI_Controller {
             $this->post_create();
 
         endif;
-    }
-
-    private function _post_insert_db(){
-
-        if ( $this->users_model->logged_in_check() ) :
-
-            //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->posts_model->insert_post();
-
-        else:
-
-            //UNAUTHORIZE ACCESS THROW THEM OUTSIDE
-            redirect('admin/main/login');
-
-        endif;          
-
     }
 
     public function post_edit($post_id){
@@ -213,7 +197,7 @@ class Posts extends CI_Controller {
         if ( $this->form_validation->run() ) :
 
             //VALIDATION SUCCCESS
-            $this->_post_edit_insert();
+            $this->posts_model->update_post();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this post.');
             redirect('admin/posts/post_edit' .'/'. $this->input->post('post_id'), $data);
@@ -227,26 +211,24 @@ class Posts extends CI_Controller {
         endif;            
     }
 
-    private function _post_edit_insert(){
+    public function quick_update(){
+        
+        if ( $this->users_model->logged_in_check() ) :
 
-        if ( $this->users_model->logged_in_check() ) :        
+            if ( $this->posts_model->quick_update() ) :
 
-            if ( $this->posts_model->update_post() ) :
+                redirect('admin/posts/posts_list');
 
-                    //SUCCESFULL INSERTION OF THE EDITED post IN THE DB
-                    return true;
-            else :
-                    //FAILURE OF INSERTION OF THE EDITED post IN THE DB
-                    return false;
-            endif;
+            endif;            
 
         else:
 
             //UNAUTHORIZE ACCESS THROW THEM OUTSIDE
             redirect('admin/main/login');
 
-        endif;  
-    }
+        endif;        
+
+    }    
 
     /* ------- DELETE POSTS ----------- */
 

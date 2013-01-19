@@ -2,7 +2,6 @@
 
 class Pages extends CI_Controller {
 
-
     public function __construct(){ 
 
     	 parent::__construct();
@@ -25,7 +24,7 @@ class Pages extends CI_Controller {
             'assets/js/bootstrap-tab.js',
             'assets/js/bootstrap.min.js',
             'assets/js/ckeditor/ckeditor.js',
-            'assets/templates/default/js/default.js' //CC JS
+            'assets/js/default.js'
         );
 
         $this->template->javascript->add($js);
@@ -72,7 +71,7 @@ class Pages extends CI_Controller {
             $this->load->library('pagination');
 
             $config['base_url']         = base_url('admin/pages/pages_list');
-            $config['total_rows']       = $this->posts_model->count_all_posts();;
+            $config['total_rows']       = $this->posts_model->count_all_pages();
             $config['per_page']         = 5;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
@@ -122,7 +121,8 @@ class Pages extends CI_Controller {
 
             $this->template->title      = 'Create a Page';
 
-            $data['logged_info']        = $this->users_model->logged_in();            
+            $data['logged_info']        = $this->users_model->logged_in();
+            $data['pages']              = $this->posts_model->get_all_pages();            
             
             $this->template->content->view('admin/pages_create', $data);
             
@@ -144,7 +144,7 @@ class Pages extends CI_Controller {
 
         if ( $this->form_validation->run() ) :
 
-            $this->page_create_insert();
+            $this->posts_model->insert_post();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a page.'); 
             redirect('admin/pages/page_edit' .'/'. $this->posts_model->get_post_id(), $data, 'refresh');
@@ -154,22 +154,6 @@ class Pages extends CI_Controller {
             $this->page_create();
 
         endif;
-    }
-
-    public function page_create_insert(){
-
-        if ( $this->users_model->logged_in_check() ) :
-
-            //LET US VALIDATE FIRST THE INPUTTED DATA
-            $this->posts_model->insert_post();
-
-        else:
-
-            //UNAUTHORIZE ACCESS THROW THEM OUTSIDE
-            redirect('admin/main/login');
-
-        endif;          
-
     }
 
     public function page_view() {
@@ -199,6 +183,7 @@ class Pages extends CI_Controller {
 
             $data['logged_info']        = $this->users_model->logged_in();
             $data['page_items']         = $this->posts_model->get_post($post_id); //THIS IS ACTUALLY RETURNING THE POST WITH A PAGE 'POST TYPE'
+            $data['pages']              = $this->posts_model->get_all_pages();
             
             $this->template->content->view('admin/pages_edit', $data);
             
@@ -220,7 +205,7 @@ class Pages extends CI_Controller {
         if ( $this->form_validation->run() ) :
 
             //VALIDATION SUCCCESS
-            $this->page_update();
+            $this->posts_model->update_post();
 
             $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully edited this page.');
             redirect('admin/pages/page_edit' .'/'. $this->input->post('post_id'), $data);
@@ -234,26 +219,24 @@ class Pages extends CI_Controller {
         endif;            
     }
 
-    public function page_update(){
+    public function quick_update(){
+        
+        if ( $this->users_model->logged_in_check() ) :
 
-        if ( $this->users_model->logged_in_check() ) :        
+            if ( $this->posts_model->quick_update() ) :
 
-            if ( $this->posts_model->update_post() ) :
+                redirect('admin/pages/pages_list');
 
-                    //SUCCESFULL INSERTION OF THE EDITED PAGE IN THE DB
-                   redirect('admin/pages/page_edit' .'/'. $this->input->post('post_id'), $data);
-            else :
-                    //FAILURE OF INSERTION OF THE EDITED PAGE IN THE DB
-                    $this->page_edit();
-            endif;
+            endif;            
 
         else:
 
             //UNAUTHORIZE ACCESS THROW THEM OUTSIDE
             redirect('admin/main/login');
 
-        endif;  
-    }
+        endif;        
+
+    }    
 
     /* ------- DELETE PAGES ----------- */
 
