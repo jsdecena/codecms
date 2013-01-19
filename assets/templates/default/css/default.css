@@ -111,3 +111,10 @@ body {
   .author {
     text-transform: capitalize;
   }
+  #form_submit {
+    margin: 50px 0 0;
+  }
+  .contact .alert-block {
+    padding: 20px;
+    margin: 0 0 30px;
+  }

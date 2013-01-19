@@ -16,11 +16,6 @@ $(document).ready(function(){
 	});
 	//END SETTINGS PAGE
 
-	//POST LIST PAGE
-	$('#select_all').click(function(){
-		$('input[name=delete_selection]').attr('checked', true);
-	});
-
     $('#select_all').click(function () {
     	var delete_selection = $('tbody').find('.delete_selection');
     	$(delete_selection).attr('checked', this.checked);
@@ -34,20 +29,24 @@ $(document).ready(function(){
 	  	/* stop form from submitting normally */
 	  	event.preventDefault();
 
-  		$.each($('input[name="delete_selection[]"]:checked'), function() {	
+  		$.each($('input[name="delete_selection"]:checked'), function() {	
 
 			$.ajax({
 			  type: "POST",
 			  url: 'post_delete_selection',
-			  data: 
-			  	{ selected: $(this).val() },
+			  data: { selected: $(this).val() },
 			  success: function(data){				
 
 				setTimeout(function () {
 					window.location.href = window.location.href;
-				}, 1000);				
+				}, 1000);
+
 				$('#ajax_message').show().html('Successfully deleted.');
-			  },			  
+			  },
+			  error: function(data) {
+
+			  		console.log(data);
+			  },		  
 			});				
 
 		});	

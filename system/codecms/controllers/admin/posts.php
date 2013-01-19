@@ -152,11 +152,9 @@ class Posts extends CI_Controller {
 
             if ( $this->input->post('post_create') && $this->posts_model->insert_post() === TRUE ) :
 
-                $id = $this->posts_model->get_post_id();
-
                 $data['message_success'] = $this->session->set_flashdata('message_success', 'You have successfully created a post.');              
 
-                redirect("admin/posts/post_edit" .'/'. $id, $data);    
+                redirect("admin/posts/post_edit" .'/'. $this->posts_model->get_post_id(), $data);    
 
             endif;                   
 

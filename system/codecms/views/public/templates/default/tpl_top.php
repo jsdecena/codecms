@@ -32,10 +32,11 @@
                 <li> <a href="<?php echo base_url(); ?>">Home</a></li>
                 <?php 
                   if ( is_array($pages) && isset($pages) ):
-                  foreach ($pages as $row) : if( $row['status'] == 'published') ://var_dump($row); die(); ?>
-                    <li><a href="<?php echo base_url() . $row['slug']; ?>"><?php echo $row['title']; ?></a></li>
+                  foreach ($pages as $page) : if( $page['status'] == 'published') ://var_dump($page); die(); ?>
+                    <li><a href="<?php echo base_url() . $page['slug']; ?>"><?php echo $page['title']; ?></a></li>
                 <?php endif; endforeach; endif; ?>
                 <li> <a href="<?php echo base_url('blog/posts_list'); ?>">Blog</a></li>
+                <li> <a href="<?php echo base_url('contact'); ?>">Contact</a></li>
               </ul>
             </div>
           </div>

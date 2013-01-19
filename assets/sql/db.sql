@@ -77,9 +77,8 @@ LOCK TABLES `cc_posts` WRITE;
 INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`, `post_parent`)
 VALUES
   (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','2013-01-01 12:00:00','0000-00-00 00:00:00', 'post', 0),
-  (2, 1,'About us','about-us','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
-  (3, 1,'Blog','blog','John Doe','This is blog page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
-  (4, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0);
+  (2, 1,'About','about','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
+  (3, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0);
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;
