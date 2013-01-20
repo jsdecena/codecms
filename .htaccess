@@ -8,7 +8,7 @@
     #                                                   #
     #####################################################
     
-    RewriteBase /codecms
+    RewriteBase /codecms 
  
     ### Canonicalize codeigniter URLs
  
