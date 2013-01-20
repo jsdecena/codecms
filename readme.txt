@@ -9,7 +9,7 @@ How To install / Customization
 7. *IMPORTANT* Change the email value for the contact page with your email in the <system folder>/codecms/controllers/contact @ Line 70
 8. If you want to change the limit of the posts being displayed in the homepage, change the limit value in <system folder>/codecms/controllers/frontController @ Line 99
 
-9. Live demo: http://codecms.jsdecena.me user: admin@admin.com | pw: 123123123
+9. Live demo: http://codecms.jsdecena.me/admin user: admin@admin.com | pw: 123123123
 
 
 Upcoming functionality (Todo List):
