@@ -14,6 +14,10 @@ Upcoming functionality (Todo List):
 1. Settings page.
 	1.1 Theme to be used.
 2. Post Categories and Taxonomies.
+3. Page Navigation Menu
 
-Knows bugs:
-1. User Management - an admin can delete his own account. Also even when logged in.
+**** IMPORTANT ****
+
+USE ONLY THE STABLE VERSION
+
+**** IMPORTANT ****
