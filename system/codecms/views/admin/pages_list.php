@@ -39,8 +39,11 @@
 							<th><input type="checkbox" id="select_all" /></th>
 							<th class="tbl_title">Title</th>
 							<th class="tbl_content">Content</th>
+							<th class="tbl_author">Author</th>
 							<th class="tbl_actions">Actions</th>
-							<th class="tbl_status">Status</th>							
+							<?php if ( $logged_info['role'] == 'admin' ) : ?>
+							<th class="tbl_status">Status</th>
+							<?php endif; ?>			
 						</tr>
 					</thead>
 					<tbody>
@@ -49,18 +52,25 @@
 								<td><input class="delete_selection" type="checkbox" name="delete_selection" value="<?php echo $post['post_id']; ?>" /></td>
 								<td class="tbl_title"><?php echo $post['title']; ?></td>
 								<td class="tbl_content"><?php echo $post['content']; ?></td>
+								<td class="tbl_author"><?php echo $post['author']; ?></td>
 								<td class="tbl_actions">
-								<?php echo anchor( $post["slug"], '<i class="icon-search icon-white">&nbsp;</i> View', 'target="_blank" class="btn btn-info"'); ?>
-								<?php echo anchor("admin/pages/page_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary"'); ?>
 								
-								<?php if ( $logged_info['role'] == 'admin') : echo form_open('admin/pages/page_delete'); ?>
+								<?php echo anchor( "page/view" . '/' . $post["slug"], '<i class="icon-search icon-white">&nbsp;</i>', 'target="_blank" class="btn btn-info btn-small"'); ?>
+								
+								<?php if ( $logged_info['role'] == 'admin' ) : ?>
+								
+								<?php echo anchor("admin/admin_pages/page_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i>', 'class="btn btn-primary btn-small"'); ?>
+
+								<?php echo form_open('admin/admin_pages/page_delete'); ?>
 								<button name="delete_page" class="btn btn-danger btn-small" value="<?php echo $post["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
-									<i class="icon-trash icon-white"> &nbsp; </i> Delete</button>
+									<i class="icon-trash icon-white"> &nbsp; </i></button>
 								<?php echo form_close(); endif; ?>
 								</td>
+
+								<?php if ( $logged_info['role'] == 'admin' ) : ?>
 								<td class="tbl_status">
 
-									<?php echo form_open('admin/pages/quick_update'); if ( $post['status'] == 'unpublished') : ?>
+									<?php echo form_open('admin/admin_pages/quick_update'); if ( $post['status'] == 'unpublished') : ?>
 										
 										<!-- ACTION TO QUICK PUBLISH THE PAGE-->
 										<input type="hidden" name="post_id" value="<?php echo $post["post_id"]; ?>" />
@@ -77,7 +87,8 @@
 										<i class="icon-ok icon-white icon_status">&nbsp;</i>
 																				
 									<?php endif; echo form_close(); ?>
-								</td>								
+								</td>
+								<?php endif; ?>			
 							</tr>			
 						<?php endforeach; ?>	
 					</tbody>

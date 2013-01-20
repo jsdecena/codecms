@@ -39,7 +39,7 @@
 
             <?php
                 $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-                echo form_open('admin/main/users_update_specific', $attr);
+                echo form_open('admin/admin_main/users_update_specific_check', $attr);
             ?>
             
             <?php foreach ($data as $user_data): ?>
@@ -76,12 +76,6 @@
                   </select>
                 </div>
 
-              <?php else: ?>
-                
-                <div class="controls">
-                  <input type="hidden" name="role" value="<?php echo $logged_info['role']; ?>" />
-                </div>
-
               <?php endif; ?>
 
               <div class="controls">
@@ -92,7 +86,7 @@
             <?php endforeach; ?>
 
             <br class="clear" />
-            <a href="<?php echo base_url('admin/main/users_list'); ?>" class="btn btn-info">Go Back</a>
+            <a href="<?php echo base_url('admin/admin_main/users_list'); ?>" class="btn btn-info">Go Back</a>
             <input type="submit" name="save" class="btn btn-primary" value="Update details" />
           
             <?php echo form_close(); ?>            

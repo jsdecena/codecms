@@ -1,11 +1,11 @@
 
 <!-- LOG IN FIELDS ARE ALSO HERE . IT JUST DEPENDS ON HOW THEY GOT TO THIS PAGE AND SHOW THE CORRECT FORM. -->
 
-<?php if ( $this->uri->segment(3) == 'login' || $this->uri->segment(3) == 'login_check' ) : ?>
+<?php if ( $this->uri->segment(1) == 'admin' || $this->uri->segment(3) == 'login' || $this->uri->segment(3) == 'login_check' ) : ?>
 
 	<?php 
 		$attr = array('class' => 'form-signin', 'id' => 'myform');
-		echo form_open('admin/main/login_check', $attr); 
+		echo form_open('admin/admin_main/login_check', $attr); 
 	?>
 	<h2 class="form-signin-heading">Log In Now</h2>
 	
@@ -30,7 +30,7 @@
 	<input type="text" class="input-block-level" name="email" placeholder="Email address" value="<?php echo $this->input->post('email'); ?>">
 	<input type="password" class="input-block-level" name="password" placeholder="Password" value="<?php echo $this->input->post('email'); ?>">
 	<label for="forgot_password">
-	 <a href="<?php echo base_url('admin/main/forget_password'); ?>">Forgot Password?</a>
+	 <a href="<?php echo base_url('admin/admin_main/forget_password'); ?>">Forgot Password?</a>
 	</label>
 	<button class="btn btn-sml btn-primary" type="submit">Log in</button>
 	</form>
@@ -42,7 +42,7 @@
 	<?php 
 
 	$attr = array('class' => 'form-signin', 'id' => 'myform');
-	  echo form_open('admin/main/forget_password_check', $attr);
+	  echo form_open('admin/admin_main/forget_password_check', $attr);
 	?>
 	<h2 class="form-signin-heading">Enter your email</h2>
 	
@@ -64,7 +64,7 @@
 
 	<input type="email" class="input-block-level" name="email" placeholder="Email" value="<?php echo $this->input->post('email'); ?>">
 
-	<a href="<?php echo base_url('admin/main/login'); ?>" class="btn btn-sml btn-info">Go back</a>
+	<a href="<?php echo base_url('admin/admin_main/login'); ?>" class="btn btn-sml btn-info">Go back</a>
 	<button class="btn btn-sml btn-primary" type="submit" name="get_password">Retrieve Password</button>
 	</form>
 

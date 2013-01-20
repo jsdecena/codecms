@@ -81,7 +81,8 @@ body {
     text-decoration: none;
   }
   .footer {
-    padding: 20px 0;
+    padding: 50px 0;
+    clear: both;
   }
 
   /* BLOG */

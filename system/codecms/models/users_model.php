@@ -2,6 +2,11 @@
 
 class Users_model extends CI_Model {
 
+    public $database            = 'codecms';
+    public $posts_table         = 'posts';
+    public $settings_table      = 'settings';
+    public $users_table         = 'users';    
+
     function __construct() {
         
         // Call the Model constructor
@@ -15,7 +20,7 @@ class Users_model extends CI_Model {
 
         foreach ($data as $udata) {
             
-            $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1 );
+            $user_identity = array( 'identity' => sha1($udata), 'is_logged_in' => 1, 'last_login' => time($this->session->userdata('last_activity')) );
         }
 
         $this->db->get_where('users', array('email' => $this->session->userdata('email')));
@@ -30,9 +35,9 @@ class Users_model extends CI_Model {
         $query = $this->db->get_where('users', array( 'email' => $this->input->post('email'), 'password' => sha1($this->input->post('password')) ));
 
 		if ( $query->num_rows() == 1 ) :
-			return true;
+			return TRUE;
 		else:
-			return false;
+			return FALSE;
 		endif;
 
 	} // END LOGIN ALLOWED
@@ -44,12 +49,8 @@ class Users_model extends CI_Model {
         $query = $this->db->get('users');
 
         if ( $query->num_rows() > 0 ) :
-
-            return $query->result_array();
-
-        else :
-
-            return false;
+            
+            return $users_list = $query->result_array();
 
         endif;
 	}
@@ -59,10 +60,13 @@ class Users_model extends CI_Model {
 
         $query = $this->db->get_where('users', array('users_id' => $this->uri->segment(4,0)));
 
-        foreach ($query->result() as $row){   
-            $data[] = $row;
-        }
-        return $data;
+        if ( $query->num_rows() > 0 ) :
+
+            $data = $query->result();
+
+            return $data;
+
+        endif;
     }
 
     /* RETRIEVES THE CURRENT USER INFORMATION */
@@ -73,7 +77,9 @@ class Users_model extends CI_Model {
         if($query->num_rows() > 0):
             
             foreach ($query->result_array() as $row) :
+            
                 $data = $row;
+
             endforeach;
 
             return $data;
@@ -89,16 +95,47 @@ class Users_model extends CI_Model {
 
         if($query->num_rows() == 1):
 
-            return true;
+            return TRUE;
 
         else:
 
-            return false;
+            return FALSE;
 
         endif;
 
+    }
 
+    /*UPDATE THE USER*/
+    function update_user(){
 
+        //CHECK IF WE ARE UPDATING AN ADMIN OR A SUBSCRIBER
+        if ( $this->session->userdata('role') == 'admin' ) :
+        
+            $data = array(
+                'username'          => $this->input->post('username'),
+                'first_name'        => $this->input->post('first_name'),
+                'last_name'         => $this->input->post('last_name'),
+                'email'             => $this->input->post('email'),
+                'role'              => $this->input->post('role'),
+                'about'             => $this->input->post('about')
+            );
+
+        else:
+
+            $data = array(
+                'username'          => $this->input->post('username'),
+                'first_name'        => $this->input->post('first_name'),
+                'last_name'         => $this->input->post('last_name'),
+                'email'             => $this->input->post('email'),
+                'role'              => 'subscriber',
+                'about'             => $this->input->post('about')
+                );
+        endif;
+
+        $this->db->where('users_id', $this->input->post('users_id'));
+        $this->db->update($this->users_table, $data);
+
+        return TRUE;          
     }
 
     /* LOGS OUT A USER */
@@ -119,14 +156,12 @@ class Users_model extends CI_Model {
         if($query->num_rows() > 0) :
 
              //EMAIL EXISTING
-            // echo "found!"; die();
-            return true;
+            return TRUE;
 
         else :
 
              //EMAIL NOT EXISTING
-            //echo "not exiting"; die();
-            return false;
+            return FALSE;
 
         endif;
 
@@ -140,12 +175,12 @@ class Users_model extends CI_Model {
         if($query->num_rows() > 0) :
 
             //HOUSTON, WE FOUND A MATCH!
-            return true;
+            return TRUE;
 
         else :
 
             //HOUSTON, WE HAVE A PROBLEM WITH THE GENERATED KEY!
-            return false;
+            return FALSE;
 
         endif;
 
@@ -161,14 +196,22 @@ class Users_model extends CI_Model {
             //HOUSTON, WE FOUND A MATCH! LET'S UPDATE THIS USERS NEW PASSWORD
             $this->db->set('password', $this->input->post('password') ); 
             $this->db->update('users');
-            return true;
+            return TRUE;
 
         else :
 
             //HOUSTON, WE HAVE A PROBLEM IN UPDATING THE USER'S PASSWORD
-            return false;
+            return FALSE;
 
         endif;
     }
 
+    function delete_user(){
+
+        $this->db->where('users_id', $this->uri->segment(4));
+        $this->db->delete($this->users_table);
+
+        return TRUE;
+
+    }
 } //END USERS_MODEL

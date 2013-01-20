@@ -40,7 +40,7 @@
           <a class="brand" href="<?php echo base_url(); ?>">Code CMS</a>
           <div class="nav-collapse collapse">
             <ul class="nav">            
-              <li <?php if ( $this->uri->segment(3) == 'dashboard'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/main/dashboard'); ?>">Dashboard</a></li>
+              <li <?php if ( $this->uri->segment(3) == 'dashboard'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/admin_main/dashboard'); ?>">Dashboard</a></li>
 
               <?php if ( $logged_info['role'] == 'admin') : ?>
               
@@ -48,8 +48,8 @@
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'users_list' || $this->uri->segment(3) == 'users_create'): echo "active"; endif; ?>">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Users</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/main/users_list'); ?>">Users List</a></li>
-                <li><a href="<?php echo base_url('admin/main/users_create'); ?>">Create User</a></li>
+                <li><a href="<?php echo base_url('admin/admin_main/users_list'); ?>">Users List</a></li>
+                <li><a href="<?php echo base_url('admin/admin_main/users_create'); ?>">Create User</a></li>
                 </ul>
               </li>            
 
@@ -59,8 +59,8 @@
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'pages_list' || $this->uri->segment(3) == 'page_create'): echo "active"; endif; ?>">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Pages</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/pages/pages_list'); ?>">Pages List</a></li>
-                <li><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a Page</a></li>
+                <li><a href="<?php echo base_url('admin/admin_pages/pages_list'); ?>">Pages List</a></li>
+                <?php if ( $logged_info['role'] == 'admin') : ?><li><a href="<?php echo base_url('admin/admin_pages/page_create'); ?>">Create a Page</a></li><?php endif; ?>
                 </ul>
               </li>
 
@@ -68,15 +68,15 @@
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'posts_list' || $this->uri->segment(3) == 'post_create'): echo "active"; endif; ?>">
                 <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Post</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/posts/posts_list'); ?>">Posts List</a></li>
-                <li><a href="<?php echo base_url('admin/posts/post_create'); ?>">Create a Post</a></li>                
+                <li><a href="<?php echo base_url('admin/admin_posts/posts_list'); ?>">Posts List</a></li>
+                <?php if ( $logged_info['role'] == 'admin') : ?><li><a href="<?php echo base_url('admin/admin_posts/post_create'); ?>">Create a Post</a></li><?php endif; ?>
                 </ul>
               </li>
             
             <?php if ( $logged_info['role'] == 'admin') : ?>
             
               <!-- SETTINGS -->
-              <li <?php if ( $this->uri->segment(3) == 'settings'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/main/settings'); ?>">Settings</a> </li>
+              <li <?php if ( $this->uri->segment(3) == 'settings'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/admin_main/settings'); ?>">Settings</a> </li>
 
             <?php endif; ?>              
 
@@ -90,12 +90,12 @@
 
     <div id="user_detail" class="input-block-level">      
       <div class="btn-group pull-right">
-        <a class="btn btn-primary" href="<?php echo base_url('admin/main/user_profile'); ?>"><i class="icon-user icon-white"></i> <?php echo $logged_info['first_name'] .' '. $logged_info['last_name']  ?></a>
+        <a class="btn btn-primary" href="<?php echo base_url('admin/admin_main/user_profile'); ?>"><i class="icon-user icon-white"></i> <?php echo $logged_info['first_name'] .' '. $logged_info['last_name']  ?></a>
         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="<?php echo base_url('admin/main/user_profile'); ?>"><i class="icon-star"></i> View Profile</a></li>
-          <li><a href="<?php echo base_url('admin/main/users_update') . '/' . $logged_info['users_id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
-          <li><a href="<?php echo base_url("admin/main/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>        
+          <li><a href="<?php echo base_url('admin/admin_main/user_profile'); ?>"><i class="icon-star"></i> View Profile</a></li>
+          <li><a href="<?php echo base_url('admin/admin_main/users_update') . '/' . $logged_info['users_id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
+          <li><a href="<?php echo base_url("admin/admin_main/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>        
         </ul>
       </div>      
     </div>

@@ -1,17 +1,18 @@
-<!-- THIS IS THE ACTUAL PAGE CONTENT-->
+<section id="main_content" class="post_page">
+	
+	<?php if ( isset($page) ) : ?>
 
-<section id="main_content hidden">
+		<h2>
+			<?php echo $page->title; ?>
+			<span><?php echo '<span class="author">' . $page->author . "</span> on "; $newDate = date("M jS Y", strtotime($page->date_add)); echo $newDate; ?></span>
+		</h2>
 
-	<?php if ( isset($page) || is_array($page) ) : ?>
-		
-		<h1><?php echo $page->title; ?></h1>
+		<?php echo $page->content; ?>
 
-		<p><?php echo $page->content; ?></p>
+	<?php else: ?>
 
-		<?php else: ?>
-
-			<p>No page found</p>
+		<p class="text-error">Sorry, there are no page to show. </p>
 
 	<?php endif; ?>
-	
+
 </section>

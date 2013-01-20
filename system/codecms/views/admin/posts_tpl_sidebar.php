@@ -8,8 +8,8 @@
     <div id="collapseOne" class="accordion-body collapse in">
       <div class="accordion-inner">
 		<ul class="nav nav-list">
-			<li <?php if ( $this->uri->segment(3) == 'pages_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/pages/pages_list'); ?>">List Pages</a></li>
-			<li <?php if ( $this->uri->segment(3) == 'page_create' || $this->uri->segment(3) == 'page_create_check') : echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/pages/page_create'); ?>">Create a page</a></li>
+			<li <?php if ( $this->uri->segment(3) == 'pages_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/admin_pages/pages_list'); ?>">List Pages</a></li>
+			<li <?php if ( $this->uri->segment(3) == 'page_create' || $this->uri->segment(3) == 'page_create_check') : echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/admin_pages/page_create'); ?>">Create a page</a></li>
 		</ul>
       </div>
     </div>
@@ -23,8 +23,8 @@
     <div id="collapseTwo" class="accordion-body collapse">
       <div class="accordion-inner">
 		<ul class="nav nav-list">
-			<li <?php if ( $this->uri->segment(3) == 'posts_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/dashboard'); ?>">List Posts</a></li>
-			<li><a href="<?php echo base_url('admin/dashboard'); ?>">Create a Post</a></li>
+			<li <?php if ( $this->uri->segment(3) == 'posts_list'): echo "class='active'"; endif; ?>><a href="<?php echo base_url('admin/admin_dashboard'); ?>">List Posts</a></li>
+			<li><a href="<?php echo base_url('admin/admin_dashboard'); ?>">Create a Post</a></li>
 		</ul>
       </div>
     </div>

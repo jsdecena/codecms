@@ -18,7 +18,7 @@
 				//POST EDIT FORM
 
 				$attr = array('class' => 'clear', 'id' => 'post_edit');
-				echo form_open('admin/posts/post_edit_check', $attr); ?>
+				echo form_open('admin/admin_posts/post_edit_check', $attr); ?>
 
 				<?php if ( validation_errors() ) :  ?>
 				  <div class="text-error alert-block alert-error fade in">
@@ -66,7 +66,7 @@
 
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/posts/posts_list'); ?>" class="btn btn-info">Back</a>
+					<a href="<?php echo base_url('admin/admin_posts/posts_list'); ?>" class="btn btn-info">Back</a>
 					<input type="submit" id="post_edit" name="post_edit" class="btn btn-primary" value="Save" />
 
 				</div>

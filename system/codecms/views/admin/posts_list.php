@@ -43,7 +43,9 @@
 							<th class="tbl_content">Content</th>
 							<th class="tbl_author">Author</th>
 							<th class="tbl_actions">Actions</th>
-							<th class="tbl_status">Status</th>							
+							<?php if ( $logged_info['role'] == 'admin' ) : ?>
+							<th class="tbl_status">Status</th>
+							<?php endif; ?>			
 						</tr>
 					</thead>
 					<tbody>
@@ -58,19 +60,22 @@
 								<!-- ACTION TO VIEW THE PAGE-->
 								<?php echo anchor( base_url("blog/post/$post_url"), '<i class="icon-search icon-white">&nbsp;</i>', 'target="_blank" class="btn btn-small btn-info "'); ?>
 								
+								<?php if ( $logged_info['role'] == 'admin' ) : ?>
 								<!-- ACTION TO EDIT THE PAGE-->
-								<?php echo anchor("admin/posts/post_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i>', 'class="btn btn-small btn-primary"'); ?>
+								<?php echo anchor("admin/admin_posts/post_edit" . '/' . $post["post_id"], '<i class="icon-pencil icon-white">&nbsp;</i>', 'class="btn btn-small btn-primary"'); ?>
 								
 								<!-- ACTION TO DELETE THE PAGE-->
-								<?php if ( $logged_info['role'] == 'admin' ) : echo form_open('admin/posts/post_delete'); ?>
+								<?php echo form_open('admin/admin_posts/post_delete'); ?>
 								<button name="delete_post" class="btn btn-danger btn-small" value="<?php echo $post["post_id"]; ?>" onClick="return confirm('Are you sure you want to delete?')">
 									<i class="icon-trash icon-white"> &nbsp; </i> </button>
 								<?php echo form_close(); endif; ?>
 								</td>
 
+								<?php if ( $logged_info['role'] == 'admin' ) : ?>
+
 								<td class="tbl_status">
 
-									<?php echo form_open('admin/posts/quick_update'); if ( $post['status'] == 'unpublished') : ?>
+									<?php echo form_open('admin/admin_posts/quick_update'); if ( $post['status'] == 'unpublished') : ?>
 										
 										<!-- ACTION TO QUICK PUBLISH THE PAGE-->
 										<input type="hidden" name="post_id" value="<?php echo $post["post_id"]; ?>" />
@@ -87,7 +92,10 @@
 										<i class="icon-ok icon-white icon_status">&nbsp;</i>
 																				
 									<?php endif; echo form_close(); ?>
-								</td>								
+								</td>
+
+								<?php endif; ?>
+
 							</tr>			
 						<?php endforeach; ?>
 					</tbody>

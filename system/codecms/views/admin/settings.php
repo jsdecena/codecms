@@ -10,7 +10,7 @@
 		<div class="tab-pane" id="pages">Pages settings</div>
 		<div class="tab-pane active" id="posts">
 		
-		<?php echo form_open('admin/main/post_settings_check'); ?>
+		<?php echo form_open('admin/admin_main/post_settings_check'); ?>
 		
 			<?php if ( validation_errors() ) :  ?>
 			  <div class="text-error alert-block alert-error fade in">

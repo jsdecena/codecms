@@ -19,7 +19,7 @@
 				//PAGE EDIT FORM
 
 				$attr = array('class' => 'clear', 'id' => 'page_edit');
-				echo form_open('admin/pages/page_edit_check', $attr); ?>
+				echo form_open('admin/admin_pages/page_edit_check', $attr); ?>
 
 				<?php if ( validation_errors() ) :  ?>
 				  <div class="text-error alert-block alert-error fade in">
@@ -82,7 +82,7 @@
 				</div>				
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/pages/pages_list'); ?>" class="btn btn-info">Back</a>
+					<a href="<?php echo base_url('admin/admin_pages/pages_list'); ?>" class="btn btn-info">Back</a>
 					<input type="submit" name="page_edit" class="btn btn-primary" value="Save" />
 
 				</div>

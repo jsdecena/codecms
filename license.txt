@@ -1,53 +1,55 @@
-Open Software License ("OSL") v 3.0
+Copyright (c) 2008 - 2011, EllisLab, Inc.
+All rights reserved.
 
-This Open Software License (the "License") applies to any original work of
-authorship (the "Original Work") whose owner (the "Licensor") has placed the
-following licensing notice adjacent to the copyright notice for the Original
-Work:
+This license is a legal agreement between you and EllisLab Inc. for the use
+of CodeIgniter Software (the "Software").  By obtaining the Software you
+agree to comply with the terms and conditions of this license.
 
-Licensed under the Open Software License version 3.0
+PERMITTED USE
+You are permitted to use, copy, modify, and distribute the Software and its
+documentation, with or without modification, for any purpose, provided that
+the following conditions are met:
 
-1) Grant of Copyright License. Licensor grants You a worldwide, royalty-free,
-non-exclusive, sublicensable license, for the duration of the copyright, to do
-the following:
+1. A copy of this license agreement must be included with the distribution.
 
-	a) to reproduce the Original Work in copies, either alone or as part of a
-		collective work;
+2. Redistributions of source code must retain the above copyright notice in
+   all source code files.
 
-	b) to translate, adapt, alter, transform, modify, or arrange the Original
-		Work, thereby creating derivative works ("Derivative Works") based
-		upon the Original Work;
+3. Redistributions in binary form must reproduce the above copyright notice
+   in the documentation and/or other materials provided with the distribution.
 
-	c) to distribute or communicate copies of the Original Work and Derivative
-		Works to the public, with the proviso that copies of Original Work or
-		Derivative Works that You distribute or communicate shall be licensed
-		under this Open Software License;
+4. Any files that have been modified must carry notices stating the nature
+   of the change and the names of those who changed them.
 
-	d) to perform the Original Work publicly; and
+5. Products derived from the Software must include an acknowledgment that
+   they are derived from CodeIgniter in their documentation and/or other
+   materials provided with the distribution.
 
-	e) to display the Original Work publicly.
+6. Products derived from the Software may not be called "CodeIgniter",
+   nor may "CodeIgniter" appear in their name, without prior written
+   permission from EllisLab, Inc.
 
-2) Grant of Patent License. Licensor grants You a worldwide, royalty-free,
-non-exclusive, sublicensable license, under patent claims owned or controlled
-by the Licensor that are embodied in the Original Work as furnished by the
-Licensor, for the duration of the patents, to make, use, sell, offer for sale,
-have made, and import the Original Work and Derivative Works.
+INDEMNITY
+You agree to indemnify and hold harmless the authors of the Software and
+any contributors for any direct, indirect, incidental, or consequential
+third-party claims, actions or suits, as well as any related expenses,
+liabilities, damages, settlements or fees arising from your use or misuse
+of the Software, or a violation of any terms of this license.
 
-3) Grant of Source Code License. The term "Source Code" means the preferred
-form of the Original Work for making modifications to it and all available
-documentation describing how to modify the Original Work. Licensor agrees to
-provide a machine-readable copy of the Source Code of the Original Work along
-with each copy of the Original Work that Licensor distributes. Licensor
-reserves the right to satisfy this obligation by placing a machine-readable
-copy of the Source Code in an information repository reasonably calculated to
-permit inexpensive and convenient access by You for as long as Licensor
-continues to distribute the Original Work.
+DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESSED OR
+IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF QUALITY, PERFORMANCE,
+NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE.
 
-4) Exclusions From License Grant. Neither the names of Licensor, nor the names
-of any contributors to the Original Work, nor any of their trademarks or
-service marks, may be used to endorse or promote products derived from this
-Original Work without express prior permission of the Licensor. Except as
-expressly stated herein, nothing in this License grants any license to
+LIMITATIONS OF LIABILITY
+YOU ASSUME ALL RISK ASSOCIATED WITH THE INSTALLATION AND USE OF THE SOFTWARE.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS OF THE SOFTWARE BE LIABLE
+FOR CLAIMS, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION
+WITH THE SOFTWARE. LICENSE HOLDERS ARE SOLELY RESPONSIBLE FOR DETERMINING THE
+APPROPRIATENESS OF USE AND ASSUME ALL RISKS ASSOCIATED WITH ITS USE, INCLUDING
+BUT NOT LIMITED TO THE RISKS OF PROGRAM ERRORS, DAMAGE TO EQUIPMENT, LOSS OF
+DATA OR SOFTWARE PROGRAMS, OR UNAVAILABILITY OR INTERRUPTION OF OPERATIONS.
+icense to
 Licensor's trademarks, copyrights, patents, trade secrets or any other
 intellectual property. No patent license is granted to make, use, sell, offer
 for sale, have made, or import embodiments of any patent claims other than the

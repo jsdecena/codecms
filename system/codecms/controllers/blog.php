@@ -70,7 +70,7 @@ class Blog extends CI_Controller {
             $offset                     = $this->uri->segment(3);                                       
 
             //ALL THE PAGES FOR THE MENU PAGE LISTING
-            $data['pages']              = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = $config['per_page'], $offset);
+            $data['pages']              = $this->posts_model->get_all_posts($post_type = 'page', $order_by = 'post_id', $arrange_by = 'asc', $limit = $config['per_page'], $offset);
             
             $data['page']               = $this->posts_model->get_page(); // THE SPECIFIC PAGE
             $page_title                 = $this->posts_model->get_page(); //PAGE TITLE OF THE SPECIFIC PAGE
@@ -80,7 +80,7 @@ class Blog extends CI_Controller {
             $data['post_page']          = $this->posts_model->check_post_page();
             
             // GET ALL THE POSTS
-            $data['posts']              = $this->posts_model->get_all_posts($order_by = 'post_id', $arrange_by = 'desc', $limit = $config['per_page'], $offset);
+            $data['posts']              = $this->posts_model->get_all_posts($post_type = 'post', $order_by = 'post_id', $arrange_by = 'desc', $limit = $config['per_page'], $offset);
 
             $this->template->title      = 'Post Listing';
             
@@ -91,9 +91,9 @@ class Blog extends CI_Controller {
         }        
 
         //SINGLE POST
-        public function post() {            
+        public function post($post_type = 'post') {            
 
-                $data['pages']             = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = 10);
+                $data['pages']             = $this->posts_model->get_all_posts($post_type = 'page', $order_by = 'post_id', $arrange_by = 'asc', $limit = 10);
                 $data['post']              = $this->posts_model->view_post();
                 $post_title                = $this->posts_model->view_post(); //PAGE TITLE OF THE SPECIFIC POST
 

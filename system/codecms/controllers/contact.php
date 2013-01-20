@@ -45,12 +45,12 @@ class Contact extends CI_Controller {
 		$this->home();
 	}
 
-	public function home(){
+	public function home($post_type = 'page'){
 
         $this->template->title      = 'Contact Page';
         
         //ALL THE PAGES FOR THE MENU PAGE LISTING
-        $data['pages']             = $this->posts_model->get_all_pages($order_by = 'post_id', $arrange_by = 'asc', $limit = 10);        
+        $data['pages']             = $this->posts_model->get_all_posts($post_type, $order_by = 'post_id', $arrange_by = 'asc', $limit = 10);        
 
         $this->template->content->view('public/templates/default/contact', $data);
         
@@ -62,7 +62,7 @@ class Contact extends CI_Controller {
 
 		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required|xss_clean|alpha');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
-		$this->form_validation->set_rules('reason', 'Reason', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('reason', '"How may I help you"', 'trim|required|xss_clean');
 
 		if ( $this->form_validation->run() ) :
 

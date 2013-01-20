@@ -18,7 +18,7 @@
 				//PAGE CREATION FORM
 
 				$attr = array('id' => 'post_create');
-				echo form_open('admin/posts/post_create_check', $attr); ?>
+				echo form_open('admin/admin_posts/post_create_check', $attr); ?>
 
 				<?php if ( validation_errors() ) :  ?>
 				  <div class="text-error alert-block alert-error fade in">
@@ -65,7 +65,7 @@
 				</div>
 
 				<div class="controls">
-					<a href="<?php echo base_url('admin/posts/posts_list'); ?>" class="btn btn-info">Go Back</a>
+					<a href="<?php echo base_url('admin/admin_posts/posts_list'); ?>" class="btn btn-info">Go Back</a>
 					<input type="submit" name="post_create" class="btn btn-primary" value="Create a post" />
 
 				</div>

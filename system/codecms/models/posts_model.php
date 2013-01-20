@@ -2,10 +2,10 @@
 
 class Posts_model extends CI_Model {	
 
-	protected $database 			= 'codecms';
-	protected $posts_table 			= 'posts';
-	protected $settings_table 		= 'settings';
-	protected $users_table 			= 'users';
+	public $database 			= 'codecms';
+	public $posts_table 		= 'posts';
+	public $settings_table 		= 'settings';
+	public $users_table 		= 'users';
 
     function __construct() {
         
@@ -16,26 +16,9 @@ class Posts_model extends CI_Model {
 	/* ===============================================================	BACK END =============================================================== */
 
     //LIST ALL THE POSTS
-	function get_all_posts($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
+	function get_all_posts($post_type = 'post', $order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){		
 
-		//echo $this->$posts_table; die();
-
-		$this->db->select('*')->from('posts')->where('post_type', 'post')->order_by($order_by , $arrange_by)->limit($limit, $offset);
-		
-		$query = $this->db->get();
-
-		if ( $query->num_rows() > 0 ) :
-
-			return $query->result_array();
-
-		endif;
-
-	}
-
-	//LIST ALL THE PAGES
-	function get_all_pages($order_by ='post_id', $arrange_by ='desc', $limit = 10, $offset = 0){
-
-		$this->db->select('*')->from('posts')->where('post_type', 'page')->order_by($order_by , $arrange_by)->limit($limit, $offset);
+		$this->db->select('*')->from('posts')->where('post_type', $post_type)->order_by($order_by , $arrange_by)->limit($limit, $offset);
 		
 		$query = $this->db->get();
 
@@ -61,7 +44,7 @@ class Posts_model extends CI_Model {
 
 	function get_page(){
 
-		$post_title = $this->uri->segment(1);		
+		$post_title = $this->uri->segment(3);	
 
 		$query = $this->db->get_where($this->posts_table, array( 'slug' => $post_title ));
 		
@@ -129,7 +112,7 @@ class Posts_model extends CI_Model {
 		$this->db->update($this->posts_table, $data);
 		
 		return true;
-	}	
+	}
 
 	//SINGLE POST DELETE
 	function delete_post() {
@@ -164,10 +147,7 @@ class Posts_model extends CI_Model {
 		$this->db->count_all_results('posts');
 		$this->db->from('posts');
 		$this->db->where('post_type', 'post');
-
-		if ( $this->uri->segment(1) == 'blog') :
-			$this->db->where('status', 'published');
-		endif;
+		$this->db->where('status', 'published');
 		
 		$query = $this->db->get();		
 		

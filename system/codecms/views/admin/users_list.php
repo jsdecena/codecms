@@ -9,7 +9,23 @@
 
 	<div class="span9">
 
-		<div class="page-header"> Users List </div>		
+		<div class="page-header"> Users List </div>
+
+		<?php if ( $this->session->flashdata('message_success') ) : ?>
+
+		<div class="text-success alert-block alert-success fade in">
+		  <a class="close" data-dismiss="alert">&times;</a>
+		  <?php echo $this->session->flashdata('message_success'); ?> 
+		</div>
+
+		<?php elseif ( $this->session->flashdata('message_error') ): ?>
+
+		<div class="text-error alert-block alert-error fade in"> 
+		  <a class="close" data-dismiss="alert">&times;</a>
+		  <?php echo $this->session->flashdata('message_error'); ?> 
+		</div>      
+
+		<?php endif; ?>				
 		
 		<table class="table table-striped">
 			<thead>
@@ -33,9 +49,10 @@
 					<td><?php echo $data['last_name']; ?></td>
 					<td><?php echo $data['email']; ?></td>
 					<td><?php echo $data['role']; ?></td>
-					<td><?php echo anchor("admin/main/users_update_by_admin/$id", '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary btn-small"'); ?> 
-						<a href="<?php echo base_url("admin/main/users_delete/$id"); ?>" onClick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-small"> 
-						<i class="icon-trash icon-white"> &nbsp; </i> Delete</a>
+					<td>
+						<?php echo anchor("admin/admin_main/users_update_by_admin/$id", '<i class="icon-pencil icon-white">&nbsp;</i> Edit', 'class="btn btn-primary btn-small"'); ?>
+
+						<?php echo anchor("admin/admin_main/users_delete/$id", '<i class="icon-pencil icon-white">&nbsp;</i> Delete', 'class="btn btn-danger btn-small" onClick="return confirm(\'Delete this user?\')"'); ?>
 
 					</td>
 				</tr>

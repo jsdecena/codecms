@@ -32,7 +32,7 @@
 
       <?php
           $attr = array('class' => 'form-signin', 'id' => 'create_user_form');
-          echo form_open('admin/main/users_update_specific_by_admin', $attr);
+          echo form_open('admin/admin_main/users_update_specific_by_admin', $attr);
       ?>
       
       <?php foreach ($data as $user_data): ?>
@@ -67,7 +67,7 @@
       <?php endforeach; ?>
 
       <br class="clear" />
-      <a href="<?php echo base_url('admin/main/users_list'); ?>" class="btn btn-info">Go Back</a>
+      <a href="<?php echo base_url('admin/admin_main/users_list'); ?>" class="btn btn-info">Go Back</a>
       <input type="submit" name="save" class="btn btn-primary" value="Update details" />
     
       <?php echo form_close(); ?>      
