@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'jsd';
-$db['default']['password'] = 'PrivatePw123!!';
-$db['default']['database'] = 'codecms';
+$db['default']['username'] = '';
+$db['default']['password'] = '';
+$db['default']['database'] = '';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'cc_';
 $db['default']['pconnect'] = TRUE;
