@@ -214,4 +214,13 @@ class Users_model extends CI_Model {
         return TRUE;
 
     }
+
+    function delete_my_account(){
+
+        $this->db->where('users_id', $this->input->post('delete_account'));
+        $this->db->delete($this->users_table);
+
+        return TRUE;        
+
+    }
 } //END USERS_MODEL

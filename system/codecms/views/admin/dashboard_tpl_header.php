@@ -95,7 +95,11 @@
         <ul class="dropdown-menu">
           <li><a href="<?php echo base_url('admin/admin_main/user_profile'); ?>"><i class="icon-star"></i> View Profile</a></li>
           <li><a href="<?php echo base_url('admin/admin_main/users_update') . '/' . $logged_info['users_id']; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
-          <li><a href="<?php echo base_url("admin/admin_main/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>        
+          <li><a href="<?php echo base_url("admin/admin_main/logout"); ?>"><i class="icon-off"></i> Log Out</a></li>
+          <li class="divider"></li>
+          <li><?php echo form_open('admin/admin_main/delete_account', 'id="delete_my_account"'); ?>
+            <button class="btn btn-danger bt-small input-block-level" name="delete_account" id="delete_account" value="<?php echo $logged_info['users_id']; ?>" onClick="return confirm('Are you sure you want to delete your acccount?')"> <i class="icon-remove icon-white">&nbsp;</i> Delete Account</button>
+              <?php echo form_close(); ?>            
         </ul>
       </div>      
     </div>

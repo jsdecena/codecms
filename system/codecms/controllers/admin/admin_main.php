@@ -613,6 +613,13 @@ class Admin_main extends CI_Controller {
 
     }
 
+    public function delete_account(){
+
+        $this->users_model->delete_my_account();
+
+        redirect('admin/admin_main/login');
+    }
+
 
     /* ------- USER PROFILE ----------- */
 
@@ -631,6 +638,7 @@ class Admin_main extends CI_Controller {
             $this->template->publish();
 
         else:
+
           redirect('admin/admin_main/login');
 
         endif;
