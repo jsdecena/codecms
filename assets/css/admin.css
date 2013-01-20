@@ -49,6 +49,10 @@ body.admin .update_details .controls {
 	border: 1px solid #eee;
 }
 
+#user_detail .pull-right > .dropdown-menu {
+	padding: 10px;
+}
+
 /* ============== END BOOTSTRAP OVERRIDE =============================================== */
 
 
