@@ -36,7 +36,7 @@ LOCK TABLES `cc_users` WRITE;
 
 INSERT INTO `cc_users` (`users_id`, `identity`, `username`, `email`, `password`, `role`, `first_name`, `last_name`, `about`, `last_login`, `is_logged_in`, `pw_recovery`)
 VALUES
-  (1,'0','admin','admin@admin.com','601f1889667efaebb33b8c12572835da3f027f78','admin','John','Doe','about me!',NULL,1,'0');
+  (1,'0','admin','admin@admin.com','88ea39439e74fa27c09a4fc0bc8ebe6d00978392','admin','John','Doe','about me!',NULL,1,'0');
 
 /*!40000 ALTER TABLE `cc_users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -69,7 +69,7 @@ CREATE TABLE `cc_posts` (
   PRIMARY KEY (`post_id`),
   KEY `users_id` (`users_id`),
   KEY `post_parent` (`post_parent`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `cc_posts` WRITE;
 /*!40000 ALTER TABLE `cc_posts` DISABLE KEYS */;
@@ -77,8 +77,7 @@ LOCK TABLES `cc_posts` WRITE;
 INSERT INTO `cc_posts` (`post_id`, `users_id`, `title`, `slug`, `author`, `content`, `status`, `date_add`, `modified`, `post_type`, `post_parent`)
 VALUES
   (1, 1,'My First Blog Post','my-first-blog-post','John Doe','This is my first blog post!', 'published','2013-01-01 12:00:00','0000-00-00 00:00:00', 'post', 0),
-  (2, 1,'About','about','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0),
-  (3, 1,'Contact','contact','John Doe','This is contact page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0);
+  (2, 1,'About','about','John Doe','This is about us page', 'published','0000-00-00 00:00:00','0000-00-00 00:00:00', 'page', 0);
 
 /*!40000 ALTER TABLE `cc_posts` ENABLE KEYS */;
 UNLOCK TABLES;
