@@ -58,20 +58,12 @@
 
               <!-- PAGE MANAGEMENT-->
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'pages_list' || $this->uri->segment(3) == 'page_create'): echo "active"; endif; ?>">
-                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Pages</a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/admin_pages/pages_list'); ?>">Pages List</a></li>
-                <?php if ( $logged_info['role'] == 'admin') : ?><li><a href="<?php echo base_url('admin/admin_pages/page_create'); ?>">Create a Page</a></li><?php endif; ?>
-                </ul>
+                <a href="<?php echo base_url('admin/admin_pages/pages_list'); ?>">Manage Pages</a>
               </li>
 
               <!-- POST MANAGEMENT-->
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'posts_list' || $this->uri->segment(3) == 'post_create'): echo "active"; endif; ?>">
-                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Post</a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/admin_posts/posts_list'); ?>">Posts List</a></li>
-                <?php if ( $logged_info['role'] == 'admin') : ?><li><a href="<?php echo base_url('admin/admin_posts/post_create'); ?>">Create a Post</a></li><?php endif; ?>
-                </ul>
+                <a href="<?php echo base_url('admin/admin_posts/posts_list'); ?>">Manage Post</a>
               </li>
             
             <?php if ( $logged_info['role'] == 'admin') : ?>
