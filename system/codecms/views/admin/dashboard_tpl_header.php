@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <meta charset="utf-8">
 	<title><?php echo $this->template->title->default("Default title"); ?></title>
-	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="<?php echo $this->template->description; ?>">
 	<meta name="author" content="">
 	<?php echo $this->template->meta; ?>
@@ -28,7 +29,7 @@
   </head>
 
   <body class="dashboard admin">
-<?php // echo "<pre>"; var_dump($logged_info); die(); ?>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
