@@ -147,7 +147,6 @@ class Posts_model extends CI_Model {
 		$this->db->count_all_results('posts');
 		$this->db->from('posts');
 		$this->db->where('post_type', 'post');
-		$this->db->where('status', 'published');
 		
 		$query = $this->db->get();		
 		
@@ -163,7 +162,6 @@ class Posts_model extends CI_Model {
 		$this->db->count_all_results('posts');
 		$this->db->from('posts');
 		$this->db->where('post_type', 'page');
-		$this->db->where('status', 'published');
 		
 		$query = $this->db->get();		
 		
