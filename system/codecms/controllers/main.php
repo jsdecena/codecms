@@ -45,7 +45,7 @@ class Main extends CI_Controller {
                 $data['pages']          = $this->posts_model->get_all_posts($post_type = 'page');
                 
                 //GET ALL THE POSTS
-                $data['posts']      = $this->posts_model->get_all_posts($post_type = 'post', $order_by = 'post_id', $arrange_by ='desc', $limit =  );
+                $data['posts']      = $this->posts_model->get_all_posts($post_type = 'post', $order_by = 'post_id', $arrange_by ='desc', $limit = 3 );
 
                 $this->template->content->view('public/templates/default/home', $data);
 
