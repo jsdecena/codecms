@@ -77,7 +77,7 @@ class Admin_posts extends CI_Controller {
 
             $this->load->library('pagination');
 
-            $config['base_url']         = site_url('admin/posts/posts_list');
+            $config['base_url']         = site_url('admin/admin_posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
             $config['per_page']         = $per_page;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
