@@ -47,11 +47,7 @@
               
               <!-- USER MANAGEMENT-->
               <li class="dropdown <?php if ( $this->uri->segment(3) == 'users_list' || $this->uri->segment(3) == 'users_create'): echo "active"; endif; ?>">
-                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Manage Users</a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href="<?php echo base_url('admin/admin_main/users_list'); ?>">Users List</a></li>
-                <li><a href="<?php echo base_url('admin/admin_main/users_create'); ?>">Create User</a></li>
-                </ul>
+                <a href="<?php echo base_url('admin/admin_main/users_list'); ?>">Manage Users</a>
               </li>            
 
               <?php endif; ?>
