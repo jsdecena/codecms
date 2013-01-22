@@ -51,13 +51,13 @@ class Main extends CI_Controller {
 
                 $this->template->set_template('public/templates/default/home_tpl'); 
 
-                $this->template->title  = 'Home';
+                $this->template->title      = 'Home';
 
                 //ALL THE PAGES FOR THE MENU PAGE LISTING
-                $data['pages']          = $this->posts_model->get_all_posts($post_type = 'page');
+                $data['pages']              = $this->posts_model->get_all_posts($post_type = 'page', $order_by = 'post_id', $arrange_by ='desc', $limit = 3);
                 
                 //GET ALL THE POSTS
-                $data['posts']      = $this->posts_model->get_all_posts($post_type = 'post', $order_by = 'post_id', $arrange_by ='desc', $limit = 3 );
+                $data['posts']              = $this->posts_model->get_all_posts($post_type = 'post', $order_by = 'post_id', $arrange_by ='desc', $limit = 3 );
 
                 $this->template->content->view('public/templates/default/home', $data);
 
