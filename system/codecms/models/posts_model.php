@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * CodeCMS an alternative responsive open source cms made from Philippines.
+ *
+ * @package     CodeCMS
+ * @author      @jsd
+ * @copyright   Copyright (c) 2013
+ * @license     http://creativecommons.org/licenses/by-sa/3.0/deed.en_US
+ * @link        https://bitbucket.org/jsdecena/codecms
+ * @since       Version 0.1
+ * 
+ */
+
 class Posts_model extends CI_Model {	
 
 	public $database 			= 'codecms';
@@ -148,7 +160,7 @@ class Posts_model extends CI_Model {
 		$this->db->from('posts');
 		$this->db->where('post_type', 'post');
 		
-		$query = $this->db->get();		
+		$query = $this->db->get();
 		
 		if ( $query->num_rows() > 0) :			
 			return $query->num_rows();

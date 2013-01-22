@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * CodeCMS an alternative responsive open source cms made from Philippines.
+ *
+ * @package     CodeCMS
+ * @author      @jsd
+ * @copyright   Copyright (c) 2013
+ * @license     http://creativecommons.org/licenses/by-sa/3.0/deed.en_US
+ * @link        https://bitbucket.org/jsdecena/codecms
+ * @since       Version 0.1
+ * 
+ */
+
 class Admin_posts extends CI_Controller {    
 
     public function __construct(){ 
@@ -69,17 +81,19 @@ class Admin_posts extends CI_Controller {
 
         if ( $this->users_model->logged_in_check() ) :
 
-            $query = $this->posts_model->view_post_settings();  //GETS THE POST PER PAGE SETTINGS  
+            $query = $this->posts_model->view_post_settings();              //GETS THE POST PER PAGE SETTINGS  
 
-            $per_page       = $query[1]['settings_value'];      //SETTINGS PER PAGE VALUE  
-            $order_by       = $query[2]['settings_value'];      //SETTINGS POST BY "post_id" or "date"
-            $arrange_by     = $query[3]['settings_value'];      //ARRANGE BY DESC OR ASC
+            $limit                      = $query[1]['settings_value'];      //SETTINGS PER PAGE VALUE  
+            $order_by                   = $query[2]['settings_value'];      //SETTINGS POST BY "post_id" or "date"
+            $arrange_by                 = $query[3]['settings_value'];      //ARRANGE BY DESC OR ASC
+
+            $offset                     = $this->uri->segment(4);
 
             $this->load->library('pagination');
 
             $config['base_url']         = site_url('admin/admin_posts/posts_list');
             $config['total_rows']       = $this->posts_model->count_all_posts();
-            $config['per_page']         = $per_page;
+            $config['per_page']         = $limit;
             $config['full_tag_open']    = '<div class="pagination"><ul>';
             $config['full_tag_close']   = '</ul></div>';
             $config['num_tag_open']     = '<li>';
@@ -102,8 +116,6 @@ class Admin_posts extends CI_Controller {
             $data['links']              = $this->pagination->create_links();
         
             $this->template->title      = 'Post Listing';
-
-            $offset                     = $this->uri->segment(4);
 
             $data['logged_info']        = $this->users_model->logged_in();
             $data['posts']              = $this->posts_model->get_all_posts($post_type, $order_by, $arrange_by, $config['per_page'], $offset);
